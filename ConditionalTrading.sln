@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConditionalTrading.Common", "ConditionalTrading.Common\ConditionalTrading.Common.csproj", "{990CF056-FF39-4941-9516-E9E13C88B5DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{990CF056-FF39-4941-9516-E9E13C88B5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990CF056-FF39-4941-9516-E9E13C88B5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990CF056-FF39-4941-9516-E9E13C88B5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990CF056-FF39-4941-9516-E9E13C88B5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2F32568-5A48-4DAB-9FA3-F96E9FCB2834}
+	EndGlobalSection
+EndGlobal

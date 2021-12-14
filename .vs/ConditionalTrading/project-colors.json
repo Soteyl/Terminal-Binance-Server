@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "990cf056-ff39-4941-9516-e9e13c88b5dd": {
+      "ProjectGuid": "990cf056-ff39-4941-9516-e9e13c88b5dd",
+      "DisplayName": "ConditionalTrading.Common",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
