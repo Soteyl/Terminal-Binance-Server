@@ -34,3 +34,6 @@
 * private properties
 * private methods
 * subclass
+
+## Nuget packages
+* Binance.Net
