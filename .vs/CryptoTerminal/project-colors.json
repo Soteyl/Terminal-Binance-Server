@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "85e5553f-6594-47a5-b6f0-854d47ff3f89": {
+      "ProjectGuid": "85e5553f-6594-47a5-b6f0-854d47ff3f89",
+      "DisplayName": "CryptoTerminal",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
