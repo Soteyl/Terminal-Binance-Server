@@ -1,6 +1,6 @@
 ﻿namespace CryptoTerminal.Models.CryptoExchanges
 {
-    public class Order
+    public class SpotOrder
     {
         private const string _pairDelimiter = "/";
 
@@ -8,9 +8,9 @@
 
         private string _secondCoin;
 
-        private decimal _amount;
+        private decimal _amountFirst;
 
-        private decimal? _price;
+        private decimal _price;
 
         private OrderSide _orderSide;
 
@@ -18,18 +18,18 @@
 
         private DateTime _dateTime;
 
-        public Order(string pair, decimal amount, decimal? price, OrderSide orderSide, OrderType orderType)
+        public SpotOrder(string pair, decimal amountFirst, decimal price, OrderSide orderSide, OrderType orderType)
         {
             string[] coins = pair.Split(_pairDelimiter);
             _firstCoin = coins[0];
             _secondCoin = coins[1];
-            _amount = amount;
+            _amountFirst = amountFirst;
             _price = price;
             _orderSide = orderSide;
             _orderType = orderType;
         }
 
-        public Order(string pair, decimal amount, decimal? price, OrderSide orderSide, OrderType orderType, DateTime dateTime) 
+        public SpotOrder(string pair, decimal amount, decimal price, OrderSide orderSide, OrderType orderType, DateTime dateTime) 
             : this(pair, amount, price, orderSide, orderType)
         {
             _dateTime = dateTime;
@@ -41,9 +41,9 @@
 
         public string SecondCoin => _secondCoin;
 
-        public decimal Amount => _amount;
+        public decimal AmountFirst => _amountFirst;
 
-        public decimal? Price => _price;
+        public decimal Price => _price;
 
         public OrderSide OrderSide => _orderSide;
 

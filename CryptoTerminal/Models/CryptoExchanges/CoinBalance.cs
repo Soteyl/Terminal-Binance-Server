@@ -10,15 +10,15 @@
 
         public CoinBalance(string shortName, string longName, decimal amount)
         {
-            _shortName = shortName;
-            _longName = longName;
-            _amount = amount;
+            ShortName = shortName;
+            LongName = longName;
+            Amount = amount;
         }
 
-        public string ShortName => _shortName;
+        public decimal Amount { get => _amount; set => _amount = value; }
 
-        public string LongName => _longName;
+        public string LongName { get => _longName; set => _longName = value; }
 
-        public decimal Amount => _amount;
+        public string ShortName { get => _shortName; set => _shortName = value; }
     }
 }
