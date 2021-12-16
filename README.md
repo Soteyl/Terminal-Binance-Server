@@ -37,3 +37,4 @@
 
 ## Nuget packages
 * Binance.Net
+* NLog
