@@ -28,6 +28,12 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             _spot = new BinanceSpot(_client.Spot);
         }
 
+        public BinanceCryptoExchange()
+        {
+            _client = new BinanceClient();
+            _spot = new BinanceSpot(_client.Spot);
+        }
+
         public override CryptoSpot GetCryptoSpot()
         {
             return _spot;
