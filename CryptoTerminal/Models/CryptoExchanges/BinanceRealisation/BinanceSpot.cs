@@ -5,7 +5,7 @@ using CryptoExchange.Net.Objects;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
-    public class BinanceSpot: CryptoSpot
+    public class BinanceSpot : CryptoSpot
     {
         private IBinanceClientSpot _spot;
 
@@ -46,16 +46,16 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> MakeOrder(SpotOrder order)
         {
-            throw new NotImplementedException();
-            //WebCallResult<BinancePlacedOrder> callResult = await _spot.Order.PlaceOrderAsync(order.Pair,
-            //                                                                                order.OrderSide.ConvertToBinanceOrderSide(),
-            //                                                                                order.OrderType.ConvertToBinanceOrderType(),
-            //                                                                                quantity: order.AmountFirst,
-            //                                                                                price: order.Price,
-            //                                                                                timeInForce: Binance.Net.Enums.TimeInForce.GoodTillCancel);
+            WebCallResult<BinancePlacedOrder> callResult = 
+              await _spot.Order.PlaceOrderAsync(order.Pair,
+                                                order.OrderSide.ConvertToBinanceOrderSide(),
+                                                order.OrderType.ConvertToBinanceOrderType(),
+                                                quantity: order.AmountFirst,
+                                                price: order.Price,
+                                                timeInForce: order.TimeInForce?.ToBinanceTIF());
 
 
-            //return new MakeOrderResult(callResult.Success, callResult.Error?.Message);
+            return new MakeOrderResult(callResult.Success, callResult.Error?.Message);
         }
     }
 }
