@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CryptoTerminal.Models;
+using CryptoTerminal.Models.CryptoExchanges;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +40,10 @@ namespace CryptoTerminal
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            var de = new Models.DemoExchange();
+
+            de.GetCryptoSpot().MakeOrder(new SpotOrder("BTC/USDT", 10, 48000, OrderSide.Buy, OrderType.Market, DateTime.Now));
 
             app.UseRouting();
 

@@ -5,7 +5,17 @@
       "ProjectGuid": "85e5553f-6594-47a5-b6f0-854d47ff3f89",
       "DisplayName": "CryptoTerminal",
       "ColorIndex": 0
+    },
+    "1b53cdd5-6231-48f0-b0af-2d3fbe938c31": {
+      "ProjectGuid": "1b53cdd5-6231-48f0-b0af-2d3fbe938c31",
+      "DisplayName": "TestDemoExchange",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }
