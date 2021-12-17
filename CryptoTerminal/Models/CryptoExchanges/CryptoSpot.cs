@@ -35,11 +35,11 @@
             return balances;
         }
 
-        public abstract MakeOrderResult MakeOrder(SpotOrder order);
+        public abstract Task<MakeOrderResult> MakeOrder(SpotOrder order);
 
         public abstract void CancelOrder(SpotOrder order);
 
-        public MakeGridResult MakeGrid(List<SpotOrder> orders)
+        public async Task<MakeGridResult> MakeGrid(List<SpotOrder> orders)
         {
             // TODO
             throw new NotImplementedException();
@@ -59,7 +59,7 @@
 
             for (int i = 0; i < orders.Count; i++)
             {
-                MakeOrderResult result = MakeOrder(orders[i]);
+                MakeOrderResult result = await MakeOrder(orders[i]);
 
                 if (!result.Success)
                 {

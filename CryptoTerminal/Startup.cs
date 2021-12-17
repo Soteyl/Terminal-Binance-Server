@@ -27,6 +27,10 @@ namespace CryptoTerminal
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //var ce = new Models.CryptoExchanges.BinanceRealisation.BinanceCryptoExchange(apiKey, apiSecret);
+
+            //ce.GetCryptoSpot().MakeOrder(new Models.CryptoExchanges.SpotOrder("BTC/USDT", 0.00021m, 70_000, Models.CryptoExchanges.OrderSide.Buy, Models.CryptoExchanges.OrderType.Market));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
