@@ -1,6 +1,6 @@
 ﻿namespace CryptoTerminal.Models.CryptoExchanges
 {
-    public class CoinBalance
+    public class CoinBalance : ICloneable
     {
         private string _shortName;
 
@@ -32,5 +32,10 @@
         /// Amount of a cryptocurrency.
         /// </summary>
         public string ShortName { get => _shortName; set => _shortName = value; }
+        
+        public object Clone()
+        {
+            return new CoinBalance(ShortName, LongName, Amount);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CryptoTerminal.Models.CryptoExchanges
 {
-    public class SpotOrder
+    public class SpotOrder : ICloneable
     {
         private const string _pairDelimiter = "/";
 
@@ -50,5 +50,29 @@
         public OrderType OrderType => _orderType;
 
         public DateTime DateTime => _dateTime;
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) 
+                return false;
+
+            SpotOrder order = obj as SpotOrder;
+            
+            if (order == null) 
+                return false;
+            else 
+                return order.DateTime == DateTime && 
+                    order.Pair == Pair && 
+                    order.AmountFirst == AmountFirst && 
+                    order.Price == Price &&
+                    order.OrderSide == OrderSide && 
+                    order.OrderType == OrderType;
+        }
+
+        public object Clone()
+        {
+            return new SpotOrder(Pair, AmountFirst, Price, OrderSide, OrderType);
+        }
+
     }
 }

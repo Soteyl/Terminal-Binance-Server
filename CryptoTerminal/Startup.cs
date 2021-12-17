@@ -41,14 +41,16 @@ namespace CryptoTerminal
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            var de = new Models.DemoExchange();
+            var de = new DemoExchange();
 
-            de.GetCryptoSpot().MakeOrder(new SpotOrder("BTC/USDT", 10, 48000, OrderSide.Buy, OrderType.Market, DateTime.Now));
+            var dateTime = DateTime.Now;
+
+            de.GetCryptoSpot().MakeOrder(new SpotOrder("BTC/USDT", 0.002m, 48000, OrderSide.Buy, OrderType.Market, dateTime));
 
             app.UseRouting();
 
             app.UseAuthorization();
-
+                
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

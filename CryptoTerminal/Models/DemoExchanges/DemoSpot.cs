@@ -1,5 +1,7 @@
 ﻿using CryptoTerminal.Models.CryptoExchanges;
 using Binance.Net;
+using System.Linq;
+using System.Text.Json;
 using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Interfaces;
 using Binance.Net.Objects;
@@ -24,65 +26,61 @@ namespace CryptoTerminal.Models
 
         public override void CancelOrder(SpotOrder order)
         {
+            // TODO add order canceletion to the history
             _openOrders.Remove(order); 
         }
 
         public override List<CoinBalance> GetCoinBalances()
         {
-            throw new NotImplementedException();
+            return _coinBalances.ConvertAll(bal => (CoinBalance) bal.Clone());
         }
 
         public override List<SpotOrder> GetDepthOfMarket()
         {
+            //var query = _spot.Order.GetOrdersAsync("XLM");
+            //query.Wait();
+            //return query.Result.Data.ToList().Select(binOrder => new SpotOrder(binOrder.P, binOrder));
+
             throw new NotImplementedException();
         }
 
         public override List<SpotOrder> GetOpenOrders()
         {
-            return _openOrders;
+            // TODO getting orders from a special demo exch sim service 
+            return _openOrders.ToList();
         }
 
         public override List<SpotOrder> GetOrderHistory()
         {
-            return _ordersHistory;
+            // TODO getting orders from a special demo exch sim service 
+            return _ordersHistory.ToList();
         }
 
         public override List<Transaction> GetTransactionsHistory()
-        {
+        { 
             throw new NotImplementedException();
         }
 
         public override MakeOrderResult MakeOrder(SpotOrder order)
         {
-            
-            // Else it's limit order.
             if (order.OrderSide == OrderSide.Buy)
             {
-                var coinBalance = _coinBalances.Find(c => order.SecondCoin == c.ShortName);
+                var coinBalance = _coinBalances.Find(c => string.Equals(order.SecondCoin, c.ShortName));
                 var cost = order.AmountFirst * order.Price;
 
-                if (coinBalance != null && coinBalance.Amount >= cost)
+                if (coinBalance == null || coinBalance.Amount < cost)
                 {
-                    coinBalance.Amount -= order.AmountFirst * order.Price;
-                    if (order.OrderType == OrderType.Market)
-                    {
-                        
-                        return new MakeOrderResult(0, true, "Successfully completed your order!");
-                    }
-                }
-                else
                     return new MakeOrderResult(0, false, "Insufficient funds!");
+                }
             }
             else if (order.OrderSide == OrderSide.Sell)
             {
-                var coinBalance = _coinBalances.Find(c => order.FirstCoin == c.ShortName);
+                var coinBalance = _coinBalances.Find(c => string.Equals(order.SecondCoin, c.ShortName));
 
-                if (coinBalance != null && coinBalance.Amount >= order.AmountFirst)
+                if (coinBalance == null || coinBalance.Amount < order.AmountFirst)
                 {
-                    coinBalance.Amount -= order.AmountFirst;
-                }
-                else
                     return new MakeOrderResult(0, false, "Insufficient funds!");
+                }
             }
     
             _openOrders.Add(order);
