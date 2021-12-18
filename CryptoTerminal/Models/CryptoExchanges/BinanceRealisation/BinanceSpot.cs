@@ -1,6 +1,7 @@
 ﻿using Binance.Net;
 using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Objects.Spot.SpotData;
+using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
@@ -9,9 +10,12 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
     {
         private IBinanceClientSpot _spot;
 
-        internal BinanceSpot(IBinanceClientSpot spot)
+        private IExchangeClient _exchangeClient;
+
+        internal BinanceSpot(IBinanceClientSpot spot, IExchangeClient exClient)
         {
             _spot = spot;
+            _exchangeClient = exClient;
         }
 
         public override void CancelOrder(SpotOrder order)
@@ -24,9 +28,12 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override List<SpotOrder> GetDepthOfMarket()
+        public override async Task<OrderBook> GetDepthOfMarket(string symbol)
         {
-            throw new NotImplementedException();
+            WebCallResult<ICommonOrderBook> res = await _exchangeClient.GetOrderBookAsync(symbol);
+            var preparedResult = new OrderBook(res.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
+                                                res.Data.CommonAsks.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)));
+            return preparedResult;
         }
 
         public override List<SpotOrder> GetOpenOrders()
