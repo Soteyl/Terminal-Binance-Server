@@ -25,7 +25,7 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
                     ApiCredentials = new ApiCredentials(apiToken, apiSecret)
                 });
 
-            _spot = new BinanceSpot(_client.Spot);
+            _spot = new BinanceSpot(_client.Spot, _client.General);
         }
 
         public override CryptoSpot GetCryptoSpot()

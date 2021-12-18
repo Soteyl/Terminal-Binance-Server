@@ -2,7 +2,7 @@
 {
     public abstract class CryptoSpot
     {
-        public abstract List<CoinBalance> GetCoinBalances();
+        public abstract Task<IEnumerable<CoinBalance>> GetCoinBalances();
 
         public abstract List<SpotOrder> GetOpenOrders();
 
@@ -11,29 +11,6 @@
         public abstract List<Transaction> GetTransactionsHistory();
 
         public abstract List<SpotOrder> GetDepthOfMarket();
-
-        public List<CoinBalance> GetFreeCoinBalances()
-        {
-            var balances = GetCoinBalances();
-            var openOrders = GetOpenOrders();
-
-            foreach(var balance in balances)
-            {
-                foreach(var order in openOrders)
-                {
-                    if (order.FirstCoin == balance.ShortName && order.OrderSide == OrderSide.Sell)
-                    {
-                        balance.Amount -= order.AmountFirst;
-                    }
-                    else if (order.SecondCoin == balance.ShortName && order.OrderSide == OrderSide.Buy)
-                    {
-                        balance.Amount -= order.AmountFirst * order.Price;
-                    }
-                }
-            }
-
-            return balances;
-        }
 
         public abstract Task<MakeOrderResult> MakeOrder(SpotOrder order);
 
