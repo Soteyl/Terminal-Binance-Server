@@ -37,9 +37,11 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override List<SpotOrder> GetOpenOrders()
+        public override async Task<IEnumerable<SpotOrder>> GetOpenOrders()
         {
-            throw new NotImplementedException();
+            WebCallResult<IEnumerable<BinanceOrder>> res = await _spot.Order.GetOpenOrdersAsync();
+
+            return res.Data.Select(a => new SpotOrder(a.Symbol, a.Quantity, a.Price, (OrderSide)(int)a.Side, (OrderType)(int)a.Type));
         }
 
         public override List<SpotOrder> GetOrderHistory()

@@ -6,7 +6,7 @@
 
         public abstract List<CoinBalance> GetCoinBalances();
 
-        public abstract List<SpotOrder> GetOpenOrders();
+        public abstract Task<IEnumerable<SpotOrder>> GetOpenOrders();
 
         public abstract List<SpotOrder> GetOrderHistory();
 
