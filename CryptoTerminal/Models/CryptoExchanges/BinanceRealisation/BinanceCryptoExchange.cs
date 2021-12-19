@@ -11,9 +11,9 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 
         private BinanceSpot _spot;
 
-        private string _token;
+        private string? _token;
 
-        private string _secret;
+        private string? _secret;
 
         public BinanceCryptoExchange(string apiToken, string apiSecret)
         {
