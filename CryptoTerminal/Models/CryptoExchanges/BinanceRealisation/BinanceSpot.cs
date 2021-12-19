@@ -1,4 +1,5 @@
 ﻿using Binance.Net;
+using Binance.Net.Interfaces.SubClients;
 using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Objects.Spot.SpotData;
 using CryptoExchange.Net.Objects;
@@ -9,9 +10,12 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
     {
         private IBinanceClientSpot _spot;
 
-        internal BinanceSpot(IBinanceClientSpot spot)
+        private IBinanceClientGeneral _general;
+
+        internal BinanceSpot(IBinanceClientSpot spot, IBinanceClientGeneral general)
         {
             _spot = spot;
+            _general = general;
         }
 
         public override void CancelOrder(SpotOrder order)
@@ -19,9 +23,13 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override List<CoinBalance> GetCoinBalances()
+        public override async Task<IEnumerable<CoinBalance>> GetCoinBalances()
         {
-            throw new NotImplementedException();
+            WebCallResult<BinanceAccountInfo> info = await _general.GetAccountInfoAsync();
+
+            IEnumerable<BinanceBalance> balances = info.Data.Balances;
+
+            return balances.Select(balance => new CoinBalance(balance.Asset, balance.Free, balance.Locked));
         }
 
         public override IEnumerable<BookPrice> GetCoinPairs()
