@@ -64,9 +64,21 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override List<Transaction> GetTransactionsHistory()
+        public override async Task<IEnumerable<ICommonTrade>> GetTransactionsHistory()
         {
-            throw new NotImplementedException();
+            var result = new List<ICommonTrade>();
+            foreach (var l in (await _exchangeClient.GetSymbolsAsync()).Data)
+            {
+                var b = await _exchangeClient.GetClosedOrdersAsync(l.CommonName);
+                if (b.Data.Any())
+                {
+                    foreach (var order in b.Data)
+                    {
+                        result.AddRange((await _exchangeClient.GetTradesAsync(order.CommonId, order.CommonSymbol)).Data);
+                    }
+                }
+            }
+            return result;
         }
 
         public override async Task<MakeOrderResult> MakeOrder(SpotOrder order)

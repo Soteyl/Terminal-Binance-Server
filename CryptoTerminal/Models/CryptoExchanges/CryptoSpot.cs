@@ -1,4 +1,6 @@
-﻿namespace CryptoTerminal.Models.CryptoExchanges
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+
+namespace CryptoTerminal.Models.CryptoExchanges
 {
     public abstract class CryptoSpot
     {
@@ -10,7 +12,7 @@
 
         public abstract List<SpotOrder> GetOrderHistory();
 
-        public abstract List<Transaction> GetTransactionsHistory();
+        public abstract Task<IEnumerable<ICommonTrade>> GetTransactionsHistory();
 
         public abstract Task<OrderBook> GetDepthOfMarket(string symbol);
 

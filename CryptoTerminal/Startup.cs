@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +39,24 @@ namespace CryptoTerminal
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+
+            string apiKey = "K4ef7qERwy61dI4XJgBkilZDAnvqM3QwkYt5nZZcQAuYvERQZL9cX05QFk2J3iWa";
+            string apiSecret = "JyeOStAi3ip96dBN0ngwGoxZWA0NhFc75DOyKsT4tGrX7MnkK2tXsyTODISbEHfB";
+            IExchangeClient a = new Binance.Net.BinanceClient(new Binance.Net.Objects.BinanceClientOptions() { ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials(apiKey, apiSecret) });
+            foreach(var l in (await a.GetSymbolsAsync()).Data)
+            {
+                var b = await a.GetClosedOrdersAsync(l.CommonName);
+                if (b.Data.Any())
+                {
+                    foreach (var order in b.Data)
+                    {
+                        var c = await a.GetTradesAsync(order.CommonId, order.CommonSymbol);
+                    }
+                }
+                
+            }
+            
 
             app.UseRouting();
 
