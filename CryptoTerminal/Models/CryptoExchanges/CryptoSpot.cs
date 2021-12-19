@@ -10,7 +10,7 @@
 
         public abstract List<Transaction> GetTransactionsHistory();
 
-        public abstract List<SpotOrder> GetDepthOfMarket();
+        public abstract List<SpotOrder> GetDepthOfMarket(string symbol);
 
         public List<CoinBalance> GetFreeCoinBalances()
         {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CryptoTerminal.Models;
+using CryptoTerminal.Models.DemoExchanges;
 using CryptoTerminal.Models.CryptoExchanges;
 using System;
 using System.Collections.Generic;
@@ -25,9 +25,11 @@ namespace CryptoTerminal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddTransient<IAccessDemoStorage, AccessDemoStorage>();
+            services.AddTransient<DemoExchange>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DemoExchange de)
         {
             if (env.IsDevelopment())
             {
@@ -41,11 +43,14 @@ namespace CryptoTerminal
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            var de = new DemoExchange();
-
             var dateTime = DateTime.Now;
 
             de.GetCryptoSpot().MakeOrder(new SpotOrder("BTC/USDT", 0.002m, 48000, OrderSide.Buy, OrderType.Market, dateTime));
+
+            foreach (var res in de.GetCryptoSpot().GetDepthOfMarket("XLMUSDT"))
+            {
+                Console.WriteLine(res);
+            }
 
             app.UseRouting();
 

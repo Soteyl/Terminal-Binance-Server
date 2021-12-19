@@ -6,54 +6,60 @@ using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Interfaces;
 using Binance.Net.Objects;
 
-namespace CryptoTerminal.Models
+namespace CryptoTerminal.Models.DemoExchanges
 {
     public class DemoSpot : CryptoSpot
     {
         private IBinanceClientSpot _spot;
+        private IAccessDemoStorage _demoStorage;
+
+        private string _userKey;
 
         // TODO separate storage from spot exchange.
-        private List<CoinBalance> _coinBalances = new List<CoinBalance>();
-        private List<SpotOrder> _openOrders = new List<SpotOrder>();
-        private List<SpotOrder> _ordersHistory = new List<SpotOrder>(); 
 
-        public DemoSpot(IBinanceClientSpot spot)
+        public DemoSpot(IAccessDemoStorage demoStorage, IBinanceClientSpot spot, string key)
         {
-            // TODO make loading balances and progress from a storage 
-            _coinBalances.Add(new CoinBalance("USDT", "Tether", 5000));
             _spot = spot;
+            _userKey = key;
+            _demoStorage = demoStorage;
         }
 
         public override void CancelOrder(SpotOrder order)
         {
             // TODO add order canceletion to the history
-            _openOrders.Remove(order); 
+            _demoStorage.GetUserOpenOrders(_userKey).Remove(order); 
         }
 
         public override List<CoinBalance> GetCoinBalances()
         {
-            return _coinBalances.ConvertAll(bal => (CoinBalance) bal.Clone());
+            return _demoStorage.GetUserCoinBalances(_userKey);
         }
 
-        public override List<SpotOrder> GetDepthOfMarket()
+        public override List<SpotOrder> GetDepthOfMarket(string pair)
         {
-            //var query = _spot.Order.GetOrdersAsync("XLM");
-            //query.Wait();
-            //return query.Result.Data.ToList().Select(binOrder => new SpotOrder(binOrder.P, binOrder));
+            var query = _spot.Market.GetOrderBookAsync(pair);
 
-            throw new NotImplementedException();
+            var orders = query.GetAwaiter().GetResult();
+
+            // TODO fix booked orders request
+            return new List<SpotOrder>(); 
+            /* orders.Data.Select(binanceOrder => new SpotOrder(
+                pair,
+                binanceOrder.Quantity,
+                binanceOrder.Price,
+                (OrderSide)(int) binanceOrder.Side,
+                (OrderType)(int) binanceOrder.Type
+            )).ToList();*/
         }
-
+        
         public override List<SpotOrder> GetOpenOrders()
         {
-            // TODO getting orders from a special demo exch sim service 
-            return _openOrders.ToList();
+            return _demoStorage.GetUserOpenOrders(_userKey);
         }
 
         public override List<SpotOrder> GetOrderHistory()
         {
-            // TODO getting orders from a special demo exch sim service 
-            return _ordersHistory.ToList();
+            return _demoStorage.GetUserOrdersHistory(_userKey);
         }
 
         public override List<Transaction> GetTransactionsHistory()
@@ -65,7 +71,7 @@ namespace CryptoTerminal.Models
         {
             if (order.OrderSide == OrderSide.Buy)
             {
-                var coinBalance = _coinBalances.Find(c => string.Equals(order.SecondCoin, c.ShortName));
+                var coinBalance = GetCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
                 var cost = order.AmountFirst * order.Price;
 
                 if (coinBalance == null || coinBalance.Amount < cost)
@@ -75,7 +81,7 @@ namespace CryptoTerminal.Models
             }
             else if (order.OrderSide == OrderSide.Sell)
             {
-                var coinBalance = _coinBalances.Find(c => string.Equals(order.SecondCoin, c.ShortName));
+                var coinBalance = GetCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
 
                 if (coinBalance == null || coinBalance.Amount < order.AmountFirst)
                 {
@@ -83,7 +89,7 @@ namespace CryptoTerminal.Models
                 }
             }
     
-            _openOrders.Add(order);
+            GetOpenOrders().Add(order);
             return new MakeOrderResult(0, true, "Successfully placed new order!");
         }
     }

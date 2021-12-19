@@ -1,7 +1,7 @@
 ﻿using CryptoTerminal.Models.CryptoExchanges;
 using Binance.Net;
 
-namespace CryptoTerminal.Models
+namespace CryptoTerminal.Models.DemoExchanges
 {
     public class DemoExchange : CryptoExchanges.CryptoExchange
     {
@@ -9,10 +9,10 @@ namespace CryptoTerminal.Models
 
         private DemoSpot _spot;
 
-        public DemoExchange()
+        public DemoExchange(IAccessDemoStorage demoStorage)
         {
             _client = new BinanceClient();
-            _spot = new DemoSpot(_client.Spot);
+            _spot = new DemoSpot(demoStorage, _client.Spot, "user-key");
         }
         public override CryptoSpot GetCryptoSpot()
         {
