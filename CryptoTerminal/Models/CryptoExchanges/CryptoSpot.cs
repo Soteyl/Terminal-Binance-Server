@@ -10,7 +10,7 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract Task<IEnumerable<SpotOrder>> GetOpenOrders();
 
-        public abstract List<SpotOrder> GetOrderHistory();
+        public abstract Task<IEnumerable<ICommonOrder>> GetOrderHistory();
 
         public abstract Task<IEnumerable<ICommonTrade>> GetTransactionsHistory();
 

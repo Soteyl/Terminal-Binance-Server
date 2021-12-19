@@ -59,24 +59,24 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             return res.Data.Select(a => new SpotOrder(a.Symbol, a.Quantity, (OrderSide)(int)a.Side, (OrderType)(int)a.Type, price: a.Price));
         }
 
-        public override List<SpotOrder> GetOrderHistory()
+        public override async Task<IEnumerable<ICommonOrder>> GetOrderHistory()
         {
-            throw new NotImplementedException();
+            var result = new List<ICommonOrder>();
+            IEnumerable<ICommonSymbol> symbols = (await _exchangeClient.GetSymbolsAsync()).Data;
+            foreach (var symbol in symbols)
+            {
+                result.AddRange((await _exchangeClient.GetClosedOrdersAsync(symbol.CommonName)).Data);
+            }
+            return result;
         }
 
         public override async Task<IEnumerable<ICommonTrade>> GetTransactionsHistory()
         {
             var result = new List<ICommonTrade>();
-            foreach (var l in (await _exchangeClient.GetSymbolsAsync()).Data)
+            IEnumerable<ICommonOrder> orders = await GetOrderHistory();
+            foreach (var order in orders)
             {
-                var b = await _exchangeClient.GetClosedOrdersAsync(l.CommonName);
-                if (b.Data.Any())
-                {
-                    foreach (var order in b.Data)
-                    {
-                        result.AddRange((await _exchangeClient.GetTradesAsync(order.CommonId, order.CommonSymbol)).Data);
-                    }
-                }
+                result.AddRange((await _exchangeClient.GetTradesAsync(order.CommonId, order.CommonSymbol)).Data);
             }
             return result;
         }
