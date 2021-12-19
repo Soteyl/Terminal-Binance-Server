@@ -24,6 +24,14 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
+        public override IEnumerable<BookPrice> GetCoinPairs()
+        {
+            var result = _spot.Market.GetAllBookPricesAsync();
+            result.Wait();
+            
+            return result.Result.Data.Select(a => a.ToIxcentBookPrice());
+        }
+
         public override List<SpotOrder> GetDepthOfMarket()
         {
             throw new NotImplementedException();

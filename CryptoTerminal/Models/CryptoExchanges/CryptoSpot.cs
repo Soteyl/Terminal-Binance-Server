@@ -2,6 +2,8 @@
 {
     public abstract class CryptoSpot
     {
+        public abstract IEnumerable<BookPrice> GetCoinPairs();
+
         public abstract List<CoinBalance> GetCoinBalances();
 
         public abstract List<SpotOrder> GetOpenOrders();
