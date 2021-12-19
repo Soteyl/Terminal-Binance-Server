@@ -12,7 +12,7 @@
 
         public abstract List<Transaction> GetTransactionsHistory();
 
-        public abstract List<SpotOrder> GetDepthOfMarket();
+        public abstract Task<OrderBook> GetDepthOfMarket(string symbol);
 
         public abstract Task<MakeOrderResult> MakeOrder(SpotOrder order);
 
