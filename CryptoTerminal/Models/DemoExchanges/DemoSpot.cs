@@ -2,6 +2,8 @@
 using Binance.Net;
 using System.Linq;
 using System.Text.Json;
+using CryptoExchange.Net.ExchangeInterfaces;
+using Binance.Net.SubClients.Spot;
 using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Interfaces;
 using Binance.Net.Objects;
@@ -11,17 +13,19 @@ namespace CryptoTerminal.Models.DemoExchanges
     public class DemoSpot : CryptoSpot
     {
         private IBinanceClientSpot _spot;
+        private IExchangeClient _exClient;
         private IAccessDemoStorage _demoStorage;
 
         private string _userKey;
 
         // TODO separate storage from spot exchange.
 
-        public DemoSpot(IAccessDemoStorage demoStorage, IBinanceClientSpot spot, string key)
+        public DemoSpot(IAccessDemoStorage demoStorage, IExchangeClient exClient, IBinanceClientSpot spot, string key)
         {
             _spot = spot;
             _userKey = key;
             _demoStorage = demoStorage;
+            _exClient = exClient;
         }
 
         public override void CancelOrder(SpotOrder order)
@@ -35,21 +39,27 @@ namespace CryptoTerminal.Models.DemoExchanges
             return _demoStorage.GetUserCoinBalances(_userKey);
         }
 
-        public override List<SpotOrder> GetDepthOfMarket(string pair)
+        public override async Task<IEnumerable<CryptoExchange.Net.Interfaces.ISymbolOrderBookEntry>> GetDepthOfMarket(string pair)
         {
-            var query = _spot.Market.GetOrderBookAsync(pair);
+            var res = await Task.Run(() => _exClient.GetOrderBookAsync(pair));
 
-            var orders = query.GetAwaiter().GetResult();
+            if (!res.Success)
+                return new List<CryptoExchange.Net.Interfaces.ISymbolOrderBookEntry>();
 
-            // TODO fix booked orders request
-            return new List<SpotOrder>(); 
-            /* orders.Data.Select(binanceOrder => new SpotOrder(
-                pair,
-                binanceOrder.Quantity,
-                binanceOrder.Price,
-                (OrderSide)(int) binanceOrder.Side,
-                (OrderType)(int) binanceOrder.Type
-            )).ToList();*/
+            var orders = res.Data;
+
+            // TODO replace with OrderBook class
+
+            var allBids = orders.CommonBids;
+
+            var allAsks = orders.CommonAsks; 
+
+            var fullResult = allBids.Concat(allAsks);
+
+            lock (fullResult)
+            {
+                return fullResult.ToList(); 
+            }
         }
         
         public override List<SpotOrder> GetOpenOrders()

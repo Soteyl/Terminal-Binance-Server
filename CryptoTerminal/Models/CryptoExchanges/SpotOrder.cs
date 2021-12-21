@@ -35,7 +35,7 @@
             _dateTime = dateTime;
         }
 
-        public string Pair => _firstCoin + _pairDelimiter + _secondCoin;
+        public string Pair => _firstCoin + _secondCoin;
 
         public string FirstCoin => _firstCoin;
 

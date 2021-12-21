@@ -1,4 +1,5 @@
 ﻿using CryptoTerminal.Models.CryptoExchanges;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CryptoTerminal.Models.DemoExchanges
@@ -40,6 +41,25 @@ namespace CryptoTerminal.Models.DemoExchanges
         public List<CoinBalance> GetUserCoinBalances(string key)
         {
             return GetDemoUserData(key).CoinBalances.ConvertAll(bal => (CoinBalance)bal.Clone());
+        }
+
+        public bool TryFullfillOrder(string key, SpotOrder order)
+        {
+            CoinBalance coinsToSubstract = new CoinBalance(order.SecondCoin, "", order.AmountFirst * order.Price);
+            var successfullySubstracted = GetDemoUserData(key).TrySubstractCoinsFromBalance(coinsToSubstract);
+
+            if (successfullySubstracted)
+            {
+                CoinBalance coinsToAdd = new CoinBalance(order.FirstCoin, "", order.AmountFirst);
+                GetDemoUserData(key).AddCoinsToBalance(coinsToAdd);
+                return true;
+            }
+            return false;
+        }
+
+        public Dictionary<string, DemoUserData> GetAllUserData()
+        {
+            return _userData;
         }
     }
 }
