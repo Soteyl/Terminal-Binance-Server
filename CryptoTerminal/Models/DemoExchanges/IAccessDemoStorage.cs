@@ -12,7 +12,12 @@ namespace CryptoTerminal.Models.DemoExchanges
 
         Dictionary<string,DemoUserData> GetAllUserData();
 
-        bool TryFullfillOrder(string key, SpotOrder order);
+        void RemoveUserOrders(string key, params SpotOrder[] orders);
+
+        bool TryFullfillMarketOrder(string key, decimal actualPrice, SpotOrder order);
+
+        bool TryFullfillLimitOrder(string key, decimal actualPrice, SpotOrder order);
+
 
     }
 }

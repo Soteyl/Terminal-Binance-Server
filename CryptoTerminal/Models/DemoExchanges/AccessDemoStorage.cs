@@ -43,18 +43,45 @@ namespace CryptoTerminal.Models.DemoExchanges
             return GetDemoUserData(key).CoinBalances.ConvertAll(bal => (CoinBalance)bal.Clone());
         }
 
-        public bool TryFullfillOrder(string key, SpotOrder order)
+        public void RemoveUserOrders(string key, params SpotOrder[] orders)
         {
-            CoinBalance coinsToSubstract = new CoinBalance(order.SecondCoin, "", order.AmountFirst * order.Price);
-            var successfullySubstracted = GetDemoUserData(key).TrySubstractCoinsFromBalance(coinsToSubstract);
+            foreach (var order in orders)
+            {
+                GetDemoUserData(key).OpenOrders.Remove(order);
+                GetDemoUserData(key).OrdersHistory.Add(order);
+            }
+        }
 
+        public bool TryFullfillMarketOrder(string key, decimal actualPrice, SpotOrder order)
+        {
+            CoinBalance coinsToSubstract = new CoinBalance(order.SecondCoin, "", order.AmountFirst * actualPrice); 
+            CoinBalance coinsToAdd = new CoinBalance(order.FirstCoin, "", order.AmountFirst); 
+
+            if (order.OrderSide == OrderSide.Sell)
+            {
+                coinsToSubstract = new CoinBalance(order.FirstCoin, "", order.AmountFirst);
+                coinsToAdd = new CoinBalance(order.SecondCoin, "", order.AmountFirst * actualPrice);
+            }
+
+            var successfullySubstracted = GetDemoUserData(key).TrySubstractCoinsFromBalance(coinsToSubstract);
             if (successfullySubstracted)
             {
-                CoinBalance coinsToAdd = new CoinBalance(order.FirstCoin, "", order.AmountFirst);
                 GetDemoUserData(key).AddCoinsToBalance(coinsToAdd);
                 return true;
             }
             return false;
+        }
+
+        public bool TryFullfillLimitOrder(string key, decimal marketPrice, SpotOrder order)
+        {
+            var limitPrice = order.Price;
+
+            if (order.OrderSide == OrderSide.Buy && limitPrice >= marketPrice ||
+                order.OrderSide == OrderSide.Sell && limitPrice <= marketPrice)
+            {
+                return TryFullfillMarketOrder(key, marketPrice, order);
+            }
+            return false;   
         }
 
         public Dictionary<string, DemoUserData> GetAllUserData()

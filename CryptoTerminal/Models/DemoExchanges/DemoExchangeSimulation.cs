@@ -8,7 +8,7 @@ namespace CryptoTerminal.Models.DemoExchanges
 {
     public class DemoExchangeSimulation
     {
-
+        private const int _updateTime = 100;
         private IAccessDemoStorage _demoStorage;
         private BinanceClient _client;
         private bool _isRunningSimulation = false;
@@ -40,46 +40,49 @@ namespace CryptoTerminal.Models.DemoExchanges
         {
             while (_isRunningSimulation)
             {
-                var quotes = _client.Spot.Market.GetPricesAsync().Result.Data;
-                foreach (var quote in quotes)
+                foreach (var keyValuePair in _demoStorage.GetAllUserData())
                 {
-                    foreach (var keyValuePair in _demoStorage.GetAllUserData())
+                    string userKey = keyValuePair.Key;
+                    DemoUserData userData = keyValuePair.Value;
+
+                    Console.WriteLine($"Getting open orders for someone.");
+                    foreach (var item in userData.OpenOrders)
                     {
-                        string userKey = keyValuePair.Key;
-                        DemoUserData userData = keyValuePair.Value;
-
-                        var allMarketOrders = userData.OpenOrders.Where(ord => ord.OrderType == OrderType.Market && string.Equals(ord.Pair, quote.Symbol));
-                        var allLimitOrders = userData.OpenOrders.Where(ord => ord.OrderType == OrderType.Limit && string.Equals(ord.Pair, quote.Symbol));
-
-                        List<SpotOrder> fullfilledOrders = new List<SpotOrder>();
-
-                        foreach (SpotOrder order in allMarketOrders)
-                        {
-                            bool success = _demoStorage.TryFullfillOrder(userKey, order);
-                            if (success)
-                                fullfilledOrders.Add(order);
-                        }
-
-                        foreach (SpotOrder order in allLimitOrders)
-                        {
-                            decimal quotePrice = quote.Price;
-                            decimal limitPrice = order.Price;
-
-                            if (order.OrderSide == OrderSide.Buy && limitPrice >= quotePrice ||
-                                order.OrderSide == OrderSide.Sell && limitPrice <= quotePrice)
-                            {
-                                bool success = _demoStorage.TryFullfillOrder(userKey, order);
-                                if (success)
-                                    fullfilledOrders.Add(order);
-                            }
-                        }
-
-                        foreach (var order in fullfilledOrders)
-                            userData.OpenOrders.Remove(order);
-
+                        Console.WriteLine($"{item.Pair} : {item.AmountFirst} : {item.Price}");
                     }
+                    Console.WriteLine($"Balance: ");
+                    foreach(var item in userData.CoinBalances)
+                    {
+                        Console.WriteLine($"{item.ShortName} : {item.Amount} ");
+                    }
+                    var allMarketOrders = userData.OpenOrders.Where(ord => ord.OrderType == OrderType.Market);
+                    var allLimitOrders = userData.OpenOrders.Where(ord => ord.OrderType == OrderType.Limit);
+
+                    List<SpotOrder> fullfilledOrders = new List<SpotOrder>();
+
+                    foreach (SpotOrder order in allMarketOrders)
+                    {
+                        var quote = _client.Spot.Market.GetPriceAsync(symbol: order.Pair).Result.Data;
+
+                        bool success = _demoStorage.TryFullfillMarketOrder(userKey, quote.Price, order);
+                        if (success)
+                            fullfilledOrders.Add(order);
+                    }
+
+                    foreach (SpotOrder order in allLimitOrders)
+                    {
+                        var quote = _client.Spot.Market.GetPriceAsync(symbol: order.Pair).Result.Data;
+                        decimal quotePrice = quote.Price;
+
+                        bool success = _demoStorage.TryFullfillLimitOrder(userKey, quote.Price, order);
+                        if (success)
+                            fullfilledOrders.Add(order);
+                    }
+
+                    _demoStorage.RemoveUserOrders(userKey, fullfilledOrders.ToArray());
+
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(_updateTime);
             }
         }
     }

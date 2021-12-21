@@ -81,7 +81,7 @@ namespace CryptoTerminal.Models.DemoExchanges
         {
             if (order.OrderSide == OrderSide.Buy)
             {
-                var coinBalance = GetCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
+                var coinBalance = GetFreeCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
                 var cost = order.AmountFirst * order.Price;
 
                 if (coinBalance == null || coinBalance.Amount < cost)
@@ -91,7 +91,7 @@ namespace CryptoTerminal.Models.DemoExchanges
             }
             else if (order.OrderSide == OrderSide.Sell)
             {
-                var coinBalance = GetCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
+                var coinBalance = GetFreeCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
 
                 if (coinBalance == null || coinBalance.Amount < order.AmountFirst)
                 {

@@ -25,9 +25,9 @@ namespace CryptoTerminal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IAccessDemoStorage, AccessDemoStorage>();
-            services.AddTransient<DemoExchange>();
-            services.AddTransient<DemoExchangeSimulation>();
+            //services.AddSingleton<IAccessDemoStorage, AccessDemoStorage>();
+            //services.AddTransient<DemoExchange>();
+            //services.AddTransient<DemoExchangeSimulation>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DemoExchange de, DemoExchangeSimulation sim)
@@ -44,14 +44,12 @@ namespace CryptoTerminal
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            sim.RunSimulation();
+            //sim.RunSimulation();
 
-            var dateTime = DateTime.Now;
+            //var dateTime = DateTime.Now;
 
-            de.GetCryptoSpot().MakeOrder(new SpotOrder("BTC/USDT", 0.002m, 50000, OrderSide.Buy, OrderType.Market, dateTime));
-
-
-            de.GetCryptoSpot().MakeOrder(new SpotOrder("XLM/USDT", 13, 0.3m, OrderSide.Buy, OrderType.Market, dateTime));
+            //de.GetCryptoSpot().MakeOrder(new SpotOrder("BTC/USDT", 0.002m, 50000, OrderSide.Buy, OrderType.Market, dateTime));
+            //de.GetCryptoSpot().MakeOrder(new SpotOrder("XLM/USDT", 13, 0.3m, OrderSide.Buy, OrderType.Market, dateTime));
 
             app.UseRouting();
 
