@@ -45,16 +45,6 @@ namespace CryptoTerminal.Models.DemoExchanges
                     string userKey = keyValuePair.Key;
                     DemoUserData userData = keyValuePair.Value;
 
-                    Console.WriteLine($"Getting open orders for someone.");
-                    foreach (var item in userData.OpenOrders)
-                    {
-                        Console.WriteLine($"{item.Pair} : {item.AmountFirst} : {item.Price}");
-                    }
-                    Console.WriteLine($"Balance: ");
-                    foreach(var item in userData.CoinBalances)
-                    {
-                        Console.WriteLine($"{item.ShortName} : {item.Amount} ");
-                    }
                     var allMarketOrders = userData.OpenOrders.Where(ord => ord.OrderType == OrderType.Market);
                     var allLimitOrders = userData.OpenOrders.Where(ord => ord.OrderType == OrderType.Limit);
 
