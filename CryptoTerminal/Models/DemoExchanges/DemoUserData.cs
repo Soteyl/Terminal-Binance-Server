@@ -15,10 +15,10 @@ namespace CryptoTerminal.Models.DemoExchanges
 
         public void AddCoinsToBalance(CoinBalance coins)
         {
-            var coin = CoinBalances.Find(c => string.Equals(c.ShortName, coins.ShortName));
-            if (coin != null)
+            var coinBalance = CoinBalances.Find(coin => string.Equals(coin.ShortName, coins.ShortName));
+            if (coinBalance != null)
             {
-                coin.Amount += coins.Amount;
+                coinBalance.Amount += coins.Amount;
                 return;
             }
             CoinBalances.Add(coins);
@@ -26,10 +26,10 @@ namespace CryptoTerminal.Models.DemoExchanges
 
         public bool TrySubstractCoinsFromBalance(CoinBalance coins)
         {
-            var coin = CoinBalances.Find(c => string.Equals(c.ShortName, coins.ShortName));
-            if (coin != null && coin.Amount >= coins.Amount)
+            var coinBalance = CoinBalances.Find(coin => string.Equals(coin.ShortName, coins.ShortName));
+            if (coinBalance != null && coinBalance.Amount >= coins.Amount)
             {
-                coin.Amount -= coins.Amount;
+                coinBalance.Amount -= coins.Amount;
                 return true;
             }
             return false;

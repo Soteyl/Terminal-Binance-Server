@@ -27,7 +27,7 @@ namespace CryptoTerminal
             services.AddControllersWithViews();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DemoExchange de, DemoExchangeSimulation sim)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

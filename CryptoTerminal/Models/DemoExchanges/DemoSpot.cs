@@ -1,12 +1,13 @@
-﻿using CryptoTerminal.Models.CryptoExchanges;
-using Binance.Net;
-using System.Linq;
+﻿using System.Linq;
 using System.Text.Json;
-using CryptoExchange.Net.ExchangeInterfaces;
+using Binance.Net;
 using Binance.Net.SubClients.Spot;
-using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Interfaces;
 using Binance.Net.Objects;
+using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Objects; 
+using Binance.Net.Interfaces.SubClients.Spot;
+using CryptoTerminal.Models.CryptoExchanges;
 
 namespace CryptoTerminal.Models.DemoExchanges
 {
@@ -15,10 +16,8 @@ namespace CryptoTerminal.Models.DemoExchanges
         private IBinanceClientSpot _spot;
         private IExchangeClient _exClient;
         private IAccessDemoStorage _demoStorage;
-
+        
         private string _userKey;
-
-        // TODO separate storage from spot exchange.
 
         public DemoSpot(IAccessDemoStorage demoStorage, IExchangeClient exClient, IBinanceClientSpot spot, string key)
         {
@@ -51,14 +50,13 @@ namespace CryptoTerminal.Models.DemoExchanges
             // TODO replace with OrderBook class
 
             var allBids = orders.CommonBids;
-
             var allAsks = orders.CommonAsks; 
 
-            var fullResult = allBids.Concat(allAsks);
+            var fullDepthResult = allBids.Concat(allAsks);
 
-            lock (fullResult)
+            lock (fullDepthResult)
             {
-                return fullResult.ToList(); 
+                return fullDepthResult.ToList(); 
             }
         }
         
@@ -79,27 +77,17 @@ namespace CryptoTerminal.Models.DemoExchanges
 
         public override MakeOrderResult MakeOrder(SpotOrder order)
         {
+            var coinBalance = GetFreeCoinBalances().Find(coin => string.Equals(order.SecondCoin, coin.ShortName));
+            decimal cost = order.AmountFirst;
+
             if (order.OrderSide == OrderSide.Buy)
-            {
-                var coinBalance = GetFreeCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
-                var cost = order.AmountFirst * order.Price;
+                cost = cost * order.Price;
 
-                if (coinBalance == null || coinBalance.Amount < cost)
-                {
-                    return new MakeOrderResult(0, false, "Insufficient funds!");
-                }
-            }
-            else if (order.OrderSide == OrderSide.Sell)
-            {
-                var coinBalance = GetFreeCoinBalances().Find(c => string.Equals(order.SecondCoin, c.ShortName));
+            if (coinBalance == null || coinBalance.Amount < order.AmountFirst)
+                return new MakeOrderResult(0, false, "Insufficient funds!");
 
-                if (coinBalance == null || coinBalance.Amount < order.AmountFirst)
-                {
-                    return new MakeOrderResult(0, false, "Insufficient funds!");
-                }
-            }
-    
             GetOpenOrders().Add(order);
+
             return new MakeOrderResult(0, true, "Successfully placed new order!");
         }
     }

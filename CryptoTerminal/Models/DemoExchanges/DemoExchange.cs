@@ -9,10 +9,10 @@ namespace CryptoTerminal.Models.DemoExchanges
 
         private DemoSpot _spot;
 
-        public DemoExchange(IAccessDemoStorage demoStorage)
+        public DemoExchange(IAccessDemoStorage demoStorage, string userKey)
         {
             _client = new BinanceClient();
-            _spot = new DemoSpot(demoStorage, _client, _client.Spot, "user-key");
+            _spot = new DemoSpot(demoStorage, _client, _client.Spot, userKey);
         }
         public override CryptoSpot GetCryptoSpot()
         {

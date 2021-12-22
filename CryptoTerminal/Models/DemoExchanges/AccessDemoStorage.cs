@@ -1,6 +1,6 @@
-﻿using CryptoTerminal.Models.CryptoExchanges;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using CryptoTerminal.Models.CryptoExchanges;
 
 namespace CryptoTerminal.Models.DemoExchanges
 {
@@ -54,13 +54,16 @@ namespace CryptoTerminal.Models.DemoExchanges
 
         public bool TryFullfillMarketOrder(string key, decimal actualPrice, SpotOrder order)
         {
-            CoinBalance coinsToSubstract = new CoinBalance(order.SecondCoin, "", order.AmountFirst * actualPrice); 
+
+            CoinBalance coinsToSubstract = new CoinBalance(order.SecondCoin, "", order.AmountFirst * order.Price); 
             CoinBalance coinsToAdd = new CoinBalance(order.FirstCoin, "", order.AmountFirst); 
 
             if (order.OrderSide == OrderSide.Sell)
             {
-                coinsToSubstract = new CoinBalance(order.FirstCoin, "", order.AmountFirst);
-                coinsToAdd = new CoinBalance(order.SecondCoin, "", order.AmountFirst * actualPrice);
+                // Swapping coin balances 
+                CoinBalance temp = coinsToSubstract;
+                coinsToSubstract = coinsToAdd;
+                coinsToAdd = temp;
             }
 
             var successfullySubstracted = GetDemoUserData(key).TrySubstractCoinsFromBalance(coinsToSubstract);
