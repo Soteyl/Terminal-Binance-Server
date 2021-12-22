@@ -13,6 +13,10 @@ namespace CryptoTerminal.Controllers
     using System.Threading.Tasks;
     using Models.Auth;
 
+    /// <summary>
+    /// Controller for registration and login <para/>
+    /// Url: <c>api/users/</c>
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : Controller
@@ -24,43 +28,52 @@ namespace CryptoTerminal.Controllers
             _dataBase = context;
         }
 
+        /// <summary>
+        /// Register user. <para/>
+        /// Url: <c>api/users/register</c>
+        /// </summary>
+        /// <param name="model">Registration info</param>
+        /// <returns><see cref="OkObjectResult"/> or <see cref="BadRequestObjectResult"/></returns>
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(RegisterModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return BadRequest();
+
+            User user = await _dataBase.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName || u.Email == model.Email);
+
+            if (user != null) return BadRequest(new { errorText = "Пользователь с такими данными уже существует." });
+
+            user = new User
             {
-                User user = await _dataBase.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName);
-                if (user == null)
-                {
-                    user = new User 
-                    {
-                        Email = model.Email,
-                        UserName = model.UserName, 
-                        Password = model.Password, 
-                        RoleId = _dataBase.GetUserRole("user").Id 
-                    };
+                Email = model.Email,
+                UserName = model.UserName,
+                Password = model.Password,
+                RoleId = _dataBase.GetUserRole("user").Id
+            };
 
-                    _dataBase.Users.Add(user);
-                    await _dataBase.SaveChangesAsync();
+            _dataBase.Users.Add(user);
+            await _dataBase.SaveChangesAsync();
 
-                    return Ok();
-                }
-            }
-
-            return BadRequest();
+            return Ok();
         }
 
+        /// <summary>
+        /// Login user. <para/>
+        /// Url: <c>api/users/login</c>
+        /// </summary>
+        /// <param name="loginModel">Login info</param>
+        /// <returns>Json with access_token and username or <see cref="BadRequestObjectResult"/></returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
-            var identity = await GetIdentity(loginModel.UserNameOrPassword, loginModel.Password);
+            ClaimsIdentity? identity = await GetIdentity(loginModel.UserNameOrEmail, loginModel.Password);
             if (identity == null)
             {
                 return BadRequest(new { errorText = "Invalid username or password." });
             }
 
             var now = DateTime.UtcNow;
-            // создаем JWT-токен
+            // create JWT-token
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.Issuer,
                     audience: AuthOptions.Audience,
@@ -87,15 +100,18 @@ namespace CryptoTerminal.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.UserName),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role.ToString())
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, _dataBase.GetUserRole(person.RoleId).Name)
                 };
-                ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
+
+                var claimsIdentity = new ClaimsIdentity(claims,
+                                                        authenticationType: "Token",
+                                                        nameType: ClaimsIdentity.DefaultNameClaimType,
+                                                        roleType: ClaimsIdentity.DefaultRoleClaimType);
+
                 return claimsIdentity;
             }
 
-            // если пользователя не найдено
+            // if user missing
             return null;
         }
     }

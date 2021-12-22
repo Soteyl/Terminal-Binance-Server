@@ -1,5 +1,8 @@
 ﻿namespace CryptoTerminal.Models.Database
 {
+    /// <summary>
+    /// Database model representing user credentials.
+    /// </summary>
     public class User
     {
         public int Id { get; set; }

@@ -5,7 +5,7 @@ namespace CryptoTerminal.Models.Auth
     public class LoginModel
     {
         [Required(ErrorMessage = "Не указан логин или пароль")]
-        public string UserNameOrPassword { get; set; }
+        public string UserNameOrEmail { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]

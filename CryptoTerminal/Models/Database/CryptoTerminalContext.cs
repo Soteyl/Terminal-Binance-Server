@@ -29,6 +29,11 @@ namespace CryptoTerminal.Models.Database
             return Roles.FirstOrDefault(role => EF.Functions.Like(role.Name, $"%{name}%"));
         }
 
+        public UserRole? GetUserRole(int id)
+        {
+            return Roles.FirstOrDefault(role => role.Id == id);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionStr = ConfigureMySqlConnectionString(_server, _user, _password, _database);
@@ -40,7 +45,7 @@ namespace CryptoTerminal.Models.Database
             var adminRole = new UserRole { Name = "Admin", Id = 1 };
             var userRole = new UserRole { Name = "User", Id = 2 };
 
-            var admin = new User() { Id = 1, UserName = "admin", RoleId = adminRole.Id, Password = "qwerty" };
+            var admin = new User { Id = 1, UserName = "admin", RoleId = adminRole.Id, Password = "qwerty" };
 
             modelBuilder.Entity<UserRole>().HasData(new[] { adminRole, userRole });
             modelBuilder.Entity<User>().HasData(new[] { admin });
