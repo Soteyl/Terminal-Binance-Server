@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoTerminal.Models.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +24,7 @@ namespace CryptoTerminal
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CryptoTerminalContext>();
             services.AddControllers();
         }
 

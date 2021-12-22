@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Binance.Net" Version="7.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
