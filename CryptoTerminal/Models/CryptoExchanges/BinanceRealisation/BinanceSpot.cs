@@ -1,12 +1,18 @@
 ﻿using Binance.Net;
 using Binance.Net.Interfaces.SubClients;
 using Binance.Net.Interfaces.SubClients.Spot;
+using Binance.Net.Objects.Spot.MarketData;
 using Binance.Net.Objects.Spot.SpotData;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
+    /// <summary>
+    /// Implementation of Binance Spot instrument. <para/>
+    /// 
+    /// Inherited from <see cref="CryptoSpot"/>
+    /// </summary>
     public class BinanceSpot : CryptoSpot
     {
         private IBinanceClientSpot _spot;
@@ -36,54 +42,54 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             return balances.Select(balance => new CoinBalance(balance.Asset, balance.Free, balance.Locked));
         }
 
-        public override IEnumerable<BookPrice> GetCoinPairs()
+        public override async Task<IEnumerable<BookPrice>> GetCoinPairs()
         {
-            var result = _spot.Market.GetAllBookPricesAsync();
-            result.Wait();
+            WebCallResult<IEnumerable<BinanceBookPrice>> resultBookPrices = await _spot.Market.GetAllBookPricesAsync();
             
-            return result.Result.Data.Select(a => a.ToIxcentBookPrice());
+            return resultBookPrices.Data.Select(a => a.ToIxcentBookPrice());
         }
 
         public override async Task<OrderBook> GetDepthOfMarket(string symbol)
         {
-            WebCallResult<ICommonOrderBook> res = await _exchangeClient.GetOrderBookAsync(symbol);
-            var preparedResult = new OrderBook(res.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
-                                                res.Data.CommonAsks.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)));
+            WebCallResult<ICommonOrderBook> resultOrderBook = await _exchangeClient.GetOrderBookAsync(symbol);
+            // Convert ISymbolOrderBookEntry to OrderBookEntry
+            var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)), 
+                                                resultOrderBook.Data.CommonAsks.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)));
             return preparedResult;
         }
 
         public override async Task<IEnumerable<SpotOrder>> GetOpenOrders()
         {
-            WebCallResult<IEnumerable<BinanceOrder>> res = await _spot.Order.GetOpenOrdersAsync();
+            WebCallResult<IEnumerable<BinanceOrder>> resultBinanceOrders = await _spot.Order.GetOpenOrdersAsync();
 
-            return res.Data.Select(a => new SpotOrder(a.Symbol, a.Quantity, (OrderSide)(int)a.Side, (OrderType)(int)a.Type, price: a.Price));
+            return resultBinanceOrders.Data.Select(a => new SpotOrder(a.Symbol, a.Quantity, (OrderSide)(int)a.Side, (OrderType)(int)a.Type, price: a.Price));
         }
 
         public override async Task<IEnumerable<ICommonOrder>> GetOrderHistory()
         {
-            var result = new List<ICommonOrder>();
+            var orderHistory = new List<ICommonOrder>();
             IEnumerable<ICommonSymbol> symbols = (await _exchangeClient.GetSymbolsAsync()).Data;
-            foreach (var symbol in symbols)
+            foreach (ICommonSymbol symbol in symbols)
             {
-                result.AddRange((await _exchangeClient.GetClosedOrdersAsync(symbol.CommonName)).Data);
+                orderHistory.AddRange((await _exchangeClient.GetClosedOrdersAsync(symbol.CommonName)).Data);
             }
-            return result;
+            return orderHistory;
         }
 
         public override async Task<IEnumerable<ICommonTrade>> GetTransactionsHistory()
         {
-            var result = new List<ICommonTrade>();
+            var transactionHistory = new List<ICommonTrade>();
             IEnumerable<ICommonOrder> orders = await GetOrderHistory();
-            foreach (var order in orders)
+            foreach (ICommonOrder order in orders)
             {
-                result.AddRange((await _exchangeClient.GetTradesAsync(order.CommonId, order.CommonSymbol)).Data);
+                transactionHistory.AddRange((await _exchangeClient.GetTradesAsync(order.CommonId, order.CommonSymbol)).Data);
             }
-            return result;
+            return transactionHistory;
         }
 
         public override async Task<MakeOrderResult> MakeOrder(SpotOrder order)
         {
-            WebCallResult<BinancePlacedOrder> callResult = 
+            WebCallResult<BinancePlacedOrder> resultPlaceOrder = 
               await _spot.Order.PlaceOrderAsync(order.Pair,
                                                 order.OrderSide.ConvertToBinanceOrderSide(),
                                                 order.OrderType.ConvertToBinanceOrderType(),
@@ -92,7 +98,7 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
                                                 timeInForce: order.TimeInForce?.ToBinanceTIF());
 
 
-            return new MakeOrderResult(callResult.Success, callResult.Error?.Message);
+            return new MakeOrderResult(resultPlaceOrder.Success, resultPlaceOrder.Error?.Message);
         }
     }
 }

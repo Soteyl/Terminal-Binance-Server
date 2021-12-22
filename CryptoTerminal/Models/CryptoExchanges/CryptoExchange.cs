@@ -2,10 +2,10 @@
 
 namespace CryptoTerminal.Models.CryptoExchanges
 {
-    public abstract class CryptoExchange
+    public interface ICryptoExchange
     {
-        public abstract List<CryptoFutures> GetFutures();
+        List<CryptoFutures> GetFutures();
 
-        public abstract CryptoSpot GetCryptoSpot();
+        CryptoSpot GetCryptoSpot();
     }
 }

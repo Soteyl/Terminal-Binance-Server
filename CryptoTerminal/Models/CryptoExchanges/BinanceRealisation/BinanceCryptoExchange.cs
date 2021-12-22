@@ -5,7 +5,7 @@ using CryptoExchange.Net.Authentication;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
-    public class BinanceCryptoExchange : CryptoExchange
+    public class BinanceCryptoExchange : ICryptoExchange
     {
         private BinanceClient _client;
 
@@ -34,12 +34,12 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             _spot = new BinanceSpot(_client.Spot, _client.General, _client);
         }
 
-        public override CryptoSpot GetCryptoSpot()
+        public CryptoSpot GetCryptoSpot()
         {
             return _spot;
         }
 
-        public override List<CryptoFutures> GetFutures()
+        public List<CryptoFutures> GetFutures()
         {
             throw new NotImplementedException();
         }
