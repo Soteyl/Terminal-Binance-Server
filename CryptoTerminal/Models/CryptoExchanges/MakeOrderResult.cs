@@ -2,14 +2,11 @@
 {
     public class MakeOrderResult
     {
-        public MakeOrderResult(int orderId, bool success, string? message = null)
+        public MakeOrderResult(bool success, string? message = null)
         {
-            OrderId = orderId;
             Success = success;
             Message = message;
         }
-
-        public int OrderId { get; set; }
 
         public bool Success { get; set; }
 

@@ -4,20 +4,22 @@
     {
         private string _shortName;
 
-        private string _longName;
+        private decimal _free;
 
-        private decimal _amount;
+        private decimal _locked;
 
-        public CoinBalance(string shortName, string longName, decimal amount)
+        public CoinBalance(string shortName, decimal free, decimal locked)
         {
             ShortName = shortName;
-            LongName = longName;
-            Amount = amount;
+            _free = free;
+            _locked = locked;
         }
 
-        public decimal Amount { get => _amount; set => _amount = value; }
+        public decimal Free { get => _free; set => _free = value; }
 
-        public string LongName { get => _longName; set => _longName = value; }
+        public decimal Locked { get => _locked; set => _locked = value;}
+
+        public decimal Total => Free + Locked;
 
         public string ShortName { get => _shortName; set => _shortName = value; }
     }
