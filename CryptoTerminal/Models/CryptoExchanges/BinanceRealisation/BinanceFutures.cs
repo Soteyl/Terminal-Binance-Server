@@ -1,10 +1,11 @@
 ﻿using Binance.Net.Interfaces;
 using Binance.Net.Interfaces.SubClients.Futures;
+using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
@@ -33,9 +34,23 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override Task<FuturesOrder> GetOpenOrders()
+        public override async Task<IEnumerable<FuturesOrder>> GetOpenOrders()
         {
-            throw new NotImplementedException();
+            WebCallResult<IEnumerable<BinanceFuturesOrder>> ordersList = await _client.Order.GetOpenOrdersAsync();
+
+            var selectedOrdersList = ordersList.Data.ToList().Select(
+                order => new FuturesOrder(
+                        order.Symbol,
+                        order.Quantity,
+                        (OrderSide)(int) order.Side,
+                        (OrderType)(int) order.Type,
+                        order.CreatedTime,
+                        order.Price,
+                        (TimeInForce)(int) order.TimeInForce,
+                        order.ReduceOnly
+                    ));
+
+            return selectedOrdersList;
         }
 
         public override Task<FuturesOrder> GetOrdersHistory()
