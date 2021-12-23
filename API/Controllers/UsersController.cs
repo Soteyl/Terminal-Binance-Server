@@ -18,13 +18,6 @@ namespace Ixcent.CryptoTerminal.API.Controllers
     [AllowAnonymous]
     public class UsersController : BaseController
     {
-        CryptoTerminalContext _dataBase;
-
-        public UsersController(CryptoTerminalContext context)
-        {
-            _dataBase = context;
-        }
-
         /// <summary>
         /// Register user. <para/>
         /// Url: <c>api/users/register</c>

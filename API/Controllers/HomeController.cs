@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ixcent.CryptoTerminal.API.Controllers
 {
+    /// <summary>
+    /// Main controller.
+    /// </summary>
     [AllowAnonymous]
     public class HomeController : Controller
     {
@@ -13,6 +16,9 @@ namespace Ixcent.CryptoTerminal.API.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Main webpage
+        /// </summary>
         public string Index()
         {
             return "hello";

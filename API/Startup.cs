@@ -29,6 +29,7 @@ namespace Ixcent.CryptoTerminal.API
             RegisterDatabase(services);
             RegisterUserIdentity(services);
 
+            // Make "Application" assembly - main handler of all queries.
             services.AddMediatR(typeof(LoginHandler).Assembly);
 
             AddJwtAuthentication(services);

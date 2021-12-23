@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ixcent.CryptoTerminal.API.Controllers
 {
+    /// <summary>
+    /// Base controller with <see cref="IMediator"/> field to implement DI.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class BaseController : ControllerBase
