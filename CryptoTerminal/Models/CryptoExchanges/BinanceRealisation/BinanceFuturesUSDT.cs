@@ -1,5 +1,6 @@
 ﻿using Binance.Net.Interfaces;
 using Binance.Net.Interfaces.SubClients.Futures;
+using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
@@ -45,11 +46,9 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 
         public override async Task<CoinBalance> GetUSDTBalance()
         {
-            var task = await _client.Account.GetBalanceAsync();
+            WebCallResult<IEnumerable<BinanceFuturesAccountBalance>> balanceResult = await _client.Account.GetBalanceAsync();
 
-            bool isSuccess = task.GetResultOrError(out var balanceResult, out Error? error);
-
-            var coinBalanceUSDT = balanceResult?.ToList().Find(balance => balance.Asset == MainCoin);
+            var coinBalanceUSDT = balanceResult.Data.ToList().Find(balance => balance.Asset == MainCoin);
 
             return new CoinBalance(MainCoin, coinBalanceUSDT?.AvailableBalance ?? 0, (coinBalanceUSDT?.WalletBalance - coinBalanceUSDT?.AvailableBalance) ?? 0);
         }
