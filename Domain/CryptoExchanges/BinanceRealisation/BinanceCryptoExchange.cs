@@ -11,6 +11,8 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         private BinanceSpot _spot;
 
+        private List<CryptoFutures> _futures;
+
         private string? _token;
 
         private string? _secret;
@@ -24,8 +26,10 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
                 {
                     ApiCredentials = new ApiCredentials(apiToken, apiSecret)
                 });
-
             _spot = new BinanceSpot(_client.Spot, _client.General, _client);
+            
+            _futures = new List<CryptoFutures>();
+            _futures.Add(new BinanceFutures(_client, "USDT"));
         }
 
         public BinanceCryptoExchange()
@@ -41,7 +45,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public List<CryptoFutures> GetFutures()
         {
-            throw new NotImplementedException();
+            return _futures;
         }
     }
 }
