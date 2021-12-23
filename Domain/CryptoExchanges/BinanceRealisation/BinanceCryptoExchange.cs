@@ -3,7 +3,7 @@ using Binance.Net;
 using Binance.Net.Objects;
 using CryptoExchange.Net.Authentication;
 
-namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
+namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
     public class BinanceCryptoExchange : ICryptoExchange
     {
@@ -29,7 +29,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             _spot = new BinanceSpot(_client.Spot, _client.General, _client);
             
             _futures = new List<CryptoFutures>();
-            _futures.Add(new BinanceFutures(_client, _client, "USDT"));
+            _futures.Add(new BinanceFuturesUSDT(_client, "USDT"));
         }
 
         public BinanceCryptoExchange()
