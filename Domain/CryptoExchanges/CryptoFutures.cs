@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace CryptoTerminal.Models.CryptoExchanges
 {
@@ -13,7 +14,7 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public string MainCoin => _mainCoin;
 
-        public abstract Task<FuturesOrder> GetOrdersHistory();
+        public abstract Task<IEnumerable<ICommonOrder>> GetOrdersHistory();
 
         public abstract Task<FuturesOrder> GetOpenOrders();
 
