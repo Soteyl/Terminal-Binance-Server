@@ -43,23 +43,6 @@ namespace CryptoTerminal
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            Models.CryptoExchanges.BinanceRealisation.BinanceFutures fut 
-                = new Models.CryptoExchanges.BinanceRealisation.BinanceFutures(new BinanceClient(
-                        new Binance.Net.Objects.BinanceClientOptions()
-                        { 
-                            ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials(
-                             "ZOcjoqRfQ86zSYz4vUyzQ4Hk63TilQGzMGskHp7d2Goc3TvCeoyHocuUo4EdAsp0",
-                             "iou3etuXmQYi7XWa666K7idpfNuvU3ucidwCvpWQ9v3FZURosrh62LFoRhJXVepk"
-                            )
-                        }
-                    ), "USDT");;
-
-            var task = fut.GetUSDTBalance();
-
-            var res = task.Result;
-
-            Console.WriteLine(res.Total);
-
             app.UseRouting();
 
             app.UseAuthorization();

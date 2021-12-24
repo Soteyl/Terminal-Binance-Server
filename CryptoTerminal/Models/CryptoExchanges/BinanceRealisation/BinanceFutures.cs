@@ -1,22 +1,25 @@
 ﻿using Binance.Net.Interfaces;
 using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
+using Binance.Net.Objects.Shared;
 using Binance.Net.Objects;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
     public class BinanceFutures : CryptoFutures
     {
         private IBinanceClientFuturesUsdt _client;
+        private IExchangeClient _exClient;
         
-        public BinanceFutures(IBinanceClient binanceClient, string mainCoin) 
+        public BinanceFutures(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, string mainCoin) 
             : base(mainCoin)
         {
-            _client = binanceClient.FuturesUsdt;
+            _exClient = exClient;
+            _client = binanceFuturesClient;
         }
 
         public override void AdjustLeverage(int value)
