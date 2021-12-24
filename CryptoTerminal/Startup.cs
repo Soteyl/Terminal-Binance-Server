@@ -43,8 +43,8 @@ namespace CryptoTerminal
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            Models.CryptoExchanges.BinanceRealisation.BinanceFuturesUSDT fut 
-                = new Models.CryptoExchanges.BinanceRealisation.BinanceFuturesUSDT(new BinanceClient(
+            Models.CryptoExchanges.BinanceRealisation.BinanceFutures fut 
+                = new Models.CryptoExchanges.BinanceRealisation.BinanceFutures(new BinanceClient(
                         new Binance.Net.Objects.BinanceClientOptions()
                         { 
                             ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials(

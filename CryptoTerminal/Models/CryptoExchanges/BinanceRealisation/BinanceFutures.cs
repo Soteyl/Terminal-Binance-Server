@@ -9,11 +9,11 @@ using CryptoExchange.Net.Objects;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
-    public class BinanceFuturesUSDT : CryptoFutures
+    public class BinanceFutures : CryptoFutures
     {
         private IBinanceClientFuturesUsdt _client;
         
-        public BinanceFuturesUSDT(IBinanceClient binanceClient, string mainCoin) 
+        public BinanceFutures(IBinanceClient binanceClient, string mainCoin) 
             : base(mainCoin)
         {
             _client = binanceClient.FuturesUsdt;
@@ -34,12 +34,26 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override Task<FuturesOrder> GetOpenOrders()
+        public override async Task<IEnumerable<FuturesOrder>> GetOpenOrders()
         {
-            throw new NotImplementedException();
+            WebCallResult<IEnumerable<BinanceFuturesOrder>> ordersList = await _client.Order.GetOpenOrdersAsync();
+
+            var selectedOrdersList = ordersList.Data.ToList().Select(
+                order => new FuturesOrder(
+                        order.Symbol,
+                        order.Quantity,
+                        (OrderSide)(int) order.Side,
+                        (OrderType)(int) order.Type,
+                        order.CreatedTime,
+                        order.Price,
+                        (TimeInForce)(int) order.TimeInForce,
+                        order.ReduceOnly
+                    ));
+
+            return selectedOrdersList;
         }
 
-        public override Task<FuturesOrder> GetOrdersHistory()
+        public override Task<IEnumerable<FuturesOrder>> GetOrdersHistory()
         {
             throw new NotImplementedException();
         }
