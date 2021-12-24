@@ -20,6 +20,7 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
         {
             _exClient = exClient;
             _client = binanceFuturesClient;
+
         }
 
         public override void AdjustLeverage(int value)
@@ -32,9 +33,14 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override Task<OrderBook> GetDepthOfMarket()
+        public override async Task<OrderBook> GetDepthOfMarket(string firstQuote)
         {
-            throw new NotImplementedException();
+            WebCallResult<ICommonOrderBook> resultOrderBook = await _exClient.GetOrderBookAsync(firstQuote + MainCoin);
+            
+            var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
+                                                resultOrderBook.Data.CommonAsks.Select(ask => new OrderBookEntry(ask.Quantity, ask.Price)));
+
+            return preparedResult;
         }
 
         public override async Task<IEnumerable<FuturesOrder>> GetOpenOrders()
