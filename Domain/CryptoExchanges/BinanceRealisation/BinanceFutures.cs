@@ -1,36 +1,25 @@
 ﻿using Binance.Net.Interfaces;
 using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
+using Binance.Net.Objects.Shared;
 using Binance.Net.Objects;
-using Binance.Net.Objects.Futures.FuturesData;
-using Binance.Net.Objects.Futures;
-using Binance.Net.Objects.Spot.MarketData;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
     public class BinanceFutures : CryptoFutures
     {
-<<<<<<< HEAD:Domain/CryptoExchanges/BinanceRealisation/BinanceFutures.cs
-        private IBinanceClient _client;
-        private IExchangeClient _exClient;
-        public BinanceFutures(IBinanceClient binanceClient, IExchangeClient exClient, string mainCoin) 
-=======
         private IBinanceClientFuturesUsdt _client;
+        private IExchangeClient _exClient;
         
-<<<<<<< HEAD:Domain/CryptoExchanges/BinanceRealisation/BinanceFuturesUSDT.cs
-        public BinanceFuturesUSDT(IBinanceClient binanceClient, string mainCoin) 
->>>>>>> 25e1686 (#210: Implemented GetUSDTBalance):Domain/CryptoExchanges/BinanceRealisation/BinanceFuturesUSDT.cs
-=======
-        public BinanceFutures(IBinanceClient binanceClient, string mainCoin) 
->>>>>>> 4408cb0 (#218  : Fixed naming):Domain/CryptoExchanges/BinanceRealisation/BinanceFutures.cs
+        public BinanceFutures(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, string mainCoin) 
             : base(mainCoin)
         {
             _exClient = exClient;
-            _client = binanceClient;
+            _client = binanceFuturesClient;
         }
 
         public override void AdjustLeverage(int value)
@@ -69,30 +58,9 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             return selectedOrdersList;
         }
 
-<<<<<<< HEAD:Domain/CryptoExchanges/BinanceRealisation/BinanceFuturesUSDT.cs
-        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
-=======
         public override Task<IEnumerable<FuturesOrder>> GetOrdersHistory()
->>>>>>> 4408cb0 (#218  : Fixed naming):Domain/CryptoExchanges/BinanceRealisation/BinanceFutures.cs
         {
-
-            WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.FuturesUsdt.Market.GetPricesAsync();
-
-            IEnumerable<BinancePrice> pricesList = callPricesResult.Data;
-
-            List<BinanceFuturesUsdtTrade> tradesList = new List<BinanceFuturesUsdtTrade>();
-
-            foreach (var price in pricesList)
-            {
-                var closedOrdersResult = (await _client.FuturesUsdt.Order.GetUserTradesAsync(price.Symbol)).Data;
-
-                if (closedOrdersResult != null)
-                    tradesList.AddRange(closedOrdersResult);
-
-            }
-
-
-            return tradesList;
+            throw new NotImplementedException();
         }
 
         public override async Task<CoinBalance> GetUSDTBalance()
