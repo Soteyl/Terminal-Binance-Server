@@ -1,11 +1,12 @@
 ﻿using Binance.Net.Interfaces;
 using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
+using Binance.Net.Objects.Shared;
 using Binance.Net.Objects;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
@@ -14,11 +15,12 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
         private IBinanceClientFuturesUsdt _client;
         private IExchangeClient _exClient;
         
-        public BinanceFutures(IBinanceClient binanceClient, IExchangeClient exClient, string mainCoin) 
+        public BinanceFutures(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, string mainCoin) 
             : base(mainCoin)
         {
             _exClient = exClient;
-            _client = binanceClient.FuturesUsdt;
+            _client = binanceFuturesClient;
+
         }
 
         public override void AdjustLeverage(int value)
@@ -45,12 +47,14 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<IEnumerable<BinanceFuturesOrder>> ordersList = await _client.Order.GetOpenOrdersAsync();
 
+            // TODO implement converters from binance to crypto terminal enums
             var selectedOrdersList = ordersList.Data.ToList().Select(
                 order => new FuturesOrder(
                         order.Symbol,
                         order.Quantity,
                         (OrderSide)(int) order.Side,
                         (OrderType)(int) order.Type,
+                        (PositionSide)(int)order.PositionSide,
                         order.CreatedTime,
                         order.Price,
                         (TimeInForce)(int) order.TimeInForce,
@@ -76,7 +80,17 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)
         {
-            throw new NotImplementedException();
+            // TODO implement position side converter
+            WebCallResult<BinanceFuturesPlacedOrder> placeOrderResult = await _client.Order.PlaceOrderAsync(
+                symbol: order.Symbol,
+                side: order.OrderSide.ConvertToBinanceOrderSide(),
+                type: order.OrderType.ConvertToBinanceOrderType(),
+                quantity: order.Amount,
+                reduceOnly: order.ReduceOnly,
+                positionSide: (Binance.Net.Enums.PositionSide)(int)order.PositionSide
+                );
+
+            return new MakeOrderResult(placeOrderResult.Success, placeOrderResult.Error?.Message);
         }
         
     }
