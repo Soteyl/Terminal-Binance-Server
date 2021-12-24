@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoTerminal.Models.Database;
+using Binance.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,7 +42,23 @@ namespace CryptoTerminal
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+
+            Models.CryptoExchanges.BinanceRealisation.BinanceFuturesUSDT fut 
+                = new Models.CryptoExchanges.BinanceRealisation.BinanceFuturesUSDT(new BinanceClient(
+                        new Binance.Net.Objects.BinanceClientOptions()
+                        { 
+                            ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials(
+                             "ZOcjoqRfQ86zSYz4vUyzQ4Hk63TilQGzMGskHp7d2Goc3TvCeoyHocuUo4EdAsp0",
+                             "iou3etuXmQYi7XWa666K7idpfNuvU3ucidwCvpWQ9v3FZURosrh62LFoRhJXVepk"
+                            )
+                        }
+                    ), "USDT");;
+
+            var task = fut.GetUSDTBalance();
+
+            var res = task.Result;
+
+            Console.WriteLine(res.Total);
 
             app.UseRouting();
 

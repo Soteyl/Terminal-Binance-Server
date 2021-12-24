@@ -1,5 +1,6 @@
 ﻿using Binance.Net.Interfaces;
 using Binance.Net.Interfaces.SubClients.Futures;
+using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
@@ -8,11 +9,11 @@ using CryptoExchange.Net.Objects;
 
 namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 {
-    public class BinanceFutures : CryptoFutures
+    public class BinanceFuturesUSDT : CryptoFutures
     {
         private IBinanceClientFuturesUsdt _client;
         
-        public BinanceFutures(IBinanceClient binanceClient, string mainCoin) 
+        public BinanceFuturesUSDT(IBinanceClient binanceClient, string mainCoin) 
             : base(mainCoin)
         {
             _client = binanceClient.FuturesUsdt;
@@ -43,9 +44,13 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override Task<CoinBalance> GetUSDTBalance()
+        public override async Task<CoinBalance> GetUSDTBalance()
         {
-            throw new NotImplementedException();
+            WebCallResult<IEnumerable<BinanceFuturesAccountBalance>> balanceResult = await _client.Account.GetBalanceAsync();
+
+            var coinBalanceUSDT = balanceResult.Data.ToList().Find(balance => balance.Asset == MainCoin);
+
+            return new CoinBalance(MainCoin, coinBalanceUSDT?.AvailableBalance ?? 0, (coinBalanceUSDT?.WalletBalance - coinBalanceUSDT?.AvailableBalance) ?? 0);
         }
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)
