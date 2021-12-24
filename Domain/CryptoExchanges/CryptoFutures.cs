@@ -25,11 +25,6 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract void ChangeMarginType();
 
-        public Task<CoinBalance> GetUSDTFreeBalance()
-        {
-            throw new NotImplementedException();
-        }
-
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
     }
