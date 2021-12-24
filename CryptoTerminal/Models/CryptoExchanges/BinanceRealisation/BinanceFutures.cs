@@ -53,14 +53,18 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             return selectedOrdersList;
         }
 
-        public override Task<FuturesOrder> GetOrdersHistory()
+        public override Task<IEnumerable<FuturesOrder>> GetOrdersHistory()
         {
             throw new NotImplementedException();
         }
 
-        public override Task<CoinBalance> GetUSDTBalance()
+        public override async Task<CoinBalance> GetUSDTBalance()
         {
-            throw new NotImplementedException();
+            WebCallResult<IEnumerable<BinanceFuturesAccountBalance>> balanceResult = await _client.Account.GetBalanceAsync();
+
+            var coinBalanceUSDT = balanceResult.Data.ToList().Find(balance => balance.Asset == MainCoin);
+
+            return new CoinBalance(MainCoin, coinBalanceUSDT?.AvailableBalance ?? 0, (coinBalanceUSDT?.WalletBalance - coinBalanceUSDT?.AvailableBalance) ?? 0);
         }
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)

@@ -13,7 +13,7 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public string MainCoin => _mainCoin;
 
-        public abstract Task<FuturesOrder> GetOrdersHistory();
+        public abstract Task<IEnumerable<FuturesOrder>> GetOrdersHistory();
 
         public abstract Task<IEnumerable<FuturesOrder>> GetOpenOrders();
 
