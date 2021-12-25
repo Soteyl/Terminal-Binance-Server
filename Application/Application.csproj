@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Ixcent.CryptoTerminal.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +12,7 @@
     <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
   </ItemGroup>

@@ -14,6 +14,7 @@ namespace Ixcent.CryptoTerminal.API
     using Domain.Database;
     using Infrastructure;
     using EFData;
+    using Application.Users.IP;
 
     public class Startup
     {
@@ -34,6 +35,8 @@ namespace Ixcent.CryptoTerminal.API
 
             AddJwtAuthentication(services);
 
+            ConfigureIpCheck(services);
+
             services.AddScoped<IJwtGenerator, JwtGenerator>();
 
             services.AddControllers(opt =>
@@ -43,6 +46,8 @@ namespace Ixcent.CryptoTerminal.API
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
+
+                opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
             });
         }
 
@@ -59,7 +64,7 @@ namespace Ixcent.CryptoTerminal.API
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+
 
             app.UseRouting();
 
@@ -107,6 +112,16 @@ namespace Ixcent.CryptoTerminal.API
                         ValidateIssuerSigningKey = true
                     };
                 });
+        }
+
+        private void ConfigureIpCheck(IServiceCollection services)
+        {
+            services.AddSingleton<IAuthorizationHandler, IpCheckHandler>();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("SameIpPolicy",
+                    policy => policy.Requirements.Add(new IpCheckRequirement { IpClaimRequired = true }));
+            });
         }
     }
 }
