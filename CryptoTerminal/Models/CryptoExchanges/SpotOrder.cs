@@ -2,37 +2,29 @@
 {
     public class SpotOrder : ICloneable
     {
-        private const string _pairDelimiter = "/";
-
-        private string _firstCoin;
-
-        private string _secondCoin;
+        private string _pair;
 
         private decimal _amountFirst;
 
-        private decimal _price;
+        private decimal? _price;
 
         private OrderSide _orderSide;
 
         private OrderType _orderType;
 
-        private DateTime _dateTime;
+        private DateTime? _dateTime;
 
-        public SpotOrder(string pair, decimal amountFirst, decimal price, OrderSide orderSide, OrderType orderType)
+        private TimeInForce? _timeInForce;
+
+        public SpotOrder(string pair, decimal amountFirst, OrderSide orderSide, OrderType orderType, decimal? price = null, DateTime? dateTime = null, TimeInForce? timeInForce = null)
         {
-            string[] coins = pair.Split(_pairDelimiter);
-            _firstCoin = coins[0];
-            _secondCoin = coins[1];
+            _pair = pair;
             _amountFirst = amountFirst;
             _price = price;
             _orderSide = orderSide;
             _orderType = orderType;
-        }
-
-        public SpotOrder(string pair, decimal amount, decimal price, OrderSide orderSide, OrderType orderType, DateTime dateTime) 
-            : this(pair, amount, price, orderSide, orderType)
-        {
             _dateTime = dateTime;
+            _timeInForce = timeInForce;
         }
 
         public string Pair => _firstCoin + _pairDelimiter + _secondCoin;

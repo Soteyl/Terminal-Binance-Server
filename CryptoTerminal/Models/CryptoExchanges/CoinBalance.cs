@@ -4,9 +4,9 @@
     {
         private string _shortName;
 
-        private string _longName;
+        private decimal _free;
 
-        private decimal _amount;
+        private decimal _locked;
 
         /// <summary>
         /// Specifies a balance in a specific crypto currency.
@@ -17,8 +17,8 @@
         public CoinBalance(string shortName, string longName, decimal amount)
         {
             ShortName = shortName;
-            LongName = longName;
-            Amount = amount;
+            _free = free;
+            _locked = locked;
         }
         /// <summary>
         /// Symbol of a cryptocurrency.

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoTerminal.Models.Database;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +44,7 @@ namespace CryptoTerminal
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            
 
             var dateTime = DateTime.Now;
 
