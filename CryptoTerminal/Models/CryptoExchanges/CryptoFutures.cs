@@ -17,20 +17,15 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory();
 
-        public abstract Task<FuturesOrder> GetOpenOrders();
+        public abstract Task<IEnumerable<FuturesOrder>> GetOpenOrders();
 
-        public abstract Task<OrderBook> GetDepthOfMarket();
+        public abstract Task<OrderBook> GetDepthOfMarket(string firstQuote);
 
         public abstract Task<CoinBalance> GetUSDTBalance();
 
         public abstract void AdjustLeverage(int value);
 
         public abstract void ChangeMarginType();
-
-        public Task<CoinBalance> GetUSDTFreeBalance()
-        {
-            throw new NotImplementedException();
-        }
 
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
