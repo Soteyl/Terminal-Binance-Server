@@ -2,7 +2,8 @@
 using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects;
 using Binance.Net.Objects.Futures.FuturesData;
-using Binance.Net.Objects.Futures;  
+using Binance.Net.Objects.Futures;
+using Binance.Net.Objects.Spot.MarketData;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net;
@@ -41,19 +42,26 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override async Task<IEnumerable<ICommonOrder>> GetOrdersHistory()
+        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
         {
-            IEnumerable<ICommonSymbol> symbols = (await _exClient.GetSymbolsAsync()).Data;
 
-            List<ICommonOrder> ordersHistory = new List<ICommonOrder>();
+            WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.FuturesUsdt.Market.GetPricesAsync();
 
-            foreach (var symbol in symbols.Where(s => s.CommonName.Contains(MainCoin)))
+            IEnumerable<BinancePrice> pricesList = callPricesResult.Data;
+
+            List<BinanceFuturesUsdtTrade> tradesList = new List<BinanceFuturesUsdtTrade>();
+
+            foreach (var price in pricesList)
             {
-                IEnumerable<ICommonOrder> closedOrdersResult = (await _exClient.GetClosedOrdersAsync(symbol.CommonName)).Data;
-                ordersHistory.AddRange(closedOrdersResult);
+                var closedOrdersResult = (await _client.FuturesUsdt.Order.GetUserTradesAsync(price.Symbol)).Data;
+
+                if (closedOrdersResult != null)
+                    tradesList.AddRange(closedOrdersResult);
+
             }
 
-            return ordersHistory;
+
+            return tradesList;
         }
 
         public override Task<CoinBalance> GetUSDTBalance()

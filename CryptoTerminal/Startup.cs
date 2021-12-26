@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CryptoTerminal.Models.CryptoExchanges.BinanceRealisation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,17 @@ namespace CryptoTerminal
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+
+            BinanceCryptoExchange exch = new BinanceCryptoExchange(
+                "ZOcjoqRfQ86zSYz4vUyzQ4Hk63TilQGzMGskHp7d2Goc3TvCeoyHocuUo4EdAsp0",
+                "iou3etuXmQYi7XWa666K7idpfNuvU3ucidwCvpWQ9v3FZURosrh62LFoRhJXVepk");
+
+            var callOrdersHistory = exch.GetFutures().First().GetOrdersHistory().Result;
+
+            foreach (var order in callOrdersHistory.OrderBy(ord => ord.TradeTime))
+            {
+                Console.WriteLine($"{order.Symbol} - {order.Price} - {order.TradeTime}");
+            }
 
             app.UseRouting();
 
