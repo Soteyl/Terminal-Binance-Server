@@ -3,6 +3,9 @@ using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects.Shared;
 using Binance.Net.Objects;
+using Binance.Net.Objects.Futures.FuturesData;
+using Binance.Net.Objects.Futures;
+using Binance.Net.Objects.Spot.MarketData;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
@@ -64,9 +67,27 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             return selectedOrdersList;
         }
 
-        public override Task<IEnumerable<FuturesOrder>> GetOrdersHistory()
+        
+        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
         {
-            throw new NotImplementedException();
+
+            WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.FuturesUsdt.Market.GetPricesAsync();
+
+            IEnumerable<BinancePrice> pricesList = callPricesResult.Data;
+
+            List<BinanceFuturesUsdtTrade> tradesList = new List<BinanceFuturesUsdtTrade>();
+
+            foreach (var price in pricesList)
+            {
+                var closedOrdersResult = (await _client.FuturesUsdt.Order.GetUserTradesAsync(price.Symbol)).Data;
+
+                if (closedOrdersResult != null)
+                    tradesList.AddRange(closedOrdersResult);
+
+            }
+
+
+            return tradesList;
         }
 
         public override async Task<CoinBalance> GetUSDTBalance()
