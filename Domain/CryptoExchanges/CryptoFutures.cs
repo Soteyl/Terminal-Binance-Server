@@ -21,6 +21,8 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract Task<CoinBalance> GetUSDTBalance();
 
+        public abstract void CancelOrder(FuturesOrder order);
+
         public abstract void AdjustLeverage(int value);
 
         public abstract void ChangeMarginType();
