@@ -53,25 +53,30 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             // TODO implement converters from binance to crypto terminal enums
             var selectedOrdersList = ordersList.Data.ToList().Select(
                 order => new FuturesOrder(
-                        order.Symbol,
-                        order.Quantity,
-                        (OrderSide)(int) order.Side,
-                        (OrderType)(int) order.Type,
-                        (PositionSide)(int)order.PositionSide,
-                        order.CreatedTime,
-                        order.Price,
-                        (TimeInForce)(int) order.TimeInForce,
-                        order.ReduceOnly
+                        symbol: order.Symbol,
+                        amount: order.Quantity,
+                        orderSide: (OrderSide)(int) order.Side,
+                        orderType: (OrderType)(int) order.Type,
+                        positionSide: (PositionSide)(int)order.PositionSide,
+                        date: order.CreatedTime,
+                        id: order.OrderId,
+                        price: order.Price,
+                        tif: (TimeInForce)(int) order.TimeInForce,
+                        reduceOnly: order.ReduceOnly
                     ));
 
             return selectedOrdersList;
         }
 
-        
+        public override void CancelOrder(FuturesOrder order)
+        {
+            _client.Order.CancelOrderAsync(order.Symbol, order.Id);
+        }
+
         public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
         {
 
-            WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.FuturesUsdt.Market.GetPricesAsync();
+            WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.Market.GetPricesAsync();
 
             IEnumerable<BinancePrice> pricesList = callPricesResult.Data;
 
@@ -79,13 +84,12 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 
             foreach (var price in pricesList)
             {
-                var closedOrdersResult = (await _client.FuturesUsdt.Order.GetUserTradesAsync(price.Symbol)).Data;
+                var closedOrdersResult = (await _client.Order.GetUserTradesAsync(price.Symbol)).Data;
 
                 if (closedOrdersResult != null)
                     tradesList.AddRange(closedOrdersResult);
 
             }
-
 
             return tradesList;
         }

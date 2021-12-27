@@ -5,6 +5,7 @@
         private string _symbol;
         private decimal _amount;
         private decimal? _price;
+        private long? _id;
         private OrderType _type;
         private OrderSide _side;
         private PositionSide _positionSide;
@@ -12,7 +13,7 @@
         private TimeInForce? _tif;
         private bool _reduceOnly;
         
-        public FuturesOrder(string symbol, decimal amount, OrderSide orderSide, OrderType orderType, PositionSide positionSide, DateTime? date, decimal? price, TimeInForce? tif, bool? reduceOnly)
+        public FuturesOrder(string symbol, decimal amount, OrderSide orderSide, OrderType orderType, PositionSide positionSide, DateTime? date, long? id, decimal? price, TimeInForce? tif, bool? reduceOnly)
         {
             _tif = tif;
             _price = price;
@@ -34,6 +35,8 @@
         public OrderSide OrderSide { get => _side; }
 
         public DateTime CreatedDate { get => _createdDate; }
+
+        public long? Id { get => _id; } 
 
         public decimal? Price { get => (OrderType == OrderType.Limit) ? _price : null; }
 
