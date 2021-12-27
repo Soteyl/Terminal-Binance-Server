@@ -36,6 +36,9 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
         {
             _client = new BinanceClient();
             _spot = new BinanceSpot(_client.Spot, _client.General, _client);
+
+            _futures = new List<CryptoFutures>();
+            _futures.Add(new BinanceFutures(_client.FuturesUsdt, _client, "USDT"));
         }
 
         public CryptoSpot GetCryptoSpot()

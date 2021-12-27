@@ -3,7 +3,6 @@ using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects.Shared;
 using Binance.Net.Objects;
-using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects.Futures;
 using Binance.Net.Objects.Spot.MarketData;
 using CryptoExchange.Net.ExchangeInterfaces;
