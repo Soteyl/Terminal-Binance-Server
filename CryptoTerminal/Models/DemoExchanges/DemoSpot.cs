@@ -5,6 +5,8 @@ using System.Text.Json;
 using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Interfaces;
 using Binance.Net.Objects;
+using CryptoExchange.Net.Objects;
+using Binance.Net.Objects.Spot.MarketData;
 
 namespace CryptoTerminal.Models.DemoExchanges
 {
@@ -22,6 +24,13 @@ namespace CryptoTerminal.Models.DemoExchanges
             _spot = spot;
             _userKey = key;
             _demoStorage = demoStorage;
+        }
+
+        public override async Task<IEnumerable<BookPrice>> GetCoinPairs()
+        {
+            WebCallResult<IEnumerable<BinanceBookPrice>> resultBookPrices = await _spot.Market.GetAllBookPricesAsync();
+            
+            return resultBookPrices.Data.Select(a => a.ToIxcentBookPrice());
         }
 
         public override void CancelOrder(SpotOrder order)

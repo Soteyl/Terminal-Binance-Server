@@ -7,6 +7,6 @@ namespace CryptoTerminal.Models.DemoExchanges
         List<SpotOrder> GetUserOpenOrders(string key);
         List<SpotOrder> GetUserOrdersHistory(string key);
         List<CoinBalance> GetUserCoinBalances(string key);
-
+        Task<IEnumerable<BookPrice>> GetCoinPairs(string userKey);
     }
 }
