@@ -19,7 +19,7 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract Task<OrderBook> GetDepthOfMarket(string firstQuote);
 
-        public abstract Task<CoinBalance> GetUSDTBalance();
+        public abstract Task<CoinBalance> GetBalance();
 
         public abstract void CancelOrder(FuturesOrder order);
 
