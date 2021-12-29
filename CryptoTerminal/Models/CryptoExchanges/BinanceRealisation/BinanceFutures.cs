@@ -22,7 +22,6 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
         {
             _exClient = exClient;
             _client = binanceFuturesClient;
-
         }
 
         public override void AdjustLeverage(int value)
@@ -93,19 +92,19 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             return tradesList;
         }
 
-        public override async Task<CoinBalance> GetUSDTBalance()
+        public override async Task<CoinBalance> GetBalance()
         {
-            WebCallResult<IEnumerable<BinanceFuturesAccountBalance>> balanceResult = await _client.Account.GetBalanceAsync();
+            WebCallResult<IEnumerable<BinanceFuturesAccountBalance>> balanceCaller = await _client.Account.GetBalanceAsync();
 
-            var coinBalanceUSDT = balanceResult.Data.ToList().Find(balance => balance.Asset == MainCoin);
+            var coinBalance = balanceCaller.Data.ToList().Find(balance => balance.Asset == MainCoin);
 
-            return new CoinBalance(MainCoin, coinBalanceUSDT?.AvailableBalance ?? 0, (coinBalanceUSDT?.WalletBalance - coinBalanceUSDT?.AvailableBalance) ?? 0);
+            return new CoinBalance(MainCoin, coinBalance?.AvailableBalance ?? 0, (coinBalance?.WalletBalance - coinBalance?.AvailableBalance) ?? 0);
         }
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)
         {
             // TODO implement position side converter
-            WebCallResult<BinanceFuturesPlacedOrder> placeOrderResult = await _client.Order.PlaceOrderAsync(
+            WebCallResult<BinanceFuturesPlacedOrder> placeOrderCaller = await _client.Order.PlaceOrderAsync(
                 symbol: order.Symbol,
                 side: order.OrderSide.ConvertToBinanceOrderSide(),
                 type: order.OrderType.ConvertToBinanceOrderType(),
@@ -114,7 +113,7 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
                 positionSide: (Binance.Net.Enums.PositionSide)(int)order.PositionSide
                 );
 
-            return new MakeOrderResult(placeOrderResult.Success, placeOrderResult.Error?.Message);
+            return new MakeOrderResult(placeOrderCaller.Success, placeOrderCaller.Error?.Message);
         }
         
     }
