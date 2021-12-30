@@ -23,7 +23,7 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract void CancelOrder(FuturesOrder order);
 
-        public abstract void AdjustLeverage(int value);
+        public abstract AdjustLeverageResult AdjustLeverage(string symbol, int leverageValue);
 
         public abstract void ChangeMarginType();
 

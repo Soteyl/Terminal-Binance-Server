@@ -24,9 +24,11 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             _client = binanceFuturesClient;
         }
 
-        public override void AdjustLeverage(int value)
+        public override async AdjustLeverageResult AdjustLeverage(string symbol, int leverageValue)
         {
-            throw new NotImplementedException();
+            WebCallResult<BinanceFuturesInitialLeverageChangeResult> adjustLeverageCaller =  await _client.ChangeInitialLeverageAsync(symbol, leverageValue);
+
+            return new AdjustLeverageResult(adjustLeverageCaller.Success, adjustLeverageCaller.Error?.Message);
         }
 
         public override void ChangeMarginType()
