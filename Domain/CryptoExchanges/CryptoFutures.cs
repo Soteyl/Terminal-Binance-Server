@@ -18,6 +18,8 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory();
 
+        public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetTradesHistory();
+
         public abstract Task<IEnumerable<FuturesOrder>> GetOpenOrders();
 
         public abstract Task<OrderBook> GetDepthOfMarket(string firstQuote);
