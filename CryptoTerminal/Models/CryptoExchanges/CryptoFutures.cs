@@ -1,4 +1,5 @@
 ﻿using Binance.Net.Objects.Futures.FuturesData;
+using Binance.Net.Enums;
 using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.ExchangeInterfaces;
 
@@ -25,9 +26,9 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public abstract void CancelOrder(FuturesOrder order);
 
-        public abstract AdjustLeverageResult AdjustLeverage(string symbol, int leverageValue);
+        public abstract Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue);
 
-        public abstract void ChangeMarginType();
+        public abstract Task<BinanceFuturesChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType);
 
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
