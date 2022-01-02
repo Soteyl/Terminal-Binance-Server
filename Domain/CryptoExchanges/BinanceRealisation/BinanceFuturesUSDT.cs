@@ -4,6 +4,7 @@ using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects.Shared;
 using Binance.Net.Objects;
 using Binance.Net.Objects.Futures;
+using Binance.Net.Enums;
 using Binance.Net.Objects.Spot.MarketData;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
@@ -24,16 +25,18 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             _client = binanceFuturesClient;
         }
 
-        public override async AdjustLeverageResult AdjustLeverage(string symbol, int leverageValue)
+        public override async Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue)
         {
             WebCallResult<BinanceFuturesInitialLeverageChangeResult> adjustLeverageCaller =  await _client.ChangeInitialLeverageAsync(symbol, leverageValue);
 
-            return new AdjustLeverageResult(adjustLeverageCaller.Success, adjustLeverageCaller.Error?.Message);
+            return adjustLeverageCaller.Data;
         }
 
-        public override void ChangeMarginType()
+        public override async Task<BinanceFuturesChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType)
         {
-            throw new NotImplementedException();
+            WebCallResult<BinanceFuturesChangeMarginTypeResult> changeMarginCaller = await _client.ChangeMarginTypeAsync(symbol, marginType);
+
+            return changeMarginCaller.Data;
         }
 
         public override async Task<OrderBook> GetDepthOfMarket(string firstQuote)
