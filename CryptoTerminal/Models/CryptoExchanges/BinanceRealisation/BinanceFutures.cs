@@ -76,9 +76,8 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             _client.Order.CancelOrderAsync(order.Symbol, order.Id);
         }
 
-        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
+        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetTradesHistory()
         {
-
             WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.Market.GetPricesAsync();
 
             IEnumerable<BinancePrice> pricesList = callPricesResult.Data;
@@ -95,6 +94,11 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             }
 
             return tradesList;
+        }
+
+        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
+        {
+            throw new NotImplementedException();
         }
 
         public override async Task<CoinBalance> GetBalance()
