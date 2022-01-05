@@ -1,8 +1,8 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
+﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results
 {
-    public class MakeOrderResult
+    public class MakeGridResult
     {
-        public MakeOrderResult(bool success, string? message = null)
+        public MakeGridResult(bool success, string? message = null)
         {
             Success = success;
             Message = message;

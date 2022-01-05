@@ -3,7 +3,7 @@ using Binance.Net;
 using Binance.Net.Objects;
 using CryptoExchange.Net.Authentication;
 
-namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
     public class BinanceCryptoExchange : ICryptoExchange
     {
@@ -17,7 +17,7 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
 
         private string? _secret;
 
-        public BinanceCryptoExchange(string apiToken, string apiSecret)
+        public BinanceCryptoExchange(string apiToken, string apiSecret): this()
         {
             _token = apiToken;
             _secret = apiSecret;
@@ -26,10 +26,6 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
                 {
                     ApiCredentials = new ApiCredentials(apiToken, apiSecret)
                 });
-            _spot = new BinanceSpot(_client.Spot, _client.General, _client);
-            
-            _futures = new List<CryptoFutures>();
-            _futures.Add(new BinanceFutures(_client, _client, "USDT"));
         }
 
         public BinanceCryptoExchange()
@@ -38,7 +34,7 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             _spot = new BinanceSpot(_client.Spot, _client.General, _client);
 
             _futures = new List<CryptoFutures>();
-            _futures.Add(new BinanceFutures(_client.FuturesUsdt, _client, "USDT"));
+            _futures.Add(new BinanceFuturesUSDT(_client.FuturesUsdt, _client));
         }
 
         public CryptoSpot GetCryptoSpot()

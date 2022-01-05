@@ -1,5 +1,7 @@
-﻿namespace CryptoTerminal.Models.CryptoExchanges
+﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
+    using Enums;
+
     public class FuturesOrder
     {
         private string _symbol;

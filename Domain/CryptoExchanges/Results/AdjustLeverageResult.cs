@@ -1,8 +1,8 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
+﻿namespace Ixcent.CryptoTerminal.Models.CryptoExchanges.Results
 {
-    public class MakeGridResult
+    public class AdjustLeverageResult
     {
-        public MakeGridResult(bool success, string? message = null)
+        public AdjustLeverageResult(bool success, string? message = null)
         {
             Success = success;
             Message = message;

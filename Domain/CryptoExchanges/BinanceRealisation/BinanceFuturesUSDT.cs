@@ -1,25 +1,25 @@
-﻿using Binance.Net.Interfaces;
-using Binance.Net.Interfaces.SubClients.Futures;
+﻿using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
-using Binance.Net.Objects.Shared;
-using Binance.Net.Objects;
-using Binance.Net.Objects.Futures;
 using Binance.Net.Enums;
 using Binance.Net.Objects.Spot.MarketData;
-using CryptoExchange.Net.ExchangeInterfaces;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net;
 
-namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
+using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Objects;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
-    public class BinanceFutures : CryptoFutures
+    using CryptoExchanges;
+    using Data;
+    using Results;
+
+    public class BinanceFuturesUSDT : CryptoFutures
     {
         private IBinanceClientFuturesUsdt _client;
+
         private IExchangeClient _exClient;
         
-        public BinanceFutures(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, string mainCoin) 
-            : base(mainCoin)
+        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient) 
+            : base("USDT")
         {
             _exClient = exClient;
             _client = binanceFuturesClient;
@@ -58,13 +58,13 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
                 order => new FuturesOrder(
                         symbol: order.Symbol,
                         amount: order.Quantity,
-                        orderSide: (OrderSide)(int) order.Side,
-                        orderType: (OrderType)(int) order.Type,
-                        positionSide: (PositionSide)(int)order.PositionSide,
+                        orderSide: order.Side,
+                        orderType: order.Type,
+                        positionSide: order.PositionSide,
                         date: order.CreatedTime,
                         id: order.OrderId,
                         price: order.Price,
-                        tif: (TimeInForce)(int) order.TimeInForce,
+                        tif: order.TimeInForce,
                         reduceOnly: order.ReduceOnly
                     ));
 
@@ -115,11 +115,11 @@ namespace CryptoTerminal.Models.CryptoExchanges.BinanceRealisation
             // TODO implement position side converter
             WebCallResult<BinanceFuturesPlacedOrder> placeOrderCaller = await _client.Order.PlaceOrderAsync(
                 symbol: order.Symbol,
-                side: order.OrderSide.ConvertToBinanceOrderSide(),
-                type: order.OrderType.ConvertToBinanceOrderType(),
+                side: order.OrderSide,
+                type: order.OrderType,
                 quantity: order.Amount,
                 reduceOnly: order.ReduceOnly,
-                positionSide: (Binance.Net.Enums.PositionSide)(int)order.PositionSide
+                positionSide: order.PositionSide
                 );
 
             return new MakeOrderResult(placeOrderCaller.Success, placeOrderCaller.Error?.Message);

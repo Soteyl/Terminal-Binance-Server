@@ -1,10 +1,11 @@
 ﻿using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Enums;
-using CryptoExchange.Net.Attributes;
-using CryptoExchange.Net.ExchangeInterfaces;
 
-namespace CryptoTerminal.Models.CryptoExchanges
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
+    using Data;
+    using Results;
+
     public abstract class CryptoFutures
     {
         private readonly string _mainCoin;
@@ -16,7 +17,7 @@ namespace CryptoTerminal.Models.CryptoExchanges
 
         public string MainCoin => _mainCoin;
 
-        public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory();
+        public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory(); // TODO заменить класс на собственный Trade
 
         public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetTradesHistory();
 
