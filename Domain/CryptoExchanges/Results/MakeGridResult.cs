@@ -1,4 +1,4 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
+﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results
 {
     public class MakeGridResult
     {

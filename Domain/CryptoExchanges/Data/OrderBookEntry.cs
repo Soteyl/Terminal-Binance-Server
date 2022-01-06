@@ -1,4 +1,4 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
+﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
     public class OrderBookEntry
     {

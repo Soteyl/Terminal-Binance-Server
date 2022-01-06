@@ -8,6 +8,8 @@ using CryptoExchange.Net.Objects;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
+    using Data;
+    using Results;
     /// <summary>
     /// Implementation of Binance Spot instrument. <para/>
     /// 
@@ -62,7 +64,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<IEnumerable<BinanceOrder>> resultBinanceOrders = await _spot.Order.GetOpenOrdersAsync();
 
-            return resultBinanceOrders.Data.Select(a => new SpotOrder(a.Symbol, a.Quantity, (OrderSide)(int)a.Side, (OrderType)(int)a.Type, price: a.Price));
+            return resultBinanceOrders.Data.Select(a => new SpotOrder(a.Symbol, a.Quantity, a.Side, a.Type, price: a.Price));
         }
 
         public override async Task<IEnumerable<ICommonOrder>> GetOrderHistory()
@@ -91,11 +93,11 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<BinancePlacedOrder> resultPlaceOrder = 
               await _spot.Order.PlaceOrderAsync(order.Pair,
-                                                order.OrderSide.ConvertToBinanceOrderSide(),
-                                                order.OrderType.ConvertToBinanceOrderType(),
+                                                order.OrderSide,
+                                                order.OrderType,
                                                 quantity: order.AmountFirst,
                                                 price: order.Price,
-                                                timeInForce: order.TimeInForce?.ToBinanceTIF());
+                                                timeInForce: order.TimeInForce);
 
 
             return new MakeOrderResult(resultPlaceOrder.Success, resultPlaceOrder.Error?.Message);

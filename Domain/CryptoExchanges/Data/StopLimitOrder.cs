@@ -1,5 +1,7 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
+﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
+    using Enums;
+
     public class StopOrder : SpotOrder
     {
         private decimal _triggerPrice;

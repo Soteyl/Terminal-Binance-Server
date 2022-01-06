@@ -2,6 +2,9 @@
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
+    using Data;
+    using Results;
+
     public abstract class CryptoSpot
     {
         public abstract Task<IEnumerable<CoinBalance>> GetCoinBalances();
