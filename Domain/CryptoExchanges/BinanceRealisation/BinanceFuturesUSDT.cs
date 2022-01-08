@@ -112,7 +112,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)
         {
-            // TODO implement position side converter
             WebCallResult<BinanceFuturesPlacedOrder> placeOrderCaller = await _client.Order.PlaceOrderAsync(
                 symbol: order.Symbol,
                 side: order.OrderSide,
@@ -124,6 +123,24 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             return new MakeOrderResult(placeOrderCaller.Success, placeOrderCaller.Error?.Message);
         }
-        
+
+        public override async Task<IEnumerable<FuturesPosition>> GetAllPositions()
+        {
+            WebCallResult<BinanceFuturesAccountInfo> accountInfoCaller = await _client.Account.GetAccountInfoAsync();
+
+            IEnumerable<FuturesPosition> positions = accountInfoCaller.Data.Positions.Select(
+                position => new FuturesPosition(
+                        symbol: position.Symbol,
+                        quantity: position.Quantity,
+                        entryPrice: position.EntryPrice,
+                        side: position.PositionSide,
+                        unrealizedPnl: position.UnrealizedPnl,
+                        leverage: position.Leverage,
+                        markPrice: 0m
+                    )
+                );
+
+            return positions;
+        }
     }
 }

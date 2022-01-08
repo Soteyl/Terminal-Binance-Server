@@ -35,5 +35,33 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
+        public abstract Task<IEnumerable<FuturesPosition>> GetAllPositions();
+
+        public async void CloseAllPositions()
+        {
+            var allPositions = await GetAllPositions();
+
+            foreach (var position in allPositions)
+            {
+                await ClosePosition(position);
+            }
+        }
+
+        public async Task<MakeOrderResult> ClosePosition(FuturesPosition position)
+        {
+            return await MakeOrder(new FuturesOrder(
+                symbol: position.Symbol, 
+                amount: position.Quantity, 
+                orderSide: OrderSide.Buy, 
+                orderType: Enums.OrderType.Market, 
+                positionSide: position.Side, 
+                date: DateTime.Now, 
+                0, 
+                price: position.MarkPrice, 
+                tif: TimeInForce.GoodTillExpiredOrCanceled, 
+                reduceOnly: true)
+            );
+        }
+
     }
 }
