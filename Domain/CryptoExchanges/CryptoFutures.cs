@@ -17,9 +17,9 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public string MainCoin => _mainCoin;
 
-        public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory(); // TODO заменить класс на собственный Trade
+        public abstract Task<IEnumerable<FuturesOrder>> GetOrdersHistory(); 
 
-        public abstract Task<IEnumerable<BinanceFuturesUsdtTrade>> GetTradesHistory();
+        public abstract Task<IEnumerable<FuturesTrade>> GetTradesHistory();
 
         public abstract Task<IEnumerable<FuturesOrder>> GetOpenOrders();
 
@@ -29,9 +29,9 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract void CancelOrder(FuturesOrder order);
 
-        public abstract Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue);
+        public abstract Task<AdjustLeverageResult> AdjustLeverage(string symbol, int leverageValue);
 
-        public abstract Task<BinanceFuturesChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType);
+        public abstract Task<ChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType);
 
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
