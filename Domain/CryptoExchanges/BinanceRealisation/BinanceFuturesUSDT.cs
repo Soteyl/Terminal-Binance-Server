@@ -2,7 +2,7 @@
 using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Enums;
 using Binance.Net.Objects.Spot.MarketData;
-
+using Binance.Net.Objects.Futures.MarketData;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 
@@ -53,7 +53,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<IEnumerable<BinanceFuturesOrder>> ordersList = await _client.Order.GetOpenOrdersAsync();
 
-            // TODO implement converters from binance to crypto terminal enums
             var selectedOrdersList = ordersList.Data.ToList().Select(
                 order => new FuturesOrder(
                         symbol: order.Symbol,
@@ -124,9 +123,27 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return new MakeOrderResult(placeOrderCaller.Success, placeOrderCaller.Error?.Message);
         }
 
+        public override async Task<MakeOrderResult> ClosePosition(FuturesPosition position)
+        {
+            return await MakeOrder(new FuturesOrder(
+                symbol: position.Symbol,
+                amount: position.Quantity,
+                orderSide: OrderSide.Buy,
+                orderType: Enums.OrderType.Market,
+                positionSide: position.Side,
+                id: 0,
+                date: DateTime.Now,
+                price: position.MarkPrice,
+                tif: TimeInForce.GoodTillExpiredOrCanceled,
+                reduceOnly: true
+                ));
+        }
+
         public override async Task<IEnumerable<FuturesPosition>> GetAllPositions()
         {
             WebCallResult<BinanceFuturesAccountInfo> accountInfoCaller = await _client.Account.GetAccountInfoAsync();
+
+            IEnumerable<BinanceFuturesMarkPrice> markPrices = (await _client.Market.GetMarkPricesAsync()).Data;
 
             IEnumerable<FuturesPosition> positions = accountInfoCaller.Data.Positions.Select(
                 position => new FuturesPosition(
@@ -136,9 +153,8 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
                         side: position.PositionSide,
                         unrealizedPnl: position.UnrealizedPnl,
                         leverage: position.Leverage,
-                        markPrice: 0m
-                    )
-                );
+                        markPrice: markPrices.Where(price => price.Symbol == position.Symbol).First().MarkPrice
+                ));
 
             return positions;
         }

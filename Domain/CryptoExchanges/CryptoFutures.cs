@@ -47,21 +47,8 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
             }
         }
 
-        public async Task<MakeOrderResult> ClosePosition(FuturesPosition position)
-        {
-            return await MakeOrder(new FuturesOrder(
-                symbol: position.Symbol, 
-                amount: position.Quantity, 
-                orderSide: OrderSide.Buy, 
-                orderType: Enums.OrderType.Market, 
-                positionSide: position.Side, 
-                date: DateTime.Now, 
-                0, 
-                price: position.MarkPrice, 
-                tif: TimeInForce.GoodTillExpiredOrCanceled, 
-                reduceOnly: true)
-            );
-        }
+        public abstract Task<MakeOrderResult> ClosePosition(FuturesPosition position);
+        
 
     }
 }
