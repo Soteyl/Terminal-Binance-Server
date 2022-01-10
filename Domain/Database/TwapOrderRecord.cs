@@ -17,6 +17,8 @@ namespace Ixcent.CryptoTerminal.Domain.Database
 
         public int Id { get; set; }
 
+        public long UserId { get; set; }
+
         public string Symbol { get; set; }
 
         public decimal Quantity { get; set; }

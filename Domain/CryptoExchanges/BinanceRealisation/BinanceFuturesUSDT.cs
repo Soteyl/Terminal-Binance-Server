@@ -7,7 +7,6 @@ using CryptoExchange.Net.Objects;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
-    using CryptoExchanges;
     using Data;
     using Ixcent.CryptoTerminal.Domain.Database;
     using Results;
@@ -16,10 +15,12 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
     {
         private IBinanceClientFuturesUsdt _client;
         private IExchangeClient _exClient;
+        private BinacneExchange
         private TwapOrderRecord _nextTwapToExecute;
+        private List<TwapOrderRecord> _allTwapRecords = new List<TwapOrderRecord>();
         private Thread _twapThread;
 
-        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient) 
+        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, BinanceExchangeContext binanceDbContext) 
             : base("USDT")
         {
             _exClient = exClient;
@@ -155,7 +156,8 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             foreach (var record in records)
             {
-                // TODO insert into db context
+                // TODO replace with insert into db context
+                _allTwapRecords.Add(record);
                 if (record.ExecuteTime < _nextTwapToExecute.ExecuteTime)
                     _nextTwapToExecute = record;
             }
@@ -164,7 +166,9 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         
         public void CancelTwapOrder(TwapOrderRecord record)
         {
-            // TODO think how to implement twap order cancelation
+            // TODO replace with twap orders db context
+            _allTwapRecords.Remove(_nextTwapToExecute);
+            _nextTwapToExecute = _allTwapRecords.OrderBy(order => order.ExecuteTime).First();
         }
 
         // TODO separate in different class
@@ -183,12 +187,13 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
                         date: _nextTwapToExecute.ExecuteTime
                     ));
 
+                    // TODO replace with twap orders db context
                     if (placeOrderResult.Success)
                     {
                         // TODO warn user about unsuccessful order
                     }
-                    // TODO get next order to execute
-                    // TODO erase order from DB context
+                    _allTwapRecords.Remove(_nextTwapToExecute);
+                    _nextTwapToExecute = _allTwapRecords.OrderBy(order => order.ExecuteTime).First();
                 }
                 Thread.Sleep(1);
             }
