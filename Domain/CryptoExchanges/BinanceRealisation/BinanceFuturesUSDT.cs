@@ -2,7 +2,6 @@
 using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Enums;
 using Binance.Net.Objects.Spot.MarketData;
-
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 
@@ -10,19 +9,24 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
     using CryptoExchanges;
     using Data;
+    using Ixcent.CryptoTerminal.Domain.Database;
     using Results;
 
     public class BinanceFuturesUSDT : CryptoFutures
     {
         private IBinanceClientFuturesUsdt _client;
-
         private IExchangeClient _exClient;
-        
+        private TwapOrderRecord _nextTwapToExecute;
+        private Thread _twapThread;
+
         public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient) 
             : base("USDT")
         {
             _exClient = exClient;
             _client = binanceFuturesClient;
+
+            _twapThread = new Thread(TwapThread);
+            _twapThread.Start();
         }
 
         public override async Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue)
@@ -53,7 +57,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<IEnumerable<BinanceFuturesOrder>> ordersList = await _client.Order.GetOpenOrdersAsync();
 
-            // TODO implement converters from binance to crypto terminal enums
             var selectedOrdersList = ordersList.Data.ToList().Select(
                 order => new FuturesOrder(
                         symbol: order.Symbol,
@@ -112,18 +115,84 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)
         {
-            // TODO implement position side converter
             WebCallResult<BinanceFuturesPlacedOrder> placeOrderCaller = await _client.Order.PlaceOrderAsync(
                 symbol: order.Symbol,
                 side: order.OrderSide,
                 type: order.OrderType,
                 quantity: order.Amount,
                 reduceOnly: order.ReduceOnly,
-                positionSide: order.PositionSide
+                positionSide: order.PositionSide,
+                timeInForce: order.TIF,
+                price: order.Price
                 );
 
             return new MakeOrderResult(placeOrderCaller.Success, placeOrderCaller.Error?.Message);
         }
+
+        public override async Task<MakeOrderResult> MakeTWAPOrder(TwapOrder twapOrder)
+        {
+            if ((await GetBalance()).Free < twapOrder.Quantity)
+                return new MakeOrderResult(false, "Not enough funds!");
+
+            List<TwapOrderRecord> records = new List<TwapOrderRecord>();
+            DateTime startTime = twapOrder.StartTime;
+            int steps = (int)twapOrder.Quantity / (int)twapOrder.StepSize;
+            TimeSpan stepTime = twapOrder.Duration / steps;
+
+            while (twapOrder.Quantity >= 0)
+            {
+                decimal quantity = twapOrder.Quantity > twapOrder.StepSize ? twapOrder.StepSize : twapOrder.Quantity;
+                records.Add(new TwapOrderRecord(
+                    symbol: twapOrder.Symbol,
+                    quantity: quantity,
+                    executeTime: startTime,
+                    positionSide: twapOrder.Position,
+                    orderSide: twapOrder.Side
+                ));
+                startTime = startTime.Add(stepTime);
+                twapOrder.Quantity -= twapOrder.StepSize;
+            }
+
+            foreach (var record in records)
+            {
+                // TODO insert into db context
+                if (record.ExecuteTime < _nextTwapToExecute.ExecuteTime)
+                    _nextTwapToExecute = record;
+            }
+            return new MakeOrderResult(true, "Placed order successfully!");
+        }
         
+        public void CancelTwapOrder(TwapOrderRecord record)
+        {
+            // TODO think how to implement twap order cancelation
+        }
+
+        // TODO separate in different class
+        private async void TwapThread()
+        {
+            while (_twapThread.IsAlive)
+            {
+                if (DateTime.Now >= _nextTwapToExecute.ExecuteTime)
+                {
+                    MakeOrderResult placeOrderResult = await MakeOrder(new FuturesOrder(
+                        symbol: _nextTwapToExecute.Symbol,
+                        amount: _nextTwapToExecute.Quantity,
+                        orderSide: _nextTwapToExecute.OrderSide,
+                        orderType: Enums.OrderType.Market,
+                        positionSide: _nextTwapToExecute.PositionSide,
+                        date: _nextTwapToExecute.ExecuteTime
+                    ));
+
+                    if (placeOrderResult.Success)
+                    {
+                        // TODO warn user about unsuccessful order
+                    }
+                    // TODO get next order to execute
+                    // TODO erase order from DB context
+                }
+                Thread.Sleep(1);
+            }
+        }
+
     }
 }

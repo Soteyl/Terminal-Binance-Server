@@ -15,7 +15,7 @@
         private TimeInForce? _tif;
         private bool _reduceOnly;
         
-        public FuturesOrder(string symbol, decimal amount, OrderSide orderSide, OrderType orderType, PositionSide positionSide, DateTime? date, long? id, decimal? price, TimeInForce? tif, bool? reduceOnly)
+        public FuturesOrder(string symbol, decimal amount, OrderSide orderSide, OrderType orderType, PositionSide positionSide, DateTime? date, long? id = null, decimal? price = null, TimeInForce? tif = null, bool? reduceOnly = false)
         {
             _tif = tif;
             _price = price;

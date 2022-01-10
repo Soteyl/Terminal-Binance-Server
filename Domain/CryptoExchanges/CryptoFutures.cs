@@ -27,6 +27,8 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract Task<CoinBalance> GetBalance();
 
+        public abstract Task<MakeOrderResult> MakeTWAPOrder(TwapOrder order);
+
         public abstract void CancelOrder(FuturesOrder order);
 
         public abstract Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue);
