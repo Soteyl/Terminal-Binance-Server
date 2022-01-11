@@ -1,7 +1,8 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
 {
     using Interfaces;
-    using System.Collections.Generic;
 
     public sealed class OrderSide : IAdvancedEnum
     {
@@ -28,6 +29,16 @@
         }
 
         public static implicit operator OrderSide(Binance.Net.Enums.OrderSide value)
+        {
+            return (OrderSide)Values[(byte)value];
+        }
+
+        public static implicit operator IExchangeClient.OrderSide(OrderSide value)
+        {
+            return (IExchangeClient.OrderSide)value.Value;
+        }
+
+        public static implicit operator OrderSide(IExchangeClient.OrderSide value)
         {
             return (OrderSide)Values[(byte)value];
         }

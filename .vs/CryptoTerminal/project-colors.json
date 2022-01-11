@@ -3,34 +3,19 @@
   "ProjectMap": {
     "85e5553f-6594-47a5-b6f0-854d47ff3f89": {
       "ProjectGuid": "85e5553f-6594-47a5-b6f0-854d47ff3f89",
-      "DisplayName": "API",
+      "DisplayName": "CryptoTerminal",
       "ColorIndex": 0
+    },
+    "1b53cdd5-6231-48f0-b0af-2d3fbe938c31": {
+      "ProjectGuid": "1b53cdd5-6231-48f0-b0af-2d3fbe938c31",
+      "DisplayName": "TestDemoExchange",
+      "ColorIndex": 1
     },
     "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
-      "DisplayName": "Прочие файлы",
+      "DisplayName": "Miscellaneous Files",
       "ColorIndex": -1
-    },
-    "2804c3d3-4a80-4d70-bbff-f700b1e1336b": {
-      "ProjectGuid": "2804c3d3-4a80-4d70-bbff-f700b1e1336b",
-      "DisplayName": "Application",
-      "ColorIndex": 1
-    },
-    "46b31900-1b80-4595-b36f-6d396a10e258": {
-      "ProjectGuid": "46b31900-1b80-4595-b36f-6d396a10e258",
-      "DisplayName": "Domain",
-      "ColorIndex": 2
-    },
-    "555934ba-2a7f-4a6a-b3d0-57b0574b68a7": {
-      "ProjectGuid": "555934ba-2a7f-4a6a-b3d0-57b0574b68a7",
-      "DisplayName": "EFData",
-      "ColorIndex": 3
-    },
-    "3b4e423a-71c5-4283-bb9b-6f807a4d8595": {
-      "ProjectGuid": "3b4e423a-71c5-4283-bb9b-6f807a4d8595",
-      "DisplayName": "Infrastructure",
-      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 2
 }

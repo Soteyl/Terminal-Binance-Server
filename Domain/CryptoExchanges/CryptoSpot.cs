@@ -1,27 +1,28 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Interfaces;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
     using Data;
     using Results;
 
-    public abstract class CryptoSpot
+    public interface ICryptoSpot
     {
-        public abstract Task<IEnumerable<CoinBalance>> GetCoinBalances();
+        Task<IEnumerable<CoinBalance>> GetCoinBalances();
 
-		public abstract Task<IEnumerable<BookPrice>> GetCoinPairs();
+        Task<IEnumerable<BookPrice>> GetCoinPairs();
 
-        public abstract Task<IEnumerable<SpotOrder>> GetOpenOrders();
+        Task<IEnumerable<ICommonOrder>> GetOpenOrders();
 
-        public abstract Task<IEnumerable<ICommonOrder>> GetOrderHistory();
+        Task<IEnumerable<ICommonOrder>> GetOrderHistory();
 
-        public abstract Task<IEnumerable<ICommonTrade>> GetTransactionsHistory();
+        Task<IEnumerable<ICommonTrade>> GetTransactionsHistory();
 
-        public abstract Task<OrderBook> GetDepthOfMarket(string symbol);
+        Task<IEnumerable<ISymbolOrderBookEntry>> GetDepthOfMarket(string symbol);
 
-        public abstract Task<MakeOrderResult> MakeOrder(SpotOrder order);
+        Task<MakeOrderResult> MakeOrder(ICommonOrder order);
 
-        public abstract void CancelOrder(SpotOrder order);
+        Task CancelOrder(ICommonOrder order);
 
         public async Task<MakeGridResult> MakeGrid(List<SpotOrder> orders)
         {

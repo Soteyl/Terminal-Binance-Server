@@ -1,8 +1,10 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
     using Enums;
 
-    public class SpotOrder
+    public class SpotOrder : ICommonOrder
     {
         private string _pair;
 
@@ -42,5 +44,23 @@
         public DateTime? DateTime { get => _dateTime; set => _dateTime = value; }
 
         public TimeInForce? TimeInForce { get => (OrderType == OrderType.Limit) ? _timeInForce : null; set => _timeInForce = value; }
+
+        string ICommonOrder.CommonSymbol => Pair;
+
+        decimal ICommonOrder.CommonPrice => Price ?? 0;
+
+        decimal ICommonOrder.CommonQuantity => AmountFirst;
+
+        IExchangeClient.OrderStatus ICommonOrder.CommonStatus => IExchangeClient.OrderStatus.Active;
+
+        bool ICommonOrder.IsActive => true;
+
+        IExchangeClient.OrderSide ICommonOrder.CommonSide => OrderSide;
+
+        IExchangeClient.OrderType ICommonOrder.CommonType => OrderType;
+
+        DateTime ICommonOrder.CommonOrderTime => _dateTime ?? new DateTime();
+
+        string ICommonOrderId.CommonId => "";
     }
 }

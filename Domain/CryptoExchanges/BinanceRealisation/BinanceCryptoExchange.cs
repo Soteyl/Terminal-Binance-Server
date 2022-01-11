@@ -1,7 +1,7 @@
-﻿using System.Security;
-using Binance.Net;
+﻿using Binance.Net;
 using Binance.Net.Objects;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
@@ -37,14 +37,19 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             _futures.Add(new BinanceFuturesUSDT(_client.FuturesUsdt, _client));
         }
 
-        public CryptoSpot GetCryptoSpot()
+        public ICryptoSpot GetCryptoSpot()
         {
             return _spot;
         }
 
-        public List<CryptoFutures> GetFutures()
+        public IEnumerable<CryptoFutures> GetFutures()
         {
             return _futures;
+        }
+
+        public async Task<IEnumerable<ICommonSymbol>> GetSymbols()
+        {
+            return (await ((IExchangeClient)_client).GetSymbolsAsync()).Data;
         }
     }
 }

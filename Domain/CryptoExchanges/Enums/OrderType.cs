@@ -1,5 +1,6 @@
 ﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
 {
+    using CryptoExchange.Net.ExchangeInterfaces;
     using Interfaces;
 
     public sealed class OrderType : IAdvancedEnum
@@ -49,6 +50,12 @@
         public static implicit operator OrderType(Binance.Net.Enums.OrderType value)
         {
             return (OrderType)Values[(byte)value];
+        }
+
+        public static implicit operator IExchangeClient.OrderType(OrderType value)
+        {
+            if (value == Limit || value == Market) return (IExchangeClient.OrderType)value.Value;
+            return IExchangeClient.OrderType.Other;
         }
 
         SortedList<byte, IAdvancedEnum> IAdvancedEnum.Values => Values;
