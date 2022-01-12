@@ -9,8 +9,7 @@
 *.dll.config
 *.cache
 *.suo
-.dtbcache.v2
-.futdcache.v1
+.vs/
 # Include dlls if they’re in the NuGet packages directory
 !/packages/*/lib/*.dll
 !/packages/*/lib/*/*.dll
