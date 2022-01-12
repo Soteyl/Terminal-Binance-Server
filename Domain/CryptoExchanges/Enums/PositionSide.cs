@@ -17,7 +17,7 @@
 
         public static PositionSide Long { get; } = new PositionSide(1, nameof(Long));
 
-        public static PositionSide Both { get; } = new PositionSide(1, nameof(Both));
+        public static PositionSide Both { get; } = new PositionSide(2, nameof(Both));
 
         public string Name { get; }
 

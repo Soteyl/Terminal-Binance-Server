@@ -1,33 +1,39 @@
 ﻿using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
+using Binance.Net.SubClients;
 using Binance.Net.Enums;
+using Binance.Net;
 using Binance.Net.Objects.Spot.MarketData;
+using Microsoft.EntityFrameworkCore;
+using CryptoExchange.Net;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
+using Ixcent.CryptoTerminal.Domain.Database;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
     using Data;
-    using Ixcent.CryptoTerminal.Domain.Database;
     using Results;
+    using Interfaces;
 
     public class BinanceFuturesUSDT : CryptoFutures
     {
         private IBinanceClientFuturesUsdt _client;
         private IExchangeClient _exClient;
-        private BinacneExchange
-        private TwapOrderRecord _nextTwapToExecute;
-        private List<TwapOrderRecord> _allTwapRecords = new List<TwapOrderRecord>();
-        private Thread _twapThread;
+        private IBinanceFuturesExchangeContext _exchangeContext;
+        private BinanceSocketClient _socketClient;
 
-        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, BinanceExchangeContext binanceDbContext) 
+        private TwapOrderRecord _nextTwapToExecute;
+
+        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, IBinanceFuturesExchangeContext exchangeContext = null) 
             : base("USDT")
         {
             _exClient = exClient;
             _client = binanceFuturesClient;
+            _exchangeContext = exchangeContext;
 
-            _twapThread = new Thread(TwapThread);
-            _twapThread.Start();
+            _socketClient = new BinanceSocketClient();
+            _socketClient.FuturesUsdt.SubscribeToAllBookTickerUpdatesAsync(TwapThread);
         }
 
         public override async Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue)
@@ -47,7 +53,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         public override async Task<OrderBook> GetDepthOfMarket(string firstQuote)
         {
             WebCallResult<ICommonOrderBook> resultOrderBook = await _exClient.GetOrderBookAsync(firstQuote + MainCoin);
-            
+
             var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
                                                 resultOrderBook.Data.CommonAsks.Select(ask => new OrderBookEntry(ask.Quantity, ask.Price)));
 
@@ -156,8 +162,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             foreach (var record in records)
             {
-                // TODO replace with insert into db context
-                _allTwapRecords.Add(record);
+                _exchangeContext.TwapOrderRecords.Add(record);
                 if (record.ExecuteTime < _nextTwapToExecute.ExecuteTime)
                     _nextTwapToExecute = record;
             }
@@ -166,38 +171,33 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         
         public void CancelTwapOrder(TwapOrderRecord record)
         {
-            // TODO replace with twap orders db context
-            _allTwapRecords.Remove(_nextTwapToExecute);
-            _nextTwapToExecute = _allTwapRecords.OrderBy(order => order.ExecuteTime).First();
+            _exchangeContext.TwapOrderRecords.Remove(record);
+            _nextTwapToExecute = _exchangeContext.TwapOrderRecords.OrderBy(order => order.ExecuteTime).First();
         }
 
         // TODO separate in different class
-        private async void TwapThread()
+        private async void TwapThread(CryptoExchange.Net.Sockets.DataEvent<Binance.Net.Objects.Spot.MarketStream.BinanceStreamBookPrice> data)
         {
-            while (_twapThread.IsAlive)
+            Console.WriteLine(data.Data.Symbol);
+            if (_nextTwapToExecute != null && DateTime.Now >= _nextTwapToExecute.ExecuteTime)
             {
-                if (DateTime.Now >= _nextTwapToExecute.ExecuteTime)
-                {
-                    MakeOrderResult placeOrderResult = await MakeOrder(new FuturesOrder(
-                        symbol: _nextTwapToExecute.Symbol,
-                        amount: _nextTwapToExecute.Quantity,
-                        orderSide: _nextTwapToExecute.OrderSide,
-                        orderType: Enums.OrderType.Market,
-                        positionSide: _nextTwapToExecute.PositionSide,
-                        date: _nextTwapToExecute.ExecuteTime
-                    ));
+                MakeOrderResult placeOrderResult = await MakeOrder(new FuturesOrder(
+                    symbol: _nextTwapToExecute.Symbol,
+                    amount: _nextTwapToExecute.Quantity,
+                    orderSide: _nextTwapToExecute.OrderSide,
+                    orderType: Enums.OrderType.Market,
+                    positionSide: _nextTwapToExecute.PositionSide,
+                    date: _nextTwapToExecute.ExecuteTime
+                ));
 
-                    // TODO replace with twap orders db context
-                    if (placeOrderResult.Success)
-                    {
-                        // TODO warn user about unsuccessful order
-                    }
-                    _allTwapRecords.Remove(_nextTwapToExecute);
-                    _nextTwapToExecute = _allTwapRecords.OrderBy(order => order.ExecuteTime).First();
+                if (!placeOrderResult.Success)
+                {
+                    // TODO warn user about unsuccessful order
                 }
-                Thread.Sleep(1);
+                _exchangeContext.TwapOrderRecords.Remove(_nextTwapToExecute);
+                _nextTwapToExecute = _exchangeContext.TwapOrderRecords.OrderBy(order => order.ExecuteTime).First();
             }
-        }
+    }
 
     }
 }

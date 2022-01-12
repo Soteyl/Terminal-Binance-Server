@@ -1,92 +1,92 @@
-﻿++Решение "CryptoTerminal" ‎(проекты: 5 из 5)
+﻿++Solution 'CryptoTerminal' ‎(5 of 5 projects)
 i:{00000000-0000-0000-0000-000000000000}:CryptoTerminal.sln
 ++Solution Items
 i:{00000000-0000-0000-0000-000000000000}:Solution Items
 ++.editorconfig
-i:{958d613a-5515-4589-983c-6412721395f7}:D:\Projects\My\ConditionalTrading\CryptoTerminal\.editorconfig
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\.editorconfig
+i:{958d613a-5515-4589-983c-6412721395f7}:D:\Projects\WORK\NOT MY PROJECTS\CryptoTerminal\terminal-binance-server\.editorconfig
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\.editorconfig
 ++Domain
 i:{00000000-0000-0000-0000-000000000000}:Domain
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\my\conditionaltrading\cryptoterminal\domain\domain.csproj
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\domain\domain.csproj
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\domain\domain.csproj
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\my\conditionaltrading\cryptoterminal\domain\bin\debug\net6.0\domain.dll
-++Зависимости
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>400
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>403
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>402
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>401
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>613
-++Анализаторы
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:анализаторы
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:анализаторы
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:анализаторы
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:анализаторы
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:анализаторы
-++Пакеты
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:пакеты
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:пакеты
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:пакеты
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:пакеты
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:пакеты
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\domain.csproj
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+++Dependencies
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>611
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>612
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>613
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>610
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>823
+++Analyzers
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:analyzers
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:analyzers
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:analyzers
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:analyzers
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:analyzers
+++Frameworks
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:frameworks
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:frameworks
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:frameworks
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:frameworks
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:frameworks
+++Microsoft.NETCore.App
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\microsoft.netcore.app
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\microsoft.netcore.app
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\microsoft.netcore.app
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\infrastructure\microsoft.netcore.app
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\microsoft.netcore.app
+++Packages
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:packages
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:packages
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:packages
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:packages
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:packages
 ++Binance.Net (7.2.6)
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>835
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>834
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>628
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>903
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>916
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>881
+++Microsoft.EntityFrameworkCore (6.0.1)
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>930
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>856
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>874
 ++Microsoft.Extensions.Identity.Stores (6.0.1)
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>788
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>907
 ++Microsoft.IdentityModel.Tokens (6.15.0)
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>833
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>1371
-++Платформы
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:платформы
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:платформы
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:платформы
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:платформы
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:платформы
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>905
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>865
 ++Auth
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\auth\
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\auth\
 ++AuthOptions.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\auth\authoptions.cs
-++LoginModel.cs
-++RegisterModel.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\auth\authoptions.cs
 ++CryptoExchanges
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\
 ++BinanceRealisation
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\binancerealisation\
-++BookPrice.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\bookprice.cs
-++CoinBalance.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\coinbalance.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\binancerealisation\
+++Data
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\
+++Enums
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\
+++Results
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\
 ++CryptoExchange.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\cryptoexchange.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\cryptoexchange.cs
 ++CryptoFutures.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\cryptofutures.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\cryptofutures.cs
 ++CryptoSpot.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\cryptospot.cs
-++MakeGridResult.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\makegridresult.cs
-++MakeOrderResult.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\makeorderresult.cs
-++OrderBook.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\orderbook.cs
-++OrderBookEntry.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\orderbookentry.cs
-++OrderSide.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\orderside.cs
-++OrderType.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\ordertype.cs
-++SpotOrder.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\spotorder.cs
-++StopLimitOrder.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\stoplimitorder.cs
-++TimeInForce.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\timeinforce.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\cryptospot.cs
 ++Database
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\database\
-++User.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\user.cs
-++UserRole.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\database\
+++AppUser.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\database\appuser.cs
+++TwapOrderRecord.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\database\twaporderrecord.cs
+++Interfaces
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\interfaces\
+++IAdvancedEnum.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\iadvancedenum.cs
+++IBinanceFuturesExchangeContext.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\ibinancefuturesexchangecontext.cs
 ++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
@@ -99,126 +99,198 @@ i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\sdk\6.0.100\sdk
 i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
 ++Microsoft.Extensions.Logging.Generators
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\users\sotey\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\sotey\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\sotey\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\sotey\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
 ++System.Text.Json.SourceGeneration
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
 i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
 i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-++Microsoft.NETCore.App
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\microsoft.netcore.app
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\my\conditionaltrading\cryptoterminal\efdata\microsoft.netcore.app
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\microsoft.netcore.app
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\my\conditionaltrading\cryptoterminal\infrastructure\microsoft.netcore.app
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\microsoft.netcore.app
 ++BinanceCryptoExchange.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\binancerealisation\binancecryptoexchange.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\binancerealisation\binancecryptoexchange.cs
+++BinanceFuturesUSDT.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\binancerealisation\binancefuturesusdt.cs
 ++BinanceSpot.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\cryptoexchanges\binancerealisation\binancespot.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\binancerealisation\binancespot.cs
+++BookPrice.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\bookprice.cs
+++CoinBalance.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\coinbalance.cs
+++FuturesOrder.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\futuresorder.cs
+++OrderBook.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\orderbook.cs
+++OrderBookEntry.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\orderbookentry.cs
+++SpotOrder.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\spotorder.cs
+++StopLimitOrder.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\stoplimitorder.cs
+++TwapOrder.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\twaporder.cs
+++OrderSide.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\orderside.cs
+++OrderType.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\ordertype.cs
+++PositionSide.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\positionside.cs
+++TimeInForce.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\timeinforce.cs
+++AdjustLeverageResult.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\adjustleverageresult.cs
+++MakeGridResult.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\makegridresult.cs
+++MakeOrderResult.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\makeorderresult.cs
 ++EFData
 i:{00000000-0000-0000-0000-000000000000}:EFData
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\efdata\efdata.csproj
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\efdata\bin\debug\net6.0\efdata.dll
-++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>779
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>627
-++Microsoft.EntityFrameworkCore (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>938
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>626
-++Microsoft.EntityFrameworkCore.Design (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>940
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>1027
-++Microsoft.EntityFrameworkCore.Relational (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>939
-++Microsoft.EntityFrameworkCore.SqlServer (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>945
-++Microsoft.EntityFrameworkCore.Tools (6.0.1)
-++Pomelo.EntityFrameworkCore.MySql (6.0.0)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>1032
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>630
-++Проекты
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:проекты
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:проекты
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:проекты
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:проекты
-++Migrations
-++20211223112331_initial.cs
-++CryptoTerminalContextModelSnapshot.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\bin\debug\net6.0\efdata.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\bin\debug\net6.0\efdata.dll
+++Projects
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:projects
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:projects
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:projects
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:projects
+++BInanceExchangeContext.cs
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\binanceexchangecontext.cs
 ++CryptoTerminalContext.cs
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\my\conditionaltrading\cryptoterminal\efdata\cryptoterminalcontext.cs
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\cryptoterminalcontext.cs
 ++DataSeed.cs
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\my\conditionaltrading\cryptoterminal\efdata\dataseed.cs
-++Microsoft.EntityFrameworkCore.Analyzers
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\sotey\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\users\sotey\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\sotey\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\sotey\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-++20211223112331_initial.Designer.cs
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\dataseed.cs
+++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.1)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>862
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>880
+++Microsoft.EntityFrameworkCore.Design (6.0.1)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>860
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>877
+++Microsoft.EntityFrameworkCore.Relational (6.0.1)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>864
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.1)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>858
+++Microsoft.EntityFrameworkCore.Tools (6.0.0)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>866
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>883
+++Pomelo.EntityFrameworkCore.MySql (6.0.0)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>868
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>885
 ++Application
 i:{00000000-0000-0000-0000-000000000000}:Application
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\application\application.csproj
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\my\conditionaltrading\cryptoterminal\application\bin\debug\net6.0\application.dll
-++User
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\bin\debug\net6.0\application.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\bin\debug\net6.0\application.dll
+++Exceptions
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\exceptions\
+++IJwtGenerator.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\interfaces\ijwtgenerator.cs
+++Users
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\
+++IP
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\
 ++Login
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\login\
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\
+++Registration
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\
+++User.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\user.cs
+++Validation
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\
+++RestException.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\exceptions\restexception.cs
+++IpCheckHandler.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\ipcheckhandler.cs
+++IpCheckRequirement.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\ipcheckrequirement.cs
 ++LoginHandler.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\login\loginhandler.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\loginhandler.cs
+++LoginQuery.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\loginquery.cs
+++RegistrationCommand.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\registrationcommand.cs
+++RegistrationHandler.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\registrationhandler.cs
+++LoginQueryValidation.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\loginqueryvalidation.cs
+++RegistrationValidation.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\registrationvalidation.cs
+++ValidatorExtensions.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\validatorextensions.cs
+++FluentValidation (10.3.6)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>915
 ++MediatR (9.0.0)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>676
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>677
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>913
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>879
 ++MediatR.Extensions.Microsoft.DependencyInjection (9.0.0)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>678
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>679
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>917
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>884
+++Microsoft.AspNetCore.Authorization (6.0.1)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>912
+++Microsoft.AspNetCore.Identity (2.2.0)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>911
+++Microsoft.Rest.ClientRuntime (2.3.23)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>914
 ++Infrastructure
 i:{00000000-0000-0000-0000-000000000000}:Infrastructure
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\infrastructure\infrastructure.csproj
-++Class1.cs
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\infrastructure\bin\debug\net6.0\infrastructure.dll
+++JwtGenerator.cs
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\infrastructure\jwtgenerator.cs
+++Microsoft.Extensions.Configuration.Abstractions (6.0.0)
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>859
+++System.Collections (4.3.0)
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>863
+++System.IdentityModel.Tokens.Jwt (6.15.0)
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>861
 ++API
 i:{00000000-0000-0000-0000-000000000000}:API
 ++Connected Services 
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>614
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>824
 ++Properties
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\properties\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\properties\
 ++wwwroot
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\
-++Microsoft.AspNetCore.Authentication.JwtBearer (6.0.1)
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>629
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\
 ++Controllers
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\controllers\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\controllers\
+++BaseController.cs
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\controllers\basecontroller.cs
 ++HomeController.cs
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\controllers\homecontroller.cs
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\controllers\homecontroller.cs
 ++TestsController.cs
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\controllers\testscontroller.cs
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\controllers\testscontroller.cs
 ++UsersController.cs
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\controllers\userscontroller.cs
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\controllers\userscontroller.cs
 ++appsettings.json
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\appsettings.json
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\appsettings.json
 ++NLog.config
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\nlog.config
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\nlog.config
 ++Program.cs
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\program.cs
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\program.cs
 ++Startup.cs
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\startup.cs
-++Зависимости службы не обнаружены
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>615
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\startup.cs
+++No service dependencies discovered
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>825
 ++launchSettings.json
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\properties\launchsettings.json
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\properties\launchsettings.json
 ++css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\css\
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\css\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\
 ++js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\js\
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\js\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\
 ++lib
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\
 ++favicon.ico
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\favicon.ico
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\favicon.ico
+++appsettings.Development.json
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\appsettings.development.json
 ++Microsoft.AspNetCore.Analyzers
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
 ++Microsoft.AspNetCore.App.Analyzers
@@ -234,203 +306,135 @@ i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdk
 ++Microsoft.NET.Sdk.Razor.SourceGenerators
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
 ++Microsoft.AspNetCore.App
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\microsoft.aspnetcore.app
-++appsettings.Development.json
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\appsettings.development.json
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\microsoft.aspnetcore.app
+++Microsoft.AspNetCore.Authentication.JwtBearer (6.0.1)
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>882
 ++site.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\css\site.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\css\site.css
 ++site.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\js\site.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\js\site.js
 ++bootstrap
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\
 ++jquery
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery\
 ++jquery-validation
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation\
 ++jquery-validation-unobtrusive
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation-unobtrusive\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation-unobtrusive\
 ++dist
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery\dist\
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation\dist\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery\dist\
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation\dist\
 ++LICENSE
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\license
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\license
 ++LICENSE.txt
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery\license.txt
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation-unobtrusive\license.txt
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery\license.txt
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation-unobtrusive\license.txt
 ++LICENSE.md
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation\license.md
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation\license.md
 ++jquery.validate.unobtrusive.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 ++jquery.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery\dist\jquery.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery\dist\jquery.js
 ++additional-methods.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation\dist\additional-methods.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation\dist\additional-methods.js
 ++jquery.validate.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation\dist\jquery.validate.js
 ++jquery.validate.unobtrusive.min.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 ++bootstrap.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.css
 ++bootstrap-grid.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 ++bootstrap-reboot.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
 ++bootstrap-utilities.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
 ++bootstrap.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.js
 ++jquery.min.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery\dist\jquery.min.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery\dist\jquery.min.js
 ++additional-methods.min.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
 ++jquery.validate.min.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
 ++bootstrap.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
 ++bootstrap.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
 ++bootstrap.rtl.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
 ++bootstrap-grid.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 ++bootstrap-grid.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
 ++bootstrap-grid.rtl.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
 ++bootstrap-reboot.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
 ++bootstrap-reboot.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
 ++bootstrap-reboot.rtl.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
 ++bootstrap-utilities.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
 ++bootstrap-utilities.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
 ++bootstrap-utilities.rtl.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
 ++bootstrap.bundle.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
 ++bootstrap.esm.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
 ++bootstrap.js.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
 ++bootstrap.min.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
 ++jquery.min.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\jquery\dist\jquery.min.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\jquery\dist\jquery.min.map
 ++bootstrap.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
 ++bootstrap.rtl.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
 ++bootstrap.rtl.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
 ++bootstrap-grid.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
 ++bootstrap-grid.rtl.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
 ++bootstrap-grid.rtl.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
 ++bootstrap-reboot.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
 ++bootstrap-reboot.rtl.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
 ++bootstrap-reboot.rtl.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
 ++bootstrap-utilities.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
 ++bootstrap-utilities.rtl.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
 ++bootstrap-utilities.rtl.min.css
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
 ++bootstrap.bundle.js.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
 ++bootstrap.bundle.min.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
 ++bootstrap.esm.js.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
 ++bootstrap.esm.min.js
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
 ++bootstrap.min.js.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
 ++bootstrap.rtl.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
 ++bootstrap-grid.rtl.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
 ++bootstrap-reboot.rtl.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
 ++bootstrap-utilities.rtl.min.css.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
 ++bootstrap.bundle.min.js.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
 ++bootstrap.esm.min.js.map
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
-++20211223130224_initial2.cs
-++20211223130224_initial2.Designer.cs
-++20211223130428_initial.cs
-++20211223130428_initial.Designer.cs
-++20211223130505_initial.cs
-++20211223130505_initial.Designer.cs
-++.cs
-++.Designer.cs
-++20211223130540_initial.cs
-++20211223130540_initial.Designer.cs
-++20211223130647_initial.cs
-++20211223130647_initial.Designer.cs
-++20211223135600_initial.cs
-++20211223135600_initial.Designer.cs
-++20211223135650_initial.cs
-++20211223135650_initial.Designer.cs
-++20211223135737_initial.cs
-++20211223135737_initial.Designer.cs
-++Microsoft.EntityFrameworkCore.Tools (6.0.0)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>1097
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>1098
-++LoginQuery.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\login\loginquery.cs
-++BaseController.cs
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\my\conditionaltrading\cryptoterminal\api\controllers\basecontroller.cs
-++Microsoft.AspNetCore.Identity (2.2.0)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>1336
-++AppUser.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\my\conditionaltrading\cryptoterminal\domain\database\user.cs
-++Users
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\
-++Microsoft.Rest.ClientRuntime (2.3.23)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>1344
-++Новая папка
-++Exceptions
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\exceptions\
-++RestException.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\exceptions\restexception.cs
-++Validation
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\validation\
-++LoginQueryValidation.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\validation\loginqueryvalidation.cs
-++FluentValidation (10.3.6)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>1355
-++IJwtGenerator.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\interfaces\ijwtgenerator.cs
-++Interfaces
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\interfaces\
-++JwtGenerator.cs
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\my\conditionaltrading\cryptoterminal\infrastructure\jwtgenerator.cs
-++lpgzmr5d.olj~
-++olxpz5hj.fjn~
-++Microsoft.Extensions.Configuration.Abstractions (6.0.0)
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>1373
-++System.Collections (4.3.0)
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>1377
-++System.IdentityModel.Tokens.Jwt (6.15.0)
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>1378
-++Registration
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\registration\
-++RegistrationCommand.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\registration\registrationcommand.cs
-++RegistrationHandler.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\users\registration\registrationhandler.cs
-++RegistrationValidation.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\validation\registrationvalidation.cs
-++ValidatorExtensions.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\my\conditionaltrading\cryptoterminal\application\validation\validatorextensions.cs
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map

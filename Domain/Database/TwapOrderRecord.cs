@@ -1,11 +1,12 @@
 ﻿
+using Ixcent.CryptoTerminal.Domain.Interfaces;
+
 namespace Ixcent.CryptoTerminal.Domain.Database
 {
     using CryptoExchanges.Enums;
 
     public class TwapOrderRecord
     {
-
         public TwapOrderRecord(string symbol, decimal quantity, DateTime executeTime, PositionSide positionSide, OrderSide orderSide)
         {
             Symbol = symbol;

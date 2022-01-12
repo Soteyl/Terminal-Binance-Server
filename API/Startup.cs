@@ -65,7 +65,6 @@ namespace Ixcent.CryptoTerminal.API
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -75,6 +74,30 @@ namespace Ixcent.CryptoTerminal.API
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                        .CreateScope())
+            {
+                BinanceExchangeContext dbContext = serviceScope.ServiceProvider.GetService<BinanceExchangeContext>();
+
+                Domain.CryptoExchanges.BinanceRealisation.BinanceCryptoExchange exchange = new Domain.CryptoExchanges.BinanceRealisation.BinanceCryptoExchange(
+                "ZOcjoqRfQ86zSYz4vUyzQ4Hk63TilQGzMGskHp7d2Goc3TvCeoyHocuUo4EdAsp0",
+                "iou3etuXmQYi7XWa666K7idpfNuvU3ucidwCvpWQ9v3FZURosrh62LFoRhJXVepk",
+                dbContext
+                );
+
+                exchange.GetFutures().First().MakeTWAPOrder(new Domain.CryptoExchanges.Data.TwapOrder(
+                    "BTCUSDT",
+                    0.02m,
+                    0.01m,
+                    DateTime.Now,
+                    TimeSpan.FromSeconds(15),
+                    Domain.CryptoExchanges.Enums.OrderSide.Buy,
+                    Domain.CryptoExchanges.Enums.PositionSide.Long
+                    ));
+            };
+
+            
         }
 
         private void RegisterDatabase(IServiceCollection services)
@@ -83,6 +106,12 @@ namespace Ixcent.CryptoTerminal.API
             {
                 var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
                 string connection = Configuration.GetConnectionString("DefaultConnection");
+                opt.UseMySql(connection, serverVersion);
+            });
+            services.AddDbContext<BinanceExchangeContext>(opt =>
+            {
+                var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
+                string connection = Configuration.GetConnectionString("BinanceExchangeConnection");
                 opt.UseMySql(connection, serverVersion);
             });
         }
