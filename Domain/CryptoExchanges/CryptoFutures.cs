@@ -35,5 +35,20 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
+        public abstract Task<IEnumerable<FuturesPosition>> GetAllPositions();
+
+        public async void CloseAllPositions()
+        {
+            var allPositions = await GetAllPositions();
+
+            foreach (var position in allPositions)
+            {
+                await ClosePosition(position);
+            }
+        }
+
+        public abstract Task<MakeOrderResult> ClosePosition(FuturesPosition position);
+        
+
     }
 }
