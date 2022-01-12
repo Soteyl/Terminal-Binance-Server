@@ -15,7 +15,6 @@
 
 ## The order of writing the code
 * System usings
-* Unity usings
 * Plugins usings
 * Ixcent usings
 * namespace
