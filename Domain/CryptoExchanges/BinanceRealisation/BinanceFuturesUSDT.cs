@@ -53,7 +53,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<IEnumerable<BinanceFuturesOrder>> ordersList = await _client.Order.GetOpenOrdersAsync();
 
-            // TODO implement converters from binance to crypto terminal enums
             var selectedOrdersList = ordersList.Data.ToList().Select(
                 order => new FuturesOrder(
                         symbol: order.Symbol,
@@ -76,17 +75,31 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             _client.Order.CancelOrderAsync(order.Symbol, order.Id);
         }
 
-        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetTradesHistory()
+        public override async Task<IEnumerable<FuturesTrade>> GetTradesHistory()
         {
             WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.Market.GetPricesAsync();
 
             IEnumerable<BinancePrice> pricesList = callPricesResult.Data;
 
-            List<BinanceFuturesUsdtTrade> tradesList = new List<BinanceFuturesUsdtTrade>();
+            List<FuturesTrade> tradesList = new List<FuturesTrade>();
 
             foreach (var price in pricesList)
             {
-                var closedOrdersResult = (await _client.Order.GetUserTradesAsync(price.Symbol)).Data;
+                var closedOrdersResult = (await _client.Order.GetUserTradesAsync(price.Symbol)).Data
+                    .Select(
+                        trade => new FuturesTrade(
+                            symbol: trade.Symbol,
+                            price: trade.Price,
+                            quantity: trade.Quantity,
+                            realizedPnl: trade.RealizedPnl,
+                            commission: trade.Commission,
+                            orderSide: trade.Side,
+                            positionSide: trade.PositionSide,
+                            tradeTime: trade.TradeTime,
+                            id: trade.Id,
+                            orderId: trade.OrderId,
+                            buyer: trade.Buyer
+                    ));
 
                 if (closedOrdersResult != null)
                     tradesList.AddRange(closedOrdersResult);
@@ -96,7 +109,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return tradesList;
         }
 
-        public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
+        public override async Task<IEnumerable<FuturesOrder>> GetOrdersHistory()
         {
             throw new NotImplementedException();
         }
@@ -112,7 +125,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)
         {
-            // TODO implement position side converter
             WebCallResult<BinanceFuturesPlacedOrder> placeOrderCaller = await _client.Order.PlaceOrderAsync(
                 symbol: order.Symbol,
                 side: order.OrderSide,
