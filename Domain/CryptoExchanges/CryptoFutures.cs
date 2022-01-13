@@ -35,6 +35,8 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract Task<BinanceFuturesChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType);
 
+        public abstract Task<MakeOrderResult> MakeVirtualOrder(VirtualOrder order);
+
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
     }
