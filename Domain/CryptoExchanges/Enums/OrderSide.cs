@@ -5,6 +5,9 @@
 
     public sealed class OrderSide : IAdvancedEnum
     {
+        public OrderSide()
+        {   }
+
         private OrderSide(byte value, string name)
         {
             Value = value;

@@ -78,7 +78,7 @@ namespace Ixcent.CryptoTerminal.API
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                         .CreateScope())
             {
-                BinanceExchangeContext dbContext = serviceScope.ServiceProvider.GetService<BinanceExchangeContext>();
+                CryptoTerminalContext dbContext = serviceScope.ServiceProvider.GetService<CryptoTerminalContext>();
 
                 Domain.CryptoExchanges.BinanceRealisation.BinanceCryptoExchange exchange = new Domain.CryptoExchanges.BinanceRealisation.BinanceCryptoExchange(
                 "ZOcjoqRfQ86zSYz4vUyzQ4Hk63TilQGzMGskHp7d2Goc3TvCeoyHocuUo4EdAsp0",
@@ -106,12 +106,6 @@ namespace Ixcent.CryptoTerminal.API
             {
                 var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
                 string connection = Configuration.GetConnectionString("DefaultConnection");
-                opt.UseMySql(connection, serverVersion);
-            });
-            services.AddDbContext<BinanceExchangeContext>(opt =>
-            {
-                var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
-                string connection = Configuration.GetConnectionString("BinanceExchangeConnection");
                 opt.UseMySql(connection, serverVersion);
             });
         }
