@@ -7,7 +7,6 @@ namespace Ixcent.CryptoTerminal.Domain.Interfaces
     public interface IBinanceFuturesExchangeContext
     {
         DbSet<TwapOrderRecord> TwapOrderRecords { get; set; }
-        DbSet<VirtualOrder> VirtualOrderRecords { get; set; }
 
     }
 }

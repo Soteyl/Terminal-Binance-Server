@@ -6,7 +6,7 @@ namespace Ixcent.CryptoTerminal.EFData
 {
     using Domain.Database;
 
-    public class CryptoTerminalContext: IdentityDbContext<AppUser>, IBinanceFuturesExchangeContext
+    public class CryptoTerminalContext : IdentityDbContext<AppUser>, IBinanceFuturesExchangeContext
     {
         public CryptoTerminalContext(DbContextOptions<CryptoTerminalContext> options)
             : base(options)

@@ -31,11 +31,11 @@
 
         public static OrderType TakeProfitLimit { get; } = new OrderType(8, nameof(TakeProfitLimit));
 
-        public static OrderType LimitMaker { get; } = new OrderType(8, nameof(LimitMaker));
+        public static OrderType LimitMaker { get; } = new OrderType(9, nameof(LimitMaker));
 
-        public static OrderType TrailingStopMarket { get; } = new OrderType(9, nameof(TrailingStopMarket));
+        public static OrderType TrailingStopMarket { get; } = new OrderType(10, nameof(TrailingStopMarket));
 
-        public static OrderType Liquidation { get; } = new OrderType(10, nameof(Liquidation));
+        public static OrderType Liquidation { get; } = new OrderType(11, nameof(Liquidation));
 
         public string Name { get; }
 

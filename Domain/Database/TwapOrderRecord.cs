@@ -7,6 +7,7 @@ namespace Ixcent.CryptoTerminal.Domain.Database
 
     public class TwapOrderRecord
     {
+        private static long _id = 0;
         public TwapOrderRecord(string symbol, decimal quantity, DateTime executeTime, PositionSide positionSide, OrderSide orderSide)
         {
             Symbol = symbol;
@@ -14,11 +15,12 @@ namespace Ixcent.CryptoTerminal.Domain.Database
             ExecuteTime = executeTime;
             PositionSide = positionSide;
             OrderSide = orderSide;
+            Id = _id++;
         }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-        public long UserId { get; set; }
+        public string UserId { get; set; }
 
         public string Symbol { get; set; }
 

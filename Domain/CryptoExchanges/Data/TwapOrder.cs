@@ -10,27 +10,16 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
     /// <summary>
     /// TWAP strategy order.
     /// </summary>
-    public class TwapOrder
+    public class TwapOrder : FuturesOrder
     {
         public TwapOrder(string symbol, decimal quantity, decimal stepSize, DateTime startTime, TimeSpan duration, OrderSide orderSide, PositionSide positionSide)
+            : base(symbol, quantity, orderSide, OrderType.Market, positionSide, startTime, 0, 0, TimeInForce.GoodTillCancel)
         {
-            Symbol = symbol;
-            Quantity = quantity;
             StepSize = stepSize;
             Duration = duration;
             StartTime = startTime;
-            Position = positionSide;
-            Side = orderSide;
         }
 
-        /// <summary>
-        /// Trade symbol.
-        /// </summary>
-        public string Symbol { get; set; }
-        /// <summary>
-        /// Amount to be released by the order.
-        /// </summary>
-        public decimal Quantity { get; set; }
         /// <summary>
         /// Step of quantity to release per interval.
         /// </summary>
@@ -43,14 +32,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
         /// The beginning of the order.
         /// </summary>
         public DateTime StartTime { get; set; }
-        /// <summary>
-        /// Position side.
-        /// </summary>
-        public PositionSide Position { get; set; }
-        /// <summary>
-        /// Order side (sell/buy).
-        /// </summary>
-        public OrderSide Side { get; set; }
 
     }
 }

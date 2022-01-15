@@ -22,12 +22,12 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
     {
         private IBinanceClientFuturesUsdt _client;
         private IExchangeClient _exClient;
-        private IBinanceFuturesExchangeContext _exchangeContext;
+        private IBinanceFuturesExchangeContext _exchangeContext;    
         private BinanceSocketClient _socketClient;
 
         private TwapOrderRecord _nextTwapToExecute;
 
-        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, IBinanceFuturesExchangeContext exchangeContext = null)
+        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, IBinanceFuturesExchangeContext exchangeContext)
             : base("USDT")
         {
             _exClient = exClient;
@@ -36,7 +36,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             _socketClient = new BinanceSocketClient();
             _socketClient.FuturesUsdt.SubscribeToAllBookTickerUpdatesAsync(TwapThread);
-            _socketClient.FuturesUsdt.SubscribeToAllBookTickerUpdatesAsync(VirtualThread);
         }
 
         public override async Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue)
@@ -141,32 +140,32 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> MakeTWAPOrder(TwapOrder twapOrder)
         {
-            if ((await GetBalance()).Free < twapOrder.Quantity)
+            if ((await GetBalance()).Free < twapOrder.Amount)
                 return new MakeOrderResult(false, "Not enough funds!");
 
             List<TwapOrderRecord> records = new List<TwapOrderRecord>();
             DateTime startTime = twapOrder.StartTime;
-            int steps = (int)twapOrder.Quantity / (int)twapOrder.StepSize;
+            int steps = (int)(twapOrder.Amount / twapOrder.StepSize);
             TimeSpan stepTime = twapOrder.Duration / steps;
 
-            while (twapOrder.Quantity >= 0)
+            while (twapOrder.Amount >= 0)
             {
-                decimal quantity = twapOrder.Quantity > twapOrder.StepSize ? twapOrder.StepSize : twapOrder.Quantity;
+                decimal quantity = twapOrder.Amount > twapOrder.StepSize ? twapOrder.StepSize : twapOrder.Amount;
                 records.Add(new TwapOrderRecord(
                     symbol: twapOrder.Symbol,
                     quantity: quantity,
                     executeTime: startTime,
-                    positionSide: twapOrder.Position,
-                    orderSide: twapOrder.Side
+                    positionSide: twapOrder.PositionSide,
+                    orderSide: twapOrder.OrderSide
                 ));
                 startTime = startTime.Add(stepTime);
-                twapOrder.Quantity -= twapOrder.StepSize;
+                twapOrder.Amount -= twapOrder.StepSize;
             }
 
             foreach (var record in records)
             {
                 _exchangeContext.TwapOrderRecords.Add(record);
-                if (record.ExecuteTime < _nextTwapToExecute.ExecuteTime)
+                if (_nextTwapToExecute == null || record.ExecuteTime < _nextTwapToExecute.ExecuteTime)
                     _nextTwapToExecute = record;
             }
             return new MakeOrderResult(true, "Placed order successfully!");
@@ -176,15 +175,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             _exchangeContext.TwapOrderRecords.Remove(record);
             _nextTwapToExecute = _exchangeContext.TwapOrderRecords.OrderBy(order => order.ExecuteTime).First();
-        }
-
-        public override async Task<MakeOrderResult> MakeVirtualOrder(VirtualOrder order)
-        {
-            if ((await GetBalance()).Free < order.OrderToPlace.Amount)
-                return new MakeOrderResult(false, "Not enough funds!");
-
-            _exchangeContext.VirtualOrderRecords.Add(order);
-            return new MakeOrderResult(true, "Order was placed successfully!");
         }
 
         // TODO separate in different class
@@ -198,38 +188,15 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
                     orderSide: _nextTwapToExecute.OrderSide,
                     orderType: Enums.OrderType.Market,
                     positionSide: _nextTwapToExecute.PositionSide,
-                    date: _nextTwapToExecute.ExecuteTime
+                    date: _nextTwapToExecute.ExecuteTime,
+                    tif: TimeInForce.GoodTillCancel
                 ));
-
                 if (!placeOrderResult.Success)
                 {
                     // TODO warn user about unsuccessful order
                 }
                 _exchangeContext.TwapOrderRecords.Remove(_nextTwapToExecute);
                 _nextTwapToExecute = _exchangeContext.TwapOrderRecords.OrderBy(order => order.ExecuteTime).First();
-            }
-        }
-
-        private async void VirtualThread(DataEvent<BinanceStreamBookPrice> data)
-        {
-            var orders = _exchangeContext.VirtualOrderRecords
-                .Where( order => order.OrderToPlace.Symbol == data.Data.Symbol )
-                .ToList();
-
-            foreach (var order in orders)
-            {
-                decimal avaragePrice = (data.Data.BestBidPrice + data.Data.BestAskPrice) / 2;
-
-                if (avaragePrice != order.ActivationPrice)
-                    continue;
-
-                MakeOrderResult placeOrderResult = await MakeOrder(order.OrderToPlace);
-                _exchangeContext.VirtualOrderRecords.Remove(order);
-
-                if (!placeOrderResult.Success)
-                {
-                    // TODO warn user about unsuccessful order
-                }
             }
         }
     }

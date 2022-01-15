@@ -6,8 +6,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
+
 namespace Ixcent.CryptoTerminal.API
 {
+    using Domain.CryptoExchanges.BinanceRealisation;
+    using Domain.CryptoExchanges.Data;
     using Application.Interfaces;
     using Application.Users.Login;
     using Domain.Auth;
@@ -51,7 +54,7 @@ namespace Ixcent.CryptoTerminal.API
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CryptoTerminalContext context)
         {
             if (env.IsDevelopment())
             {
@@ -74,6 +77,22 @@ namespace Ixcent.CryptoTerminal.API
             {
                 endpoints.MapDefaultControllerRoute();
             });
+            BinanceCryptoExchange exchange = new BinanceCryptoExchange(
+                "ZOcjoqRfQ86zSYz4vUyzQ4Hk63TilQGzMGskHp7d2Goc3TvCeoyHocuUo4EdAsp0",
+                "iou3etuXmQYi7XWa666K7idpfNuvU3ucidwCvpWQ9v3FZURosrh62LFoRhJXVepk",
+                context
+                );
+
+            exchange.GetFutures().First().MakeTWAPOrder(
+                new TwapOrder(
+                    "BTCUSDT",
+                    0.2m,
+                    0.02m,
+                    DateTime.Now,
+                    TimeSpan.FromMinutes(2),
+                    Domain.CryptoExchanges.Enums.OrderSide.Buy,
+                    Domain.CryptoExchanges.Enums.PositionSide.Long
+                ));
             
         }
 

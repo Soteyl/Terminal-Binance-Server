@@ -28,24 +28,24 @@
             _createdDate = date ?? DateTime.Now;
         }
 
-        public string Symbol { get => _symbol; }
+        public string Symbol { get => _symbol; set => _symbol = value; }
 
-        public decimal Amount { get => _amount; }
+        public decimal Amount { get => _amount; set => _amount = value; }
 
-        public OrderType OrderType { get => _type; }
+        public OrderType OrderType { get => _type; set => _type = value; }
 
-        public OrderSide OrderSide { get => _side; }
+        public OrderSide OrderSide { get => _side; set => _side = value; }
 
-        public DateTime CreatedDate { get => _createdDate; }
+        public DateTime CreatedDate { get => _createdDate; set => _createdDate = value;  }
 
-        public long? Id { get => _id; } 
+        public long? Id { get => _id; set => _id = value; } 
 
-        public decimal? Price { get => (OrderType == OrderType.Limit) ? _price : null; }
+        public decimal? Price { get => (OrderType == OrderType.Limit) ? _price : null; set => _price = value; }
 
-        public TimeInForce? TIF { get => (OrderType == OrderType.Limit) ? _tif : null; }
+        public TimeInForce? TIF { get => (OrderType == OrderType.Limit) ? _tif : null; set => _tif = value; }
 
-        public PositionSide PositionSide { get => _positionSide; }
+        public PositionSide PositionSide { get => _positionSide; set => _positionSide = value; }
 
-        public bool ReduceOnly { get => _reduceOnly; }
+        public bool ReduceOnly { get => _reduceOnly; set => _reduceOnly = value; }
     }
 }
