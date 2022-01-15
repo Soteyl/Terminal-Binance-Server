@@ -5,6 +5,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
     using Data;
     using Results;
+    using Database;
 
     public abstract class CryptoFutures
     {
@@ -27,15 +28,18 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract Task<CoinBalance> GetBalance();
 
-        public abstract Task<MakeOrderResult> MakeTWAPOrder(TwapOrder order);
-
         public abstract void CancelOrder(FuturesOrder order);
+
+        public abstract void CancelOrder(TwapOrderRecord order);
 
         public abstract Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue);
 
         public abstract Task<BinanceFuturesChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType);
 
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
+
+        public abstract Task<MakeOrderResult> MakeOrder(TwapOrder order);
+
 
     }
 }

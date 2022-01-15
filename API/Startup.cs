@@ -83,7 +83,7 @@ namespace Ixcent.CryptoTerminal.API
                 context
                 );
 
-            exchange.GetFutures().First().MakeTWAPOrder(
+            exchange.GetFutures().First().MakeOrder(
                 new TwapOrder(
                     "BTCUSDT",
                     0.2m,

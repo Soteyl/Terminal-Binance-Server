@@ -16,6 +16,7 @@ namespace Ixcent.CryptoTerminal.EFData
 
         public DbSet<TwapOrderRecord> TwapOrderRecords { get; set; }
 
+        // TODO rplace converters with json converter
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

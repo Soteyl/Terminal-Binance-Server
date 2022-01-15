@@ -20,7 +20,9 @@ namespace Ixcent.CryptoTerminal.Domain.Database
 
         public long Id { get; set; }
 
-        public string UserId { get; set; }
+        public AppUser User { get; set; }
+
+        public string Exchange { get; set; }
 
         public string Symbol { get; set; }
 

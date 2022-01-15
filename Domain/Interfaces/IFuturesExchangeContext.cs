@@ -4,7 +4,7 @@ namespace Ixcent.CryptoTerminal.Domain.Interfaces
 {
     using CryptoExchanges.Data;
     using Database;
-    public interface IBinanceFuturesExchangeContext
+    public interface IFuturesExchangeContext
     {
         DbSet<TwapOrderRecord> TwapOrderRecords { get; set; }
 

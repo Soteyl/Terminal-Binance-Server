@@ -83,11 +83,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return selectedOrdersList;
         }
 
-        public override void CancelOrder(FuturesOrder order)
-        {
-            _client.Order.CancelOrderAsync(order.Symbol, order.Id);
-        }
-
         public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetTradesHistory()
         {
             WebCallResult<IEnumerable<BinancePrice>> callPricesResult = await _client.Market.GetPricesAsync();
@@ -106,6 +101,16 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             }
 
             return tradesList;
+        }
+
+        public override void CancelOrder(FuturesOrder order)
+        {
+            _client.Order.CancelOrderAsync(order.Symbol, order.Id);
+        }
+
+        public override void CancelOrder(TwapOrderRecord order)
+        {
+            _client.Order.CancelOrderAsync(order.Symbol, order.Id);
         }
 
         public override async Task<IEnumerable<BinanceFuturesUsdtTrade>> GetOrdersHistory()
@@ -138,7 +143,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return new MakeOrderResult(placeOrderCaller.Success, placeOrderCaller.Error?.Message);
         }
 
-        public override async Task<MakeOrderResult> MakeTWAPOrder(TwapOrder twapOrder)
+        public override async Task<MakeOrderResult> MakeOrder(TwapOrder twapOrder)
         {
             if ((await GetBalance()).Free < twapOrder.Amount)
                 return new MakeOrderResult(false, "Not enough funds!");
@@ -171,12 +176,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return new MakeOrderResult(true, "Placed order successfully!");
         }
 
-        public void CancelTwapOrder(TwapOrderRecord record)
-        {
-            _exchangeContext.TwapOrderRecords.Remove(record);
-            _nextTwapToExecute = _exchangeContext.TwapOrderRecords.OrderBy(order => order.ExecuteTime).First();
-        }
-
         // TODO separate in different class
         private async void TwapThread(DataEvent<BinanceStreamBookPrice> data)
         {
@@ -199,5 +198,6 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
                 _nextTwapToExecute = _exchangeContext.TwapOrderRecords.OrderBy(order => order.ExecuteTime).First();
             }
         }
+
     }
 }
