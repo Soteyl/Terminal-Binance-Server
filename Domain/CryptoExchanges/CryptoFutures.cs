@@ -38,7 +38,9 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract Task<MakeOrderResult> MakeOrder(FuturesOrder order);
 
-        public abstract Task<MakeOrderResult> MakeOrder(TwapOrder order);
+        public abstract Task<MakeOrderResult> MakeOrder(TwapFuturesOrder order);
+
+        public abstract Task<MakeOrderResult> MakeOrder(VirtualFuturesOrder order);
 
 
     }

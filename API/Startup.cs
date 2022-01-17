@@ -87,24 +87,16 @@ namespace Ixcent.CryptoTerminal.API
                 );
 
             exchange.GetFutures().First().MakeOrder(
-                new TwapOrder(
+                new VirtualFuturesOrder(
+                    43200,
                     "BTCUSDT",
-                    0.2m,
-                    0.02m,
-                    DateTime.Now,
-                    TimeSpan.FromMinutes(2),
+                    0.001m,
                     OrderSide.Buy,
-                    PositionSide.Long
+                    OrderType.Limit,
+                    PositionSide.Short,
+                    DateTime.Now,
+                    0
                 ));
-
-            AdvancedEnumConverter converter = new AdvancedEnumConverter();
-
-            var res = JsonConvert.SerializeObject(PositionSide.Short, converter);
-
-            PositionSide en = JsonConvert.DeserializeObject<PositionSide>(res, converter);
-
-
-            
             
         }
 

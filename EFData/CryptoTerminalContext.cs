@@ -5,6 +5,7 @@ using Ixcent.CryptoTerminal.Domain.Interfaces;
 namespace Ixcent.CryptoTerminal.EFData
 {
     using Domain.Database;
+    using Domain.CryptoExchanges.Data;
 
     public class CryptoTerminalContext : IdentityDbContext<AppUser>, IFuturesExchangeContext
     {
@@ -14,7 +15,10 @@ namespace Ixcent.CryptoTerminal.EFData
             Database.EnsureCreated();
         }
 
-        public DbSet<TwapOrderRecord> TwapOrderRecords { get; set; }
+        public DbSet<TwapOrderRecord> TwapFuturesOrderRecords { get; set; }
+
+        public DbSet<VirtualOrderRecord> VirtualFuturesOrders { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

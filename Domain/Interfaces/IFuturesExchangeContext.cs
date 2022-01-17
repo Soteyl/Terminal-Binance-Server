@@ -6,7 +6,9 @@ namespace Ixcent.CryptoTerminal.Domain.Interfaces
     using Database;
     public interface IFuturesExchangeContext
     {
-        DbSet<TwapOrderRecord> TwapOrderRecords { get; set; }
+        DbSet<TwapOrderRecord> TwapFuturesOrderRecords { get; set; }
+
+        DbSet<VirtualOrderRecord> VirtualFuturesOrders { get; set; }
 
     }
 }

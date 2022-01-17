@@ -10,9 +10,9 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
     /// <summary>
     /// TWAP strategy order.
     /// </summary>
-    public class TwapOrder : FuturesOrder
+    public class TwapFuturesOrder : FuturesOrder
     {
-        public TwapOrder(string symbol, decimal quantity, decimal stepSize, DateTime startTime, TimeSpan duration, OrderSide orderSide, PositionSide positionSide)
+        public TwapFuturesOrder(string symbol, decimal quantity, decimal stepSize, DateTime startTime, TimeSpan duration, OrderSide orderSide, PositionSide positionSide)
             : base(symbol, quantity, orderSide, OrderType.Market, positionSide, startTime, 0, 0, TimeInForce.GoodTillCancel)
         {
             StepSize = stepSize;
