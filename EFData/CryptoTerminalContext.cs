@@ -6,7 +6,7 @@ namespace Ixcent.CryptoTerminal.EFData
 {
     using Domain.Database;
 
-    public class CryptoTerminalContext : IdentityDbContext<AppUser>, IBinanceFuturesExchangeContext
+    public class CryptoTerminalContext : IdentityDbContext<AppUser>, IFuturesExchangeContext
     {
         public CryptoTerminalContext(DbContextOptions<CryptoTerminalContext> options)
             : base(options)
@@ -15,23 +15,9 @@ namespace Ixcent.CryptoTerminal.EFData
         }
 
         public DbSet<TwapOrderRecord> TwapOrderRecords { get; set; }
-
-        // TODO rplace converters with json converter
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<TwapOrderRecord>()
-                .Property(p => p.OrderSide)
-                .HasConversion(
-                    p => p.Value,
-                    p => (Domain.CryptoExchanges.Enums.OrderSide)Domain.CryptoExchanges.Enums.OrderSide.Values.GetValueOrDefault(p)
-                );
-            modelBuilder.Entity<TwapOrderRecord>()
-                .Property(p => p.PositionSide)
-                .HasConversion(
-                    p => p.Value,
-                    p => (Domain.CryptoExchanges.Enums.PositionSide)Domain.CryptoExchanges.Enums.PositionSide.Values.GetValueOrDefault(p)
-                );
         }
     }
 }

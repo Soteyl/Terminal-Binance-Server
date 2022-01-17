@@ -22,12 +22,12 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
     {
         private IBinanceClientFuturesUsdt _client;
         private IExchangeClient _exClient;
-        private IBinanceFuturesExchangeContext _exchangeContext;    
+        private IFuturesExchangeContext _exchangeContext;    
         private BinanceSocketClient _socketClient;
 
         private TwapOrderRecord _nextTwapToExecute;
 
-        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, IBinanceFuturesExchangeContext exchangeContext)
+        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient, IFuturesExchangeContext exchangeContext)
             : base("USDT")
         {
             _exClient = exClient;

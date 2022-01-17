@@ -18,6 +18,9 @@ namespace Ixcent.CryptoTerminal.API
     using Infrastructure;
     using EFData;
     using Application.Users.IP;
+    using Domain.Converters;
+    using Newtonsoft.Json;
+    using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums;
 
     public class Startup
     {
@@ -90,9 +93,18 @@ namespace Ixcent.CryptoTerminal.API
                     0.02m,
                     DateTime.Now,
                     TimeSpan.FromMinutes(2),
-                    Domain.CryptoExchanges.Enums.OrderSide.Buy,
-                    Domain.CryptoExchanges.Enums.PositionSide.Long
+                    OrderSide.Buy,
+                    PositionSide.Long
                 ));
+
+            AdvancedEnumConverter converter = new AdvancedEnumConverter();
+
+            var res = JsonConvert.SerializeObject(PositionSide.Short, converter);
+
+            PositionSide en = JsonConvert.DeserializeObject<PositionSide>(res, converter);
+
+
+            
             
         }
 

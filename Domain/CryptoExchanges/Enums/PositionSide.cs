@@ -1,6 +1,9 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
+﻿using Newtonsoft.Json;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
 {
     using Interfaces;
+    using Converters;
 
     public sealed class PositionSide : IAdvancedEnum
     {
@@ -31,6 +34,16 @@
         public static implicit operator PositionSide(Binance.Net.Enums.PositionSide value)
         {
             return (PositionSide)Values[(byte)value];
+        }
+
+        public static implicit operator PositionSide(string value)
+        {
+            return JsonConvert.DeserializeObject<PositionSide>(value, new AdvancedEnumConverter());
+        }
+
+        public static implicit operator string(PositionSide value)
+        {
+            return JsonConvert.SerializeObject(value, new AdvancedEnumConverter());
         }
 
         SortedList<byte, IAdvancedEnum> IAdvancedEnum.Values => Values;
