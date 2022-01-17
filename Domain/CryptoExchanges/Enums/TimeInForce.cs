@@ -1,6 +1,8 @@
 ﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
 {
     using Interfaces;
+    using Ixcent.CryptoTerminal.Domain.Converters;
+    using Newtonsoft.Json;
 
     public sealed class TimeInForce : IAdvancedEnum
     {
@@ -35,6 +37,16 @@
         public static implicit operator TimeInForce(Binance.Net.Enums.TimeInForce value)
         {
             return (TimeInForce)Values[(byte)value];
+        }
+
+        public static implicit operator TimeInForce(string value)
+        {
+            return JsonConvert.DeserializeObject<TimeInForce>(value, new AdvancedEnumConverter());
+        }
+
+        public static implicit operator string(TimeInForce value)
+        {
+            return JsonConvert.SerializeObject(value, new AdvancedEnumConverter());
         }
 
         SortedList<byte, IAdvancedEnum> IAdvancedEnum.Values => Values;

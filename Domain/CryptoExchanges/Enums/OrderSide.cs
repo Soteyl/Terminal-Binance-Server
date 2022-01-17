@@ -1,13 +1,12 @@
 ﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
 {
     using Interfaces;
+    using Ixcent.CryptoTerminal.Domain.Converters;
+    using Newtonsoft.Json;
     using System.Collections.Generic;
 
     public sealed class OrderSide : IAdvancedEnum
     {
-        public OrderSide()
-        {   }
-
         private OrderSide(byte value, string name)
         {
             Value = value;
@@ -35,6 +34,15 @@
             return (OrderSide)Values[(byte)value];
         }
 
+        public static implicit operator OrderSide(string value)
+        {
+            return JsonConvert.DeserializeObject<OrderSide>(value, new AdvancedEnumConverter());
+        }
+
+        public static implicit operator string(OrderSide value)
+        {
+            return JsonConvert.SerializeObject(value, new AdvancedEnumConverter());
+        }
         SortedList<byte, IAdvancedEnum> IAdvancedEnum.Values => Values;
     }
 }

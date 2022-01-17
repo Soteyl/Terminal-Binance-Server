@@ -18,7 +18,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         private string? _secret;
 
-        public BinanceCryptoExchange(string apiToken, string apiSecret, IBinanceFuturesExchangeContext context): this(context)
+        public BinanceCryptoExchange(string apiToken, string apiSecret, IFuturesExchangeContext context): this(context)
         {
             _token = apiToken;
             _secret = apiSecret;
@@ -29,7 +29,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
                 });
         }
 
-        public BinanceCryptoExchange(IBinanceFuturesExchangeContext context)
+        public BinanceCryptoExchange(IFuturesExchangeContext context)
         {
             _client = new BinanceClient();
             _spot = new BinanceSpot(_client.Spot, _client.General, _client);
