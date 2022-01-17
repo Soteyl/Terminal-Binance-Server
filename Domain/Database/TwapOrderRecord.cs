@@ -32,7 +32,7 @@ namespace Ixcent.CryptoTerminal.Domain.Database
 
         public string PositionSide { get; set; }
 
-        public OrderSide OrderSide { get; set; }
+        public string OrderSide { get; set; }
 
     }
 }
