@@ -38,7 +38,7 @@
 
         public DateTime CreatedDate { get => _createdDate; set => _createdDate = value;  }
 
-        public long? Id { get => _id; set => _id = value; } 
+        public long? OrderId { get => _id; set => _id = value; } 
 
         public decimal? Price { get => (OrderType == OrderType.Limit) ? _price : null; set => _price = value; }
 

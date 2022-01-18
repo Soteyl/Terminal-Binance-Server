@@ -20,9 +20,11 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
     public class BinanceFuturesUSDT : CryptoFutures
     {
+        private const string _exchange = "Binance";
+
+        private IFuturesExchangeContext _exchangeContext;    
         private IBinanceClientFuturesUsdt _client;
         private IExchangeClient _exClient;
-        private IFuturesExchangeContext _exchangeContext;    
         private BinanceSocketClient _socketClient;
 
         private TwapOrderRecord _nextTwapToExecute;
@@ -36,6 +38,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             _socketClient = new BinanceSocketClient();
             _socketClient.FuturesUsdt.SubscribeToAllBookTickerUpdatesAsync(TwapThread);
+            _socketClient.FuturesUsdt.SubscribeToAllBookTickerUpdatesAsync(VirtualThread);
         }
 
         public override async Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue)
@@ -105,7 +108,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override void CancelOrder(FuturesOrder order)
         {
-            _client.Order.CancelOrderAsync(order.Symbol, order.Id);
+            _client.Order.CancelOrderAsync(order.Symbol, order.OrderId);
         }
 
         public override void CancelOrder(TwapOrderRecord order)
@@ -143,7 +146,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return new MakeOrderResult(placeOrderCaller.Success, placeOrderCaller.Error?.Message);
         }
 
-        public override async Task<MakeOrderResult> MakeOrder(TwapOrder twapOrder)
+        public override async Task<MakeOrderResult> MakeOrder(TwapFuturesOrder twapOrder)
         {
             if ((await GetBalance()).Free < twapOrder.Amount)
                 return new MakeOrderResult(false, "Not enough funds!");
@@ -169,12 +172,21 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             foreach (var record in records)
             {
-                _exchangeContext.TwapOrderRecords.Add(record);
+                _exchangeContext.TwapFuturesOrderRecords.Add(record);
                 if (_nextTwapToExecute == null || record.ExecuteTime < _nextTwapToExecute.ExecuteTime)
                     _nextTwapToExecute = record;
             }
             return new MakeOrderResult(true, "Placed order successfully!");
         }
+
+        public override async Task<MakeOrderResult> MakeOrder(VirtualFuturesOrder order)
+        {
+            if ((await GetBalance()).Free < order.Amount)
+                return new MakeOrderResult(false, "Not enough funds!");
+
+            _exchangeContext.VirtualFuturesOrders.Add(new VirtualOrderRecord(order.PlaceOrderPrice, order));
+            return new MakeOrderResult(true, "Order was placed successfully!");
+    }
 
         // TODO separate in different class
         private async void TwapThread(DataEvent<BinanceStreamBookPrice> data)
@@ -194,8 +206,32 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
                 {
                     // TODO warn user about unsuccessful order
                 }
-                _exchangeContext.TwapOrderRecords.Remove(_nextTwapToExecute);
-                _nextTwapToExecute = _exchangeContext.TwapOrderRecords.OrderBy(order => order.ExecuteTime).First();
+                _exchangeContext.TwapFuturesOrderRecords.Remove(_nextTwapToExecute);
+                _nextTwapToExecute = _exchangeContext.TwapFuturesOrderRecords.OrderBy(order => order.ExecuteTime).First();
+            }
+        }
+
+        private async void VirtualThread(DataEvent<BinanceStreamBookPrice> data)
+        {
+            var orders = _exchangeContext.VirtualFuturesOrders
+                .Where(order => order.OrderToPlace.Symbol == data.Data.Symbol &&
+                                order.Exchange == _exchange )
+                .ToList();
+
+            foreach (var order in orders)
+            {
+                decimal avaragePrice = (data.Data.BestBidPrice + data.Data.BestAskPrice) / 2;
+
+                if (avaragePrice != order.PlacePrice)
+                    continue;
+
+                MakeOrderResult placeOrderResult = await MakeOrder(order.OrderToPlace);
+                _exchangeContext.VirtualFuturesOrders.Remove(order);
+
+                if (!placeOrderResult.Success)
+                {
+                    // TODO warn user about unsuccessful order
+                }
             }
         }
 

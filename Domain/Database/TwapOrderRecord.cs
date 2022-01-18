@@ -30,9 +30,9 @@ namespace Ixcent.CryptoTerminal.Domain.Database
 
         public DateTime ExecuteTime { get; set; }
 
-        public string PositionSide { get; set; }
+        public PositionSide PositionSide { get; set; }
 
-        public string OrderSide { get; set; }
+        public OrderSide OrderSide { get; set; }
 
     }
 }

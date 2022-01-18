@@ -5,59 +5,150 @@ i:{00000000-0000-0000-0000-000000000000}:Solution Items
 ++.editorconfig
 i:{958d613a-5515-4589-983c-6412721395f7}:D:\Projects\WORK\NOT MY PROJECTS\CryptoTerminal\terminal-binance-server\.editorconfig
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\.editorconfig
-++Domain
-i:{00000000-0000-0000-0000-000000000000}:Domain
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\domain.csproj
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+++Application
+i:{00000000-0000-0000-0000-000000000000}:Application
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\bin\debug\net6.0\application.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\bin\debug\net6.0\application.dll
 ++Dependencies
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>611
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>612
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>613
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>610
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>823
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>620
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>621
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>619
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>618
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>831
+++Exceptions
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\exceptions\
+++Interfaces
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\interfaces\
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\
+++IJwtGenerator.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\interfaces\ijwtgenerator.cs
+++Users
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\
+++IP
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\
+++Login
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\
+++Registration
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\
+++User.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\user.cs
+++Validation
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\
 ++Analyzers
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:analyzers
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:analyzers
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:analyzers
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:analyzers
 i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:analyzers
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:analyzers
 ++Frameworks
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:frameworks
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:frameworks
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:frameworks
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:frameworks
 i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:frameworks
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:frameworks
-++Microsoft.NETCore.App
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\microsoft.netcore.app
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\microsoft.netcore.app
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\microsoft.netcore.app
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\infrastructure\microsoft.netcore.app
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\microsoft.netcore.app
 ++Packages
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:packages
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:packages
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:packages
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:packages
 i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:packages
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:packages
+++Projects
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:projects
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:projects
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:projects
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:projects
+++RestException.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\exceptions\restexception.cs
+++IpCheckHandler.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\ipcheckhandler.cs
+++IpCheckRequirement.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\ipcheckrequirement.cs
+++LoginHandler.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\loginhandler.cs
+++LoginQuery.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\loginquery.cs
+++RegistrationCommand.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\registrationcommand.cs
+++RegistrationHandler.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\registrationhandler.cs
+++LoginQueryValidation.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\loginqueryvalidation.cs
+++RegistrationValidation.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\registrationvalidation.cs
+++ValidatorExtensions.cs
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\validatorextensions.cs
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+++Microsoft.Extensions.Logging.Generators
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++System.Text.Json.SourceGeneration
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.NETCore.App
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\microsoft.netcore.app
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\microsoft.netcore.app
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\microsoft.netcore.app
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\infrastructure\microsoft.netcore.app
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\microsoft.netcore.app
 ++Binance.Net (7.2.6)
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>903
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>916
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>881
-++Microsoft.EntityFrameworkCore (6.0.1)
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>930
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>856
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>874
-++Microsoft.Extensions.Identity.Stores (6.0.1)
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>907
-++Microsoft.IdentityModel.Tokens (6.15.0)
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:>905
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>865
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>878
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>858
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>921
+++FluentValidation (10.3.6)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>876
+++MediatR (9.0.0)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>874
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>919
+++MediatR.Extensions.Microsoft.DependencyInjection (9.0.0)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>879
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>924
+++Microsoft.AspNetCore.Authorization (6.0.1)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>873
+++Microsoft.AspNetCore.Identity (2.2.0)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>872
+++Microsoft.Rest.ClientRuntime (2.3.23)
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>875
+++Domain
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+i:{00000000-0000-0000-0000-000000000000}:Domain
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\bin\debug\net6.0\domain.dll
+++EFData
+i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\bin\debug\net6.0\efdata.dll
+i:{00000000-0000-0000-0000-000000000000}:EFData
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\bin\debug\net6.0\efdata.dll
 ++Auth
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\auth\
 ++AuthOptions.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\auth\authoptions.cs
+++Converters
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\converters\
+++AdvancedEnumConverter.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\converters\advancedenumconverter.cs
 ++CryptoExchanges
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\
 ++BinanceRealisation
@@ -66,6 +157,14 @@ i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\crypto
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\
 ++Enums
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\
+++OrderSide.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\orderside.cs
+++OrderType.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\ordertype.cs
+++PositionSide.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\positionside.cs
+++TimeInForce.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\timeinforce.cs
 ++Results
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\
 ++CryptoExchange.cs
@@ -80,43 +179,10 @@ i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\crypto
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\database\appuser.cs
 ++TwapOrderRecord.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\database\twaporderrecord.cs
-++Interfaces
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\interfaces\
 ++IAdvancedEnum.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\iadvancedenum.cs
-++IBinanceFuturesExchangeContext.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\ibinancefuturesexchangecontext.cs
-++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-++Microsoft.CodeAnalysis.NetAnalyzers
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-++Microsoft.EntityFrameworkCore.Analyzers
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\users\danil\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.1\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
-++Microsoft.Extensions.Logging.Generators
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\users\danil\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
-++System.Text.Json.SourceGeneration
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++IFuturesExchangeContext.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\interfaces\ifuturesexchangecontext.cs
 ++BinanceCryptoExchange.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\binancerealisation\binancecryptoexchange.cs
 ++BinanceFuturesUSDT.cs
@@ -138,123 +204,61 @@ i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\crypto
 ++StopLimitOrder.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\stoplimitorder.cs
 ++TwapOrder.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\twaporder.cs
-++OrderSide.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\orderside.cs
-++OrderType.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\ordertype.cs
-++PositionSide.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\positionside.cs
-++TimeInForce.cs
-i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\enums\timeinforce.cs
+++VirtualOrder.cs
 ++AdjustLeverageResult.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\adjustleverageresult.cs
 ++MakeGridResult.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\makegridresult.cs
 ++MakeOrderResult.cs
 i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\results\makeorderresult.cs
-++EFData
-i:{00000000-0000-0000-0000-000000000000}:EFData
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\bin\debug\net6.0\efdata.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\bin\debug\net6.0\efdata.dll
-++Projects
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:projects
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:projects
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:projects
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:projects
-++BInanceExchangeContext.cs
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\binanceexchangecontext.cs
+++Microsoft.EntityFrameworkCore (6.0.1)
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>857
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>861
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>917
+++Microsoft.Extensions.Identity.Stores (6.0.1)
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>862
+++Microsoft.IdentityModel.Tokens (6.15.0)
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:>860
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>893
 ++CryptoTerminalContext.cs
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\cryptoterminalcontext.cs
 ++DataSeed.cs
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\efdata\dataseed.cs
 ++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>862
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>880
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>865
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>920
 ++Microsoft.EntityFrameworkCore.Design (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>860
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>877
-++Microsoft.EntityFrameworkCore.Relational (6.0.1)
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>864
-++Microsoft.EntityFrameworkCore.SqlServer (6.0.1)
-i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>858
-++Microsoft.EntityFrameworkCore.Tools (6.0.0)
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>918
+++Microsoft.EntityFrameworkCore.Relational (6.0.1)
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>866
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>883
-++Pomelo.EntityFrameworkCore.MySql (6.0.0)
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.1)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>863
+++Microsoft.EntityFrameworkCore.Tools (6.0.0)
 i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>868
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>885
-++Application
-i:{00000000-0000-0000-0000-000000000000}:Application
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\bin\debug\net6.0\application.dll
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\bin\debug\net6.0\application.dll
-++Exceptions
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\exceptions\
-++IJwtGenerator.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\interfaces\ijwtgenerator.cs
-++Users
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\
-++IP
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\
-++Login
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\
-++Registration
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\
-++User.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\user.cs
-++Validation
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\
-++RestException.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\exceptions\restexception.cs
-++IpCheckHandler.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\ipcheckhandler.cs
-++IpCheckRequirement.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\ip\ipcheckrequirement.cs
-++LoginHandler.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\loginhandler.cs
-++LoginQuery.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\login\loginquery.cs
-++RegistrationCommand.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\registrationcommand.cs
-++RegistrationHandler.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\users\registration\registrationhandler.cs
-++LoginQueryValidation.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\loginqueryvalidation.cs
-++RegistrationValidation.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\registrationvalidation.cs
-++ValidatorExtensions.cs
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\application\validation\validatorextensions.cs
-++FluentValidation (10.3.6)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>915
-++MediatR (9.0.0)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>913
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>879
-++MediatR.Extensions.Microsoft.DependencyInjection (9.0.0)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>917
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>884
-++Microsoft.AspNetCore.Authorization (6.0.1)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>912
-++Microsoft.AspNetCore.Identity (2.2.0)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>911
-++Microsoft.Rest.ClientRuntime (2.3.23)
-i:{2804c3d3-4a80-4d70-bbff-f700b1e1336b}:>914
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>923
+++Pomelo.EntityFrameworkCore.MySql (6.0.0)
+i:{555934ba-2a7f-4a6a-b3d0-57b0574b68a7}:>869
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>925
 ++Infrastructure
 i:{00000000-0000-0000-0000-000000000000}:Infrastructure
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\infrastructure\bin\debug\net6.0\infrastructure.dll
 ++JwtGenerator.cs
 i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\infrastructure\jwtgenerator.cs
 ++Microsoft.Extensions.Configuration.Abstractions (6.0.0)
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>859
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>890
 ++System.Collections (4.3.0)
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>863
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>892
 ++System.IdentityModel.Tokens.Jwt (6.15.0)
-i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>861
+i:{3b4e423a-71c5-4283-bb9b-6f807a4d8595}:>891
 ++API
 i:{00000000-0000-0000-0000-000000000000}:API
 ++Connected Services 
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>824
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>832
 ++Properties
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\properties\
+++launchSettings.json
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\properties\launchsettings.json
 ++wwwroot
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\
 ++Controllers
@@ -269,6 +273,8 @@ i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\crypto
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\controllers\userscontroller.cs
 ++appsettings.json
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\appsettings.json
+++appsettings.Development.json
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\appsettings.development.json
 ++NLog.config
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\nlog.config
 ++Program.cs
@@ -276,9 +282,7 @@ i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\crypto
 ++Startup.cs
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\startup.cs
 ++No service dependencies discovered
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>825
-++launchSettings.json
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\properties\launchsettings.json
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>833
 ++css
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\css\
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\css\
@@ -289,8 +293,6 @@ i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\crypto
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\
 ++favicon.ico
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\favicon.ico
-++appsettings.Development.json
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\appsettings.development.json
 ++Microsoft.AspNetCore.Analyzers
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
 ++Microsoft.AspNetCore.App.Analyzers
@@ -308,7 +310,7 @@ i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:c:\program files\dotnet\sdk\6.0.100\sdk
 ++Microsoft.AspNetCore.App
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\microsoft.aspnetcore.app
 ++Microsoft.AspNetCore.Authentication.JwtBearer (6.0.1)
-i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>882
+i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:>922
 ++site.css
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\css\site.css
 ++site.js
@@ -438,3 +440,11 @@ i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\crypto
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
 ++bootstrap.esm.min.js.map
 i:{85e5553f-6594-47a5-b6f0-854d47ff3f89}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\api\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+++Class1.cs
+++VirtualOrder_1.cs
+++VirtualFuturesOrder.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\virtualorder.cs
+++VirtualOrderRecord.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\database\virtualorderrecord.cs
+++TwapFuturesOrder.cs
+i:{46b31900-1b80-4595-b36f-6d396a10e258}:d:\projects\work\not my projects\cryptoterminal\terminal-binance-server\domain\cryptoexchanges\data\twaporder.cs
