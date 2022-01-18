@@ -80,23 +80,6 @@ namespace Ixcent.CryptoTerminal.API
             {
                 endpoints.MapDefaultControllerRoute();
             });
-            BinanceCryptoExchange exchange = new BinanceCryptoExchange(
-                "ZOcjoqRfQ86zSYz4vUyzQ4Hk63TilQGzMGskHp7d2Goc3TvCeoyHocuUo4EdAsp0",
-                "iou3etuXmQYi7XWa666K7idpfNuvU3ucidwCvpWQ9v3FZURosrh62LFoRhJXVepk",
-                context
-                );
-
-            exchange.GetFutures().First().MakeOrder(
-                new VirtualFuturesOrder(
-                    43200,
-                    "BTCUSDT",
-                    0.001m,
-                    OrderSide.Buy,
-                    OrderType.Limit,
-                    PositionSide.Short,
-                    DateTime.Now,
-                    0
-                ));
             
         }
 
