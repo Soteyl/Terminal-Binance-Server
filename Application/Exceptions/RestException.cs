@@ -4,7 +4,7 @@ namespace Ixcent.CryptoTerminal.Application.Exceptions
 {
     public class RestException : Exception
     {
-        public RestException(HttpStatusCode code, object errors = null)
+        public RestException(HttpStatusCode code, object? errors = null)
         {
             Code = code;
             Errors = errors;
@@ -12,6 +12,6 @@ namespace Ixcent.CryptoTerminal.Application.Exceptions
 
         public HttpStatusCode Code { get; }
 
-        public object Errors { get; set; }
+        public object? Errors { get; set; }
     }
 }

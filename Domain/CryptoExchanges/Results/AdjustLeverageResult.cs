@@ -1,15 +1,34 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results
+﻿using Binance.Net.Objects.Futures.FuturesData;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results
 {
     public class AdjustLeverageResult
     {
-        public AdjustLeverageResult(bool success, string? message = null)
+        public int Leverage
         {
-            Success = success;
-            Message = message;
+            get;
+            set;
+        }
+        public string MaxNotionalValue
+        {
+            get;
+            set;
+        } = string.Empty;
+
+        public string? Symbol
+        {
+            get;
+            set;
         }
 
-        public bool Success { get; set; }
-
-        public string? Message { get; set; }
+        public static implicit operator AdjustLeverageResult(BinanceFuturesInitialLeverageChangeResult res)
+        {
+            return new AdjustLeverageResult
+            {
+                Leverage = res.Leverage,
+                MaxNotionalValue = res.MaxNotionalValue,
+                Symbol = res.Symbol
+            };
+        }
     }
 }

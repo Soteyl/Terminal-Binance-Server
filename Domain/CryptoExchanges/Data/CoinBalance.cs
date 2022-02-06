@@ -1,26 +1,21 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
-    public class CoinBalance
+    public class CoinBalance: ICommonBalance
     {
-        private string _shortName;
+        public decimal Free { get; set; }
 
-        private decimal _free;
+        public decimal Locked { get; set;}
 
-        private decimal _locked;
-
-        public CoinBalance(string shortName, decimal free, decimal locked)
-        {
-            ShortName = shortName;
-            _free = free;
-            _locked = locked;
-        }
-
-        public decimal Free { get => _free; set => _free = value; }
-
-        public decimal Locked { get => _locked; set => _locked = value;}
+        public string Asset { get; set; }
 
         public decimal Total => Free + Locked;
 
-        public string ShortName { get => _shortName; set => _shortName = value; }
+        string ICommonBalance.CommonAsset => Asset;
+
+        decimal ICommonBalance.CommonAvailable => Free;
+
+        decimal ICommonBalance.CommonTotal => Total;
     }
 }

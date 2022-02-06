@@ -7,7 +7,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
     public abstract class CryptoSpot
     {
-        public abstract Task<IEnumerable<CoinBalance>> GetCoinBalances();
+        public abstract Task<IEnumerable<ICommonBalance>> GetCoinBalances();
 
 		public abstract Task<IEnumerable<BookPrice>> GetCoinPairs();
 

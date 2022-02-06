@@ -51,6 +51,26 @@
             return (OrderType)Values[(byte)value];
         }
 
+        public static implicit operator CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderType(OrderType value)
+        {
+            if (value == Limit)
+            {
+                return CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderType.Limit;
+            }
+
+            if (value == Market)
+            {
+                return CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderType.Market;
+            }
+
+            return CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderType.Other;
+        }
+
+        public static implicit operator OrderType(CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderType value)
+        {
+            return (OrderType)Values[(byte)value];
+        }
+
         SortedList<byte, IAdvancedEnum> IAdvancedEnum.Values => Values;
     }
 }

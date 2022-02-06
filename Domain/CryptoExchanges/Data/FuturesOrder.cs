@@ -1,51 +1,56 @@
 ﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
+    using Binance.Net.Objects.Futures.FuturesData;
     using Enums;
 
     public class FuturesOrder
     {
-        private string _symbol;
-        private decimal _amount;
         private decimal? _price;
-        private long? _id;
-        private OrderType _type;
-        private OrderSide _side;
-        private PositionSide _positionSide;
-        private DateTime _createdDate;
+
         private TimeInForce? _tif;
-        private bool _reduceOnly;
-        
-        public FuturesOrder(string symbol, decimal amount, OrderSide orderSide, OrderType orderType, PositionSide positionSide, DateTime? date, long? id, decimal? price, TimeInForce? tif, bool? reduceOnly)
+
+        public long Id { get; set; }
+
+        public string Symbol { get; set; } = string.Empty;
+
+        public decimal Amount { get; set; }
+
+        public OrderType OrderType { get; set; }
+
+        public OrderSide OrderSide { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public decimal? Price { get => (OrderType == OrderType.Limit) ? _price : null; set => _price = value; }
+
+        public TimeInForce? Tif { get => (OrderType == OrderType.Limit) ? _tif : null; set => _tif = value; }
+
+        public PositionSide PositionSide { get; set; }
+
+        public bool ClosePosition { get; set; }
+
+        public bool ReduceOnly { get; set; }
+
+        public static implicit operator FuturesOrder(BinanceFuturesOrder order)
         {
-            _tif = tif;
-            _price = price;
-            _symbol = symbol;
-            _amount = amount;
-            _side = orderSide;
-            _type = orderType;
-            _positionSide = positionSide;
-            _reduceOnly = reduceOnly ?? false;
-            _createdDate = date ?? DateTime.Now;
+            return new FuturesOrder
+            {
+                Symbol = order.Symbol,
+                Amount = order.Quantity,
+                OrderSide = order.Side,
+                OrderType = order.Type,
+                PositionSide = order.PositionSide,
+                CreatedDate = order.CreatedTime,
+                Id = order.OrderId,
+                Price = order.Price,
+                Tif = order.TimeInForce,
+                ReduceOnly = order.ReduceOnly
+            };
         }
 
-        public string Symbol { get => _symbol; }
-
-        public decimal Amount { get => _amount; }
-
-        public OrderType OrderType { get => _type; }
-
-        public OrderSide OrderSide { get => _side; }
-
-        public DateTime CreatedDate { get => _createdDate; }
-
-        public long? Id { get => _id; } 
-
-        public decimal? Price { get => (OrderType == OrderType.Limit) ? _price : null; }
-
-        public TimeInForce? TIF { get => (OrderType == OrderType.Limit) ? _tif : null; }
-
-        public PositionSide PositionSide { get => _positionSide; }
-
-        public bool ReduceOnly { get => _reduceOnly; }
+        public static implicit operator BinanceFuturesOrder(FuturesOrder order)
+        {
+            return order;
+        }
     }
 }

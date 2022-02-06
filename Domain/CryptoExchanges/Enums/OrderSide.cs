@@ -32,6 +32,16 @@
             return (OrderSide)Values[(byte)value];
         }
 
+        public static implicit operator CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderSide(OrderSide value)
+        {
+            return (CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderSide)value.Value;
+        }
+
+        public static implicit operator OrderSide(CryptoExchange.Net.ExchangeInterfaces.IExchangeClient.OrderSide value)
+        {
+            return (OrderSide)Values[(byte)value];
+        }
+
         SortedList<byte, IAdvancedEnum> IAdvancedEnum.Values => Values;
     }
 }

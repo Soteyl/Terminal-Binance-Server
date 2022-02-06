@@ -1,4 +1,5 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
+﻿using CryptoExchange.Net.ExchangeInterfaces;
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
     public class BookPrice
     {
