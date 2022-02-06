@@ -1,46 +1,67 @@
 ﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
+    using Binance.Net.Objects.Spot.SpotData;
+    using CryptoExchange.Net.ExchangeInterfaces;
     using Enums;
 
-    public class SpotOrder
+    public class SpotOrder: ICommonOrder
     {
-        private string _pair;
+        public string Symbol { get; set; } = string.Empty;
 
-        private decimal _amountFirst;
+        public decimal AmountFirst { get; set; }
 
-        private decimal? _price;
+        public decimal? Price { get; set; }
 
-        private OrderSide _orderSide;
+        public OrderSide OrderSide { get; set; }
 
-        private OrderType _orderType;
+        public OrderType OrderType { get; set; }
 
-        private DateTime? _dateTime;
+        public OrderStatus OrderStatus { get; set; }
 
-        private TimeInForce? _timeInForce;
+        public DateTime? DateTime { get; set; }
 
-        public SpotOrder(string pair, decimal amountFirst, OrderSide orderSide, OrderType orderType, decimal? price = null, DateTime? dateTime = null, TimeInForce? timeInForce = null)
+        public TimeInForce? TimeInForce { get; set; }
+
+        public string Id { get; set; }
+
+        public bool IsActive { get; set; }
+
+        string ICommonOrder.CommonSymbol => Symbol;
+
+        decimal ICommonOrder.CommonPrice => Price ?? 0;
+
+        decimal ICommonOrder.CommonQuantity => AmountFirst;
+
+        IExchangeClient.OrderStatus ICommonOrder.CommonStatus => OrderStatus;
+
+        bool ICommonOrder.IsActive => IsActive;
+
+        IExchangeClient.OrderSide ICommonOrder.CommonSide => OrderSide;
+
+        IExchangeClient.OrderType ICommonOrder.CommonType => OrderType;
+
+        DateTime ICommonOrder.CommonOrderTime => DateTime ?? new DateTime();
+
+        string ICommonOrderId.CommonId => Id;
+
+        public static implicit operator SpotOrder(BinanceOrder order)
         {
-            _pair = pair;
-            _amountFirst = amountFirst;
-            _price = price;
-            _orderSide = orderSide;
-            _orderType = orderType;
-            _dateTime = dateTime;
-            _timeInForce = timeInForce;
+            return new SpotOrder
+            {
+                Symbol = order.Symbol,
+                AmountFirst = order.Quantity,
+                DateTime = order.CreateTime,
+                OrderSide = order.Side,
+                OrderType = order.Type,
+                Price = order.Price,
+                TimeInForce = order.TimeInForce,
+                Id = order.ClientOrderId
+            };
         }
 
-        public string Pair { get => _pair; set => _pair = value; }
-
-        public decimal AmountFirst { get => _amountFirst; set => _amountFirst = value; }
-
-        public decimal? Price { get => (OrderType == OrderType.Limit) ? _price : null; set => _price = value; }
-
-        public OrderSide OrderSide { get => _orderSide; set => _orderSide = value; }
-
-        public OrderType OrderType { get => _orderType; set => _orderType = value; }
-
-        public DateTime? DateTime { get => _dateTime; set => _dateTime = value; }
-
-        public TimeInForce? TimeInForce { get => (OrderType == OrderType.Limit) ? _timeInForce : null; set => _timeInForce = value; }
+        public static implicit operator BinanceOrder(SpotOrder order)
+        {
+            return order;
+        }
     }
 }

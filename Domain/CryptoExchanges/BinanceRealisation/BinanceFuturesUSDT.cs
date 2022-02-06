@@ -25,14 +25,14 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             _client = binanceFuturesClient;
         }
 
-        public override async Task<BinanceFuturesInitialLeverageChangeResult> AdjustLeverage(string symbol, int leverageValue)
+        public override async Task<AdjustLeverageResult> AdjustLeverage(string symbol, int leverageValue)
         {
             WebCallResult<BinanceFuturesInitialLeverageChangeResult> adjustLeverageCaller =  await _client.ChangeInitialLeverageAsync(symbol, leverageValue);
 
             return adjustLeverageCaller.Data;
         }
 
-        public override async Task<BinanceFuturesChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType)
+        public override async Task<ChangeMarginTypeResult> ChangeMarginType(string symbol, FuturesMarginType marginType)
         {
             WebCallResult<BinanceFuturesChangeMarginTypeResult> changeMarginCaller = await _client.ChangeMarginTypeAsync(symbol, marginType);
 
@@ -53,21 +53,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<IEnumerable<BinanceFuturesOrder>> ordersList = await _client.Order.GetOpenOrdersAsync();
 
-            var selectedOrdersList = ordersList.Data.ToList().Select(
-                order => new FuturesOrder(
-                        symbol: order.Symbol,
-                        amount: order.Quantity,
-                        orderSide: order.Side,
-                        orderType: order.Type,
-                        positionSide: order.PositionSide,
-                        date: order.CreatedTime,
-                        id: order.OrderId,
-                        price: order.Price,
-                        tif: order.TimeInForce,
-                        reduceOnly: order.ReduceOnly
-                    ));
-
-            return selectedOrdersList;
+            return ordersList.Data.Cast<FuturesOrder>();
         }
 
         public override void CancelOrder(FuturesOrder order)
@@ -85,21 +71,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             foreach (var price in pricesList)
             {
-                var closedOrdersResult = (await _client.Order.GetUserTradesAsync(price.Symbol)).Data
-                    .Select(
-                        trade => new FuturesTrade(
-                            symbol: trade.Symbol,
-                            price: trade.Price,
-                            quantity: trade.Quantity,
-                            realizedPnl: trade.RealizedPnl,
-                            commission: trade.Commission,
-                            orderSide: trade.Side,
-                            positionSide: trade.PositionSide,
-                            tradeTime: trade.TradeTime,
-                            id: trade.Id,
-                            orderId: trade.OrderId,
-                            buyer: trade.Buyer
-                    ));
+                var closedOrdersResult = (await _client.Order.GetUserTradesAsync(price.Symbol)).Data.Cast<FuturesTrade>();
 
                 if (closedOrdersResult != null)
                     tradesList.AddRange(closedOrdersResult);
@@ -114,13 +86,11 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override async Task<CoinBalance> GetBalance()
+        public override async Task<IEnumerable<FuturesBalance>> GetBalances()
         {
             WebCallResult<IEnumerable<BinanceFuturesAccountBalance>> balanceCaller = await _client.Account.GetBalanceAsync();
 
-            var coinBalance = balanceCaller.Data.ToList().Find(balance => balance.Asset == MainCoin);
-
-            return new CoinBalance(MainCoin, coinBalance?.AvailableBalance ?? 0, (coinBalance?.WalletBalance - coinBalance?.AvailableBalance) ?? 0);
+            return balanceCaller.Data.Cast<FuturesBalance>();
         }
 
         public override async Task<MakeOrderResult> MakeOrder(FuturesOrder order)
@@ -139,18 +109,18 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> ClosePosition(FuturesPosition position)
         {
-            return await MakeOrder(new FuturesOrder(
-                symbol: position.Symbol,
-                amount: position.Quantity,
-                orderSide: OrderSide.Buy,
-                orderType: Enums.OrderType.Market,
-                positionSide: position.Side,
-                id: 0,
-                date: DateTime.Now,
-                price: position.MarkPrice,
-                tif: TimeInForce.GoodTillExpiredOrCanceled,
-                reduceOnly: true
-                ));
+            return await MakeOrder(new FuturesOrder
+            {
+                Symbol = position.Symbol,
+                Amount = position.Quantity,
+                OrderSide = OrderSide.Buy,
+                OrderType = Enums.OrderType.Market,
+                PositionSide = position.Side,
+                Price = position.EntryPrice,
+                Tif = TimeInForce.GoodTillExpiredOrCanceled,
+                ReduceOnly = true,
+                ClosePosition = true
+            });
         }
 
         public override async Task<IEnumerable<FuturesPosition>> GetAllPositions()
@@ -159,18 +129,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             IEnumerable<BinanceFuturesMarkPrice> markPrices = (await _client.Market.GetMarkPricesAsync()).Data;
 
-            IEnumerable<FuturesPosition> positions = accountInfoCaller.Data.Positions.Select(
-                position => new FuturesPosition(
-                        symbol: position.Symbol,
-                        quantity: position.Quantity,
-                        entryPrice: position.EntryPrice,
-                        side: position.PositionSide,
-                        unrealizedPnl: position.UnrealizedPnl,
-                        leverage: position.Leverage,
-                        markPrice: markPrices.Where(price => price.Symbol == position.Symbol).First().MarkPrice
-                ));
-
-            return positions;
+            return accountInfoCaller.Data.Positions.Cast<FuturesPosition>();
         }
     }
 }

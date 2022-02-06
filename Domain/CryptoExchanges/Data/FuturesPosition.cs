@@ -1,33 +1,42 @@
 ﻿using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums;
+using Binance.Net.Objects.Futures.FuturesData;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
 
     public class FuturesPosition
     {
-        public FuturesPosition(string symbol, decimal quantity, decimal entryPrice, PositionSide side, decimal unrealizedPnl, int leverage, decimal markPrice)
+        public string Symbol { get; set; } = string.Empty;
+
+        public decimal EntryPrice { get; set; }
+
+        public decimal Quantity { get; set; }
+
+        public int Leverage { get; set; }
+
+        public decimal UnrealizedPnl { get; set; }
+
+        public int OrderId { get; set; }
+
+        public PositionSide Side { get; set; }
+
+        public static implicit operator FuturesPosition(BinancePositionInfoUsdt pos)
         {
-            Symbol = symbol;
-            Quantity = quantity;
-            EntryPrice = entryPrice;
-            Side = side;
-            UnrealizedPnl = unrealizedPnl;
-            Leverage = leverage;
-            MarkPrice = markPrice;
+            return new FuturesPosition
+            {
+                Symbol = pos.Symbol,
+                EntryPrice = pos.EntryPrice,
+                Quantity = pos.Quantity,
+                Leverage = pos.Leverage,
+                UnrealizedPnl = pos.UnrealizedPnl,
+                Side = pos.PositionSide
+            };
+
         }
 
-        public string Symbol { get; }      
-
-        public decimal EntryPrice { get; }
-
-        public decimal Quantity { get; }
-
-        public decimal MarkPrice { get; }
-
-        public int Leverage { get; }
-
-        public decimal UnrealizedPnl { get; }
-
-        public PositionSide Side { get; }
+        public static implicit operator BinancePositionInfoUsdt(FuturesPosition pos)
+        {
+            return pos;
+        }
     }
 }

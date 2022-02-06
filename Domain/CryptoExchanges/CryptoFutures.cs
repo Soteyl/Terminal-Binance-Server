@@ -1,5 +1,4 @@
-﻿using Binance.Net.Objects.Futures.FuturesData;
-using Binance.Net.Enums;
+﻿using Binance.Net.Enums;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
@@ -10,7 +9,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
     {
         private readonly string _mainCoin;
 
-        public CryptoFutures(string mainCoin)
+        protected CryptoFutures(string mainCoin)
         {
             _mainCoin = mainCoin;
         }
@@ -25,7 +24,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract Task<OrderBook> GetDepthOfMarket(string firstQuote);
 
-        public abstract Task<CoinBalance> GetBalance();
+        public abstract Task<IEnumerable<FuturesBalance>> GetBalances();
 
         public abstract void CancelOrder(FuturesOrder order);
 
@@ -48,7 +47,5 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
         }
 
         public abstract Task<MakeOrderResult> ClosePosition(FuturesPosition position);
-        
-
     }
 }

@@ -35,13 +35,13 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             throw new NotImplementedException();
         }
 
-        public override async Task<IEnumerable<CoinBalance>> GetCoinBalances()
+        public override async Task<IEnumerable<ICommonBalance>> GetCoinBalances()
         {
             WebCallResult<BinanceAccountInfo> info = await _general.GetAccountInfoAsync();
 
             IEnumerable<BinanceBalance> balances = info.Data.Balances;
 
-            return balances.Select(balance => new CoinBalance(balance.Asset, balance.Free, balance.Locked));
+            return balances;
         }
 
         public override async Task<IEnumerable<BookPrice>> GetCoinPairs()
@@ -60,11 +60,11 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return preparedResult;
         }
 
-        public override async Task<IEnumerable<SpotOrder>> GetOpenOrders()
+        public override async Task<IEnumerable<ICommonOrder>> GetOpenOrders()
         {
             WebCallResult<IEnumerable<BinanceOrder>> resultBinanceOrders = await _spot.Order.GetOpenOrdersAsync();
 
-            return resultBinanceOrders.Data.Select(a => new SpotOrder(a.Symbol, a.Quantity, a.Side, a.Type, price: a.Price));
+            return resultBinanceOrders.Data.Cast<ICommonOrder>();
         }
 
         public override async Task<IEnumerable<ICommonOrder>> GetOrderHistory()
@@ -92,7 +92,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         public override async Task<MakeOrderResult> MakeOrder(SpotOrder order)
         {
             WebCallResult<BinancePlacedOrder> resultPlaceOrder = 
-              await _spot.Order.PlaceOrderAsync(order.Pair,
+              await _spot.Order.PlaceOrderAsync(order.Symbol,
                                                 order.OrderSide,
                                                 order.OrderType,
                                                 quantity: order.AmountFirst,
