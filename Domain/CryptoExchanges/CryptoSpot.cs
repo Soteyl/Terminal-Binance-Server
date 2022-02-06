@@ -11,7 +11,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
 		public abstract Task<IEnumerable<BookPrice>> GetCoinPairs();
 
-        public abstract Task<IEnumerable<SpotOrder>> GetOpenOrders();
+        public abstract Task<IEnumerable<ICommonOrder>> GetOpenOrders();
 
         public abstract Task<IEnumerable<ICommonOrder>> GetOrderHistory();
 
@@ -23,7 +23,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract void CancelOrder(SpotOrder order);
 
-        public async Task<MakeGridResult> MakeGrid(List<SpotOrder> orders)
+        public async Task<MakeGridResult> MakeGrid(IEnumerable<SpotOrder> orders)
         {
             // TODO
             throw new NotImplementedException();
