@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Ixcent.CryptoTerminal.API
 {
     using Application.Interfaces;
+    using Application.Users.IP;
     using Application.Users.Login;
     using Domain.Auth;
     using Domain.Database;
-    using Infrastructure;
     using EFData;
-    using Application.Users.IP;
+    using Infrastructure;
 
     public class Startup
     {
@@ -35,7 +35,14 @@ namespace Ixcent.CryptoTerminal.API
 
             AddJwtAuthentication(services);
 
-            ConfigureIpCheck(services);
+            // Add user accessor
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //! these lines are for configuring authorization
+            //! use ONLY this line (ip check) (also requires line inside AddControllers block)
+            //ConfigureIpCheck(services);
+            //! OR THIS (basic)
+            services.AddAuthorization();
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
 
@@ -47,8 +54,8 @@ namespace Ixcent.CryptoTerminal.API
                                  .RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
 
-                opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
-            });
+                //opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
+            }).AddNewtonsoftJson();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -91,6 +98,7 @@ namespace Ixcent.CryptoTerminal.API
         {
             IdentityBuilder builder = services.AddIdentityCore<AppUser>();
             IdentityBuilder identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddRoles<IdentityRole>();
             identityBuilder.AddEntityFrameworkStores<CryptoTerminalContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
         }
@@ -103,9 +111,9 @@ namespace Ixcent.CryptoTerminal.API
                     options.RequireHttpsMetadata = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
+                        ValidateIssuer = false,
                         ValidIssuer = AuthOptions.Issuer,
-                        ValidateAudience = true,
+                        ValidateAudience = false,
                         ValidAudience = AuthOptions.Audience,
                         ValidateLifetime = true,
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),

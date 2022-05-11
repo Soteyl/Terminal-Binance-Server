@@ -26,8 +26,9 @@ namespace Ixcent.CryptoTerminal.API
                 {
                     var context = services.GetRequiredService<CryptoTerminalContext>();
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     context.Database.Migrate();
-                    DataSeed.SeedDataAsync(context, userManager).Wait();
+                    DataSeed.SeedDataAsync(context, userManager, roleManager).Wait();
                 }
                 catch (Exception ex)
                 {

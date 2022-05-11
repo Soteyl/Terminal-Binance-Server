@@ -9,7 +9,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
     {
         public abstract Task<IEnumerable<ICommonBalance>> GetCoinBalances();
 
-		public abstract Task<IEnumerable<BookPrice>> GetCoinPairs();
+        public abstract Task<IEnumerable<BookPrice>> GetCoinPairs();
 
         public abstract Task<IEnumerable<ICommonOrder>> GetOpenOrders();
 

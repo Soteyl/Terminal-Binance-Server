@@ -5,7 +5,7 @@ namespace Ixcent.CryptoTerminal.Domain.Database
     /// <summary>
     /// Database model representing user credentials.
     /// </summary>
-    public class AppUser: IdentityUser
+    public class AppUser : IdentityUser
     {
     }
 }

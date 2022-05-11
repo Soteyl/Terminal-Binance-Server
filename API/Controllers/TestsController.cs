@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Net.Http.Headers;
 
 namespace Ixcent.CryptoTerminal.API.Controllers
 {
@@ -9,7 +9,7 @@ namespace Ixcent.CryptoTerminal.API.Controllers
     /// Controller for testing api elements.<para/>
     /// Url: <c>tests/</c>
     /// </summary>
-    public class TestsController: Controller
+    public class TestsController : Controller
     {
         private string _authToken;
 
@@ -27,14 +27,14 @@ namespace Ixcent.CryptoTerminal.API.Controllers
         /// </summary>
         /// <remarks> Works only in <c>Development</c> mode. </remarks>
         /// <returns><see cref="OkObjectResult"/> or <see cref="BadRequestObjectResult"/></returns>
-        public async Task<IActionResult> Login() 
+        public async Task<IActionResult> Login()
         {
             if (!_webHostEnvironment.IsDevelopment()) return NotFound();
 
-            var loginModel = new 
+            var loginModel = new
             {
                 usernameoremail = "pasha",
-                password = "papa12345" 
+                password = "papa12345"
             };
 
             string stringPayload = JsonSerializer.Serialize(loginModel);
@@ -68,16 +68,16 @@ namespace Ixcent.CryptoTerminal.API.Controllers
         /// </summary>
         /// <remarks> Works only in <c>Development</c> mode. </remarks>
         /// <returns><see cref="OkObjectResult"/> with response as a value or <see cref="BadRequestObjectResult"/></returns>
-        public async Task<IActionResult> Register() 
+        public async Task<IActionResult> Register()
         {
             if (!_webHostEnvironment.IsDevelopment()) return NotFound();
 
-            var registerModel = new 
+            var registerModel = new
             {
-                email = "Papa@Mama", 
-                username = "pasha", 
-                role = 1, 
-                password = "papa12345" 
+                email = "Papa@Mama",
+                username = "pasha",
+                role = 1,
+                password = "papa12345"
             };
 
             string stringPayload = JsonSerializer.Serialize(registerModel);

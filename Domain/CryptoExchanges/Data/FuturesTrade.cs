@@ -9,22 +9,22 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
     {
         public string Symbol { get; set; } = string.Empty;
 
-        public bool Buyer { get; set; } 
+        public bool Buyer { get; set; }
 
         public decimal Quantity { get; set; }
-        
+
         public decimal Price { get; set; }
 
         public decimal RealizedPnl { get; set; }
 
-        public decimal Commission { get; set;  }
+        public decimal Commission { get; set; }
 
         public long Id { get; set; }
 
         public long OrderId { get; set; }
 
         public OrderSide Side { get; set; }
-        
+
         public PositionSide PositionSide { get; set; }
 
         public DateTime TradeTime { get; set; }

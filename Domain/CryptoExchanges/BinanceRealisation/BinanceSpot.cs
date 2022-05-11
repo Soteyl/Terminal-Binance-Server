@@ -1,5 +1,4 @@
-﻿using Binance.Net;
-using Binance.Net.Interfaces.SubClients;
+﻿using Binance.Net.Interfaces.SubClients;
 using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Objects.Spot.MarketData;
 using Binance.Net.Objects.Spot.SpotData;
@@ -21,13 +20,13 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         private IExchangeClient _exchangeClient;
 
-		private IBinanceClientGeneral _general;
+        private IBinanceClientGeneral _general;
 
         internal BinanceSpot(IBinanceClientSpot spot, IBinanceClientGeneral general, IExchangeClient exClient)
         {
             _spot = spot;
             _exchangeClient = exClient;
-			_general = general;
+            _general = general;
         }
 
         public override void CancelOrder(SpotOrder order)
@@ -47,7 +46,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         public override async Task<IEnumerable<BookPrice>> GetCoinPairs()
         {
             WebCallResult<IEnumerable<BinanceBookPrice>> resultBookPrices = await _spot.Market.GetAllBookPricesAsync();
-            
+
             return resultBookPrices.Data.Select(a => a.ToIxcentBookPrice());
         }
 
@@ -55,7 +54,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<ICommonOrderBook> resultOrderBook = await _exchangeClient.GetOrderBookAsync(symbol);
             // Convert ISymbolOrderBookEntry to OrderBookEntry
-            var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)), 
+            var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
                                                 resultOrderBook.Data.CommonAsks.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)));
             return preparedResult;
         }
@@ -91,7 +90,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<MakeOrderResult> MakeOrder(SpotOrder order)
         {
-            WebCallResult<BinancePlacedOrder> resultPlaceOrder = 
+            WebCallResult<BinancePlacedOrder> resultPlaceOrder =
               await _spot.Order.PlaceOrderAsync(order.Symbol,
                                                 order.OrderSide,
                                                 order.OrderType,

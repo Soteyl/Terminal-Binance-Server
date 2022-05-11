@@ -1,5 +1,4 @@
-﻿using System.Security;
-using Binance.Net;
+﻿using Binance.Net;
 using Binance.Net.Objects;
 using CryptoExchange.Net.Authentication;
 
@@ -17,7 +16,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         private string? _secret;
 
-        public BinanceCryptoExchange(string apiToken, string apiSecret): this()
+        public BinanceCryptoExchange(string apiToken, string apiSecret) : this()
         {
             _token = apiToken;
             _secret = apiSecret;
