@@ -2,11 +2,11 @@
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
-    public class CoinBalance: ICommonBalance
+    public class CoinBalance : ICommonBalance
     {
         public decimal Free { get; set; }
 
-        public decimal Locked { get; set;}
+        public decimal Locked { get; set; }
 
         public string Asset { get; set; }
 

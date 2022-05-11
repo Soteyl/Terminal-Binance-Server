@@ -1,8 +1,8 @@
-﻿using Binance.Net.Interfaces.SubClients.Futures;
+﻿using Binance.Net.Enums;
+using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
-using Binance.Net.Enums;
-using Binance.Net.Objects.Spot.MarketData;
 using Binance.Net.Objects.Futures.MarketData;
+using Binance.Net.Objects.Spot.MarketData;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 
@@ -17,8 +17,8 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         private IBinanceClientFuturesUsdt _client;
 
         private IExchangeClient _exClient;
-        
-        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient) 
+
+        public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient)
             : base("USDT")
         {
             _exClient = exClient;
@@ -27,7 +27,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<AdjustLeverageResult> AdjustLeverage(string symbol, int leverageValue)
         {
-            WebCallResult<BinanceFuturesInitialLeverageChangeResult> adjustLeverageCaller =  await _client.ChangeInitialLeverageAsync(symbol, leverageValue);
+            WebCallResult<BinanceFuturesInitialLeverageChangeResult> adjustLeverageCaller = await _client.ChangeInitialLeverageAsync(symbol, leverageValue);
 
             return adjustLeverageCaller.Data;
         }
@@ -42,7 +42,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         public override async Task<OrderBook> GetDepthOfMarket(string firstQuote)
         {
             WebCallResult<ICommonOrderBook> resultOrderBook = await _exClient.GetOrderBookAsync(firstQuote + MainCoin);
-            
+
             var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
                                                 resultOrderBook.Data.CommonAsks.Select(ask => new OrderBookEntry(ask.Quantity, ask.Price)));
 

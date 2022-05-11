@@ -16,7 +16,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public string MainCoin => _mainCoin;
 
-        public abstract Task<IEnumerable<FuturesOrder>> GetOrdersHistory(); 
+        public abstract Task<IEnumerable<FuturesOrder>> GetOrdersHistory();
 
         public abstract Task<IEnumerable<FuturesTrade>> GetTradesHistory();
 

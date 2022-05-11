@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
+﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
     public interface ICryptoExchange
     {

@@ -1,7 +1,7 @@
-﻿using System.Net;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Registration
 {
@@ -47,6 +47,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Registration
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "user");
                 return new User
                 {
                     Token = _jwtGenerator.CreateToken(user),

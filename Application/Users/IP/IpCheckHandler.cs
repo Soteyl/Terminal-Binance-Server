@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ixcent.CryptoTerminal.Application.Users.IP
 {
-    public class IpCheckHandler: AuthorizationHandler<IpCheckRequirement>
+    public class IpCheckHandler : AuthorizationHandler<IpCheckRequirement>
     {
         public IpCheckHandler(IHttpContextAccessor httpContextAccessor)
         {

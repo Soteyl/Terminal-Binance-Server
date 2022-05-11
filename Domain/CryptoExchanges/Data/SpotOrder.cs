@@ -4,7 +4,7 @@
     using CryptoExchange.Net.ExchangeInterfaces;
     using Enums;
 
-    public class SpotOrder: ICommonOrder
+    public class SpotOrder : ICommonOrder
     {
         public string Symbol { get; set; } = string.Empty;
 

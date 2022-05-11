@@ -2,16 +2,17 @@
 
 namespace Ixcent.CryptoTerminal.API.Controllers
 {
+    using Application.Users;
+    using Application.Users.Login;
+    using Application.Users.Registration;
     using Microsoft.AspNetCore.Authorization;
     using System.Threading.Tasks;
-    using Application.Users.Login;
-    using EFData;
-    using Application.Users;
-    using Application.Users.Registration;
 
     /// <summary>
     /// Controller for registration and login <para/>
-    /// Url: <c>api/users/</c>
+    /// Url: <c>api/users/</c> <br/>
+    /// Inherited from <see cref="BaseController"/> <br/>
+    /// Contains <see cref="ApiControllerAttribute"/>, <see cref="RouteAttribute"/>, <see cref="AllowAnonymousAttribute"/>
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -19,7 +20,7 @@ namespace Ixcent.CryptoTerminal.API.Controllers
     public class UsersController : BaseController
     {
         /// <summary>
-        /// Register user. <para/>
+        /// POST Register user. <para/>
         /// Url: <c>api/users/register</c>
         /// </summary>
         /// <param name="model">Registration info</param>
@@ -31,7 +32,7 @@ namespace Ixcent.CryptoTerminal.API.Controllers
         }
 
         /// <summary>
-        /// Login user. <para/>
+        /// POST Login user. <para/>
         /// Url: <c>api/users/login</c>
         /// </summary>
         /// <param name="loginModel">Login info</param>
