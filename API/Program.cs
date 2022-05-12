@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ixcent.CryptoTerminal.API
+namespace Ixcent.CryptoTerminal.Api
 {
     using Domain.Database;
     using EFData;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ixcent.CryptoTerminal.API.Controllers
+namespace Ixcent.CryptoTerminal.Api.Controllers
 {
     /// <summary>
     /// Main controller.

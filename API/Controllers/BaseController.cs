@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ixcent.CryptoTerminal.API.Controllers
+namespace Ixcent.CryptoTerminal.Api.Controllers
 {
     /// <summary>
     /// Base controller with <see cref="IMediator"/> field to implement DI.
