@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Ixcent.CryptoTerminal.API.Controllers
+namespace Ixcent.CryptoTerminal.Api.Controllers
 {
     using Application.Users;
     using Application.Users.Login;

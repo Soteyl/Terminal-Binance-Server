@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Ixcent.CryptoTerminal.API
+namespace Ixcent.CryptoTerminal.Api
 {
     using Application.Interfaces;
     using Application.Users.IP;
@@ -72,6 +72,7 @@ namespace Ixcent.CryptoTerminal.API
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseMiddleware<Middlewares.ExceptionHandlingMiddleware>();
 
             app.UseRouting();
 

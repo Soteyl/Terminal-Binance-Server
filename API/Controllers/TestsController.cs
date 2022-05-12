@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
-namespace Ixcent.CryptoTerminal.API.Controllers
+namespace Ixcent.CryptoTerminal.Api.Controllers
 {
     /// <summary>
     /// Controller for testing api elements.<para/>
