@@ -7,7 +7,6 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    [AllowAnonymous]
     public class ExchangesTokensController : BaseController
     {
         [HttpPost("token")]
