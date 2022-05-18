@@ -59,7 +59,7 @@ namespace Ixcent.CryptoTerminal.Api
 
                 //opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
             }).AddNewtonsoftJson()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
+              .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

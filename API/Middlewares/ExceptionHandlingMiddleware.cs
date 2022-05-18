@@ -1,8 +1,9 @@
-﻿namespace Ixcent.CryptoTerminal.Api.Middlewares
+﻿using Newtonsoft.Json;
+using System.Net;
+
+namespace Ixcent.CryptoTerminal.Api.Middlewares
 {
     using Application.Exceptions;
-    using Newtonsoft.Json;
-    using System.Net;
 
     /// <summary>
     /// Handles all request exceptions. If this is a specific <see cref="RestException"/>,

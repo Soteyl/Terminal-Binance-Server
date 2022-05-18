@@ -13,7 +13,8 @@ namespace Ixcent.CryptoTerminal.Application.Validation
         {
 
             if (!_exchangesValidator.Keys.Contains(exchangeName))
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new {
+                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
+                {
                     Exchange = "Wrong exchange name!"
                 });
             return await _exchangesValidator[exchangeName].Validate(token, secret);

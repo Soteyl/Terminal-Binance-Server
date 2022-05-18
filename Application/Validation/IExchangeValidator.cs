@@ -30,7 +30,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
             if (data.EnableSpotAndMarginTrading)
             {
                 result.Add("spot");
-            }    
+            }
 
             return result;
         }

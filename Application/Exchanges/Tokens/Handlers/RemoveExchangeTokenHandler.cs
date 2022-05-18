@@ -1,17 +1,20 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
-    using Ixcent.CryptoTerminal.Application.Exceptions;
-    using Ixcent.CryptoTerminal.EFData;
-    using Microsoft.AspNetCore.Http;
+    using Domain.Database.Models;
+    using EFData;
+    using Exceptions;
     using Models;
-    using System.Threading;
-    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Handler for removing exchange tokens. <para/>
+    /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
+    /// <c>TRequest</c> is <see cref="RemoveExchangeTokenQuery"/> <br/>
+    /// </summary>
     public class RemoveExchangeTokenHandler : IRequestHandler<RemoveExchangeTokenQuery>
     {
-
         private readonly IHttpContextAccessor _contextAccessor;
 
         private readonly CryptoTerminalContext _context;
@@ -27,12 +30,17 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             string exchange = request.Exchange;
             string userId = _contextAccessor.GetCurrentUserId();
 
-            var possibleToken = _context.ExchangeTokens.FirstOrDefault(t => exchange == t.Exchange && userId == t.UserId);
+            ExchangeToken? possibleToken =
+                _context.ExchangeTokens.FirstOrDefault(t => exchange == t.Exchange
+                                                      && userId == t.UserId);
 
             if (possibleToken == null)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new {
+            {
+                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
+                {
                     Message = "Couldn't find a token."
                 });
+            }
 
             _context.ExchangeTokens.Remove(possibleToken);
 
