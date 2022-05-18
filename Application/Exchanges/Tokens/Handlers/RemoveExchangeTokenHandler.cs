@@ -2,13 +2,14 @@
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
+    using Ixcent.CryptoTerminal.Application.Exceptions;
     using Ixcent.CryptoTerminal.EFData;
     using Microsoft.AspNetCore.Http;
     using Models;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class RemoveExchangeTokenHandler : IRequestHandler<RemoveExchangeTokenCommand, ExchangeTokenResult>
+    public class RemoveExchangeTokenHandler : IRequestHandler<RemoveExchangeTokenQuery>
     {
 
         private readonly IHttpContextAccessor _contextAccessor;
@@ -21,7 +22,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             _context = context;
         }
 
-        public Task<ExchangeTokenResult> Handle(RemoveExchangeTokenCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RemoveExchangeTokenQuery request, CancellationToken cancellationToken)
         {
             string exchange = request.Exchange;
             string userId = _contextAccessor.GetCurrentUserId();
@@ -29,21 +30,15 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             var possibleToken = _context.ExchangeTokens.FirstOrDefault(t => exchange == t.Exchange && userId == t.UserId);
 
             if (possibleToken == null)
-                return Task.FromResult(new ExchangeTokenResult
-                {
-                    IsError = true, 
-                    Message = "No api token for such exchange was found!"
+                throw new RestException(System.Net.HttpStatusCode.BadRequest, new {
+                    Message = "Couldn't find a token."
                 });
 
             _context.ExchangeTokens.Remove(possibleToken);
 
             _context.SaveChanges();
 
-            return Task.FromResult(new ExchangeTokenResult
-                    {
-                        IsError = false,
-                        Message = "Successfully deleted specified token!"
-                    });
+            return Unit.Value;
         }
     }
 }

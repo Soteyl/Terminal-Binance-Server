@@ -23,7 +23,7 @@
             {
                 await _next(context);
             }
-            catch (RestException ex)
+            catch (Exception ex)
             {
                 await HandleExceptionAsync(context, ex);
             }

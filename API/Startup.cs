@@ -14,7 +14,9 @@ namespace Ixcent.CryptoTerminal.Api
     using Domain.Auth;
     using Domain.Database;
     using EFData;
+    using FluentValidation.AspNetCore;
     using Infrastructure;
+    using Ixcent.CryptoTerminal.Application.Validation;
 
     public class Startup
     {
@@ -45,6 +47,7 @@ namespace Ixcent.CryptoTerminal.Api
             services.AddAuthorization();
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddSingleton<ExchangesValidator>();
 
             services.AddControllers(opt =>
             {
@@ -55,7 +58,8 @@ namespace Ixcent.CryptoTerminal.Api
                 opt.Filters.Add(new AuthorizeFilter(policy));
 
                 //opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
-            }).AddNewtonsoftJson();
+            }).AddNewtonsoftJson()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

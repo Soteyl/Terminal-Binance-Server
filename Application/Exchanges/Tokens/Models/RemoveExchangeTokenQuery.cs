@@ -3,7 +3,7 @@
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models
 {
-    public class RemoveExchangeTokenCommand : IRequest<ExchangeTokenResult>
+    public class RemoveExchangeTokenQuery : IRequest
     {
         public string Exchange { get; set; } = string.Empty;
     }

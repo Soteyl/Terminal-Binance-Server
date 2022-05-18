@@ -2,12 +2,14 @@
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models
 {
-    public class AddExchangeTokenCommand : IRequest<ExchangeTokenResult>
+    public class UpdateExchangeTokenQuery : IRequest
     {
-        public string Token { get; set; } = string.Empty;
+
+        public string Key { get; set; } = string.Empty;
 
         public string Secret { get; set; } = string.Empty;
 
         public string Exchange { get; set; } = string.Empty;
+
     }
 }
