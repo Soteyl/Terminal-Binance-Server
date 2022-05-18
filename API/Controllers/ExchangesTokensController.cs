@@ -2,38 +2,30 @@
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
-    using Domain.Database.Models;
-    using EFData;
+    using Application.Exchanges.Tokens.Models;
+    using Microsoft.AspNetCore.Authorization;
+
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class ExchangesTokensController : BaseController
     {
-        private CryptoTerminalContext _context;
-
-        public ExchangesTokensController(CryptoTerminalContext context)
+        [HttpPost("token")]
+        public async Task<ActionResult<ExchangeTokenResult>> Add(AddExchangeTokenCommand command)
         {
-            _context = context;
+            return await Mediator.Send(command);
         }
 
-        [Route("add")]
-        public async Task<ActionResult> AddToken(ExchangeToken model)
+        [HttpPut("token")]
+        public async Task<ActionResult<ExchangeTokenResult>> Edit(UpdateExchangeTokenCommand command)
         {
-            _context.ExchangeTokens.Add(model);
-            return Ok();
+            return await Mediator.Send(command);
         }
 
-        [Route("edit")]
-        public async Task<ActionResult> EditToken(ExchangeToken model)
+        [HttpDelete("token")]
+        public async Task<ActionResult<ExchangeTokenResult>> Delete(RemoveExchangeTokenCommand command)
         {
-            _context.Update(model);
-            return Ok();
+            return await Mediator.Send(command);
         }
-
-        [Route("remove")]
-        public async Task<ActionResult> RemoveToken(ExchangeToken model)
-        {
-            _context.Remove(model);
-            return Ok();
-        }        
     }
 }

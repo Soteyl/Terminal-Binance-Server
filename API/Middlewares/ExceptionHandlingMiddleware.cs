@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Ixcent.CryptoTerminal.Api.Middlewares
+﻿namespace Ixcent.CryptoTerminal.Api.Middlewares
 {
     using Application.Exceptions;
     using Newtonsoft.Json;
