@@ -1,10 +1,9 @@
-﻿using MediatR;
+﻿using Newtonsoft.Json;
+using System.Net;
 
 namespace Ixcent.CryptoTerminal.Api.Middlewares
 {
     using Application.Exceptions;
-    using Newtonsoft.Json;
-    using System.Net;
 
     /// <summary>
     /// Handles all request exceptions. If this is a specific <see cref="RestException"/>,
@@ -25,7 +24,7 @@ namespace Ixcent.CryptoTerminal.Api.Middlewares
             {
                 await _next(context);
             }
-            catch (RestException ex)
+            catch (Exception ex)
             {
                 await HandleExceptionAsync(context, ex);
             }

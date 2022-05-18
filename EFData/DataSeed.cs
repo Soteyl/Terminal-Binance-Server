@@ -3,6 +3,7 @@
 namespace Ixcent.CryptoTerminal.EFData
 {
     using Domain.Database;
+    using Domain.Database.Models;
 
     public class DataSeed
     {
@@ -23,6 +24,12 @@ namespace Ixcent.CryptoTerminal.EFData
             await userManager.CreateAsync(admin, "Qwerty12345@");
 
             await userManager.AddToRoleAsync(admin, adminRole.Name);
+
+            context.AvailableExchanges.Add(new AvailableExchange
+            {
+                Id = 0,
+                Name = "Binance"
+            });
 
         }
     }

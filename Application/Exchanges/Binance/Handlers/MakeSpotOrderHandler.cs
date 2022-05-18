@@ -8,9 +8,9 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
 
     /// <summary>
     /// Handler for making Binance spot orders. <para/>
-    /// Implements <see cref="IReadOnlyDictionary{TKey, TValue}"/> <br/>
-    /// <c>TKey</c> is <see cref="MakeSpotOrderModel"/> <br/>
-    /// <c>TValue</c> is <see cref="MakeSpotOrderResult"/>
+    /// Implements <see cref="IRequestHandler{TKey, TValue}"/> <br/>
+    /// <c>TRequest</c> is <see cref="MakeSpotOrderModel"/> <br/>
+    /// <c>TResponse</c> is <see cref="MakeSpotOrderResult"/>
     /// </summary>
     public class MakeSpotOrderHandler : IRequestHandler<MakeSpotOrderModel, MakeSpotOrderResult>
     {
