@@ -1,16 +1,22 @@
 ﻿using MediatR;
 using Binance.Net;
 using Binance.Net.Objects.Spot.SpotData;
+using CryptoExchange.Net.Objects;
+using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
 {
-    using CryptoExchange.Net.Objects;
-    using Ixcent.CryptoTerminal.Application.Exceptions;
-    using Ixcent.CryptoTerminal.Application.Validation;
-    using Ixcent.CryptoTerminal.EFData;
-    using Microsoft.AspNetCore.Http;
-    using Models;
+    using Domain.Database.Models;
+    using Binance.Models;
+    using Exceptions;
+    using Validation;
+    using EFData;
 
+    /// <summary>
+    /// Get all spot balances handler. Allows to get all cryptocurrency balances from the Binance.<br/>
+    /// Implements: <see cref="IRequestHandler{GetAllBalancesSpotModel, IEnumerable{BinanceBalance}"/><br/>
+    /// Is used by: MediatR
+    /// </summary>
     public class GetAllBalancesSpotHandler : IRequestHandler<GetAllBalancesSpotModel, IEnumerable<BinanceBalance>>
     {
         private readonly IHttpContextAccessor _contextAccessor;
@@ -18,14 +24,26 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
         private readonly CryptoTerminalContext _context;
 
         private readonly ExchangesValidator _validator;
-
+        /// <summary>
+        /// Constructor for <see cref="GetAllBalancesSpotHandler"/>.
+        /// All the parameters in the contructor provided by the dependency injection.
+        /// </summary>
+        /// <param name="contextAccessor"> Context accessor which is required to get information about user. </param>
+        /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
+        /// <param name="validator"> Validates whether provided token for Binance is valid or not.</param>
         public GetAllBalancesSpotHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context, ExchangesValidator validator)
         {
             _context = context;
             _contextAccessor = contextAccessor;
             _validator = validator;
         }
-
+        /// <summary>
+        /// Main method 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="RestException"></exception>
         public async Task<IEnumerable<BinanceBalance>> Handle(GetAllBalancesSpotModel request, CancellationToken cancellationToken)
         {
             BinanceClient client = new BinanceClient();
