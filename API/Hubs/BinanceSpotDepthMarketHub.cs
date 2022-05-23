@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using SignalRSwaggerGen.Attributes;
 using Binance.Net.Interfaces;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs
@@ -15,6 +16,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     /// SignalR Hub for subscribing to a binance spot depth market updates <para/>
     /// Inherited from <see cref="Hub"/>
     /// </summary>
+    [SignalRHub("api/binance/spot/realtime/depth-market")]
     public class BinanceSpotDepthMarketHub : Hub<IBinanceSpotDepthMarketHubClient>
     {
         private readonly RealtimeSpotDepthMarket _realtimeMarket = new RealtimeSpotDepthMarket();
@@ -30,13 +32,14 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
         /// <summary>
         /// Method for clients who want to subscribe to a symbol updates
         /// </summary>
-        /// <param name="symbol"></param>
+        /// <param name="symbol">symbol pair, like BTCUSDT</param>
         public void SubscribeToSymbol(string symbol)
         {
             _subscribers.Add(symbol, Context.ConnectionId);
             _realtimeMarket.SubscribeTo(symbol);
         }
 
+        [SignalRHidden]
         public override Task OnDisconnectedAsync(Exception? exception)
         {
             _subscribers.RemoveByConnectionId(Context.ConnectionId);
@@ -56,7 +59,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
 
         private void NotifyAboutMarketUpdates(object? sender, IBinanceOrderBook e)
         {
-            foreach(string? connection in _subscribers.GetConnections(e.Symbol))
+            foreach (string? connection in _subscribers.GetConnections(e.Symbol))
             {
                 Clients.Client(connection).ReceiveDepthMarketUpdate(e);
             }

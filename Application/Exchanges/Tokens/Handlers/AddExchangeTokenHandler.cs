@@ -1,5 +1,6 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using System.Net;
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
@@ -36,21 +37,21 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             string currentUserId = _contextAccessor.GetCurrentUserId();
 
             if (currentUserId == null)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
+                throw new RestException(HttpStatusCode.BadRequest, new
                 {
-                    Message = "Invalid user id!"
+                    Message = "Invalid user"
                 });
 
             if (_context.ExchangeTokens.FirstOrDefault(t => request.Exchange == t.Exchange && currentUserId == t.UserId) != null)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
+                throw new RestException(HttpStatusCode.BadRequest, new
                 {
-                    Message = "Specified api token already exists!"
+                    Message = "Specified api token already exists"
                 });
 
             if ((await _validator.Validate(request.Key, request.Secret, request.Exchange)).Count == 0)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
+                throw new RestException(HttpStatusCode.BadRequest, new
                 {
-                    Message = "Bad key or secret!"
+                    Message = "Bad key or secret"
                 });
 
             _context.ExchangeTokens.Add(

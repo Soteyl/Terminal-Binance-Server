@@ -40,7 +40,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             {
                 throw new RestException(System.Net.HttpStatusCode.BadRequest, new
                 {
-                    Message = "Invalid user."
+                    Message = "Invalid user"
                 });
             }
 
@@ -49,7 +49,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             {
                 throw new RestException(System.Net.HttpStatusCode.BadRequest, new
                 {
-                    Message = "Bad key or secret!"
+                    Message = "Bad key or secret"
                 });
             }
 

@@ -5,6 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation.AspNetCore;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 using MediatR;
 
 namespace Ixcent.CryptoTerminal.Api
@@ -14,6 +17,7 @@ namespace Ixcent.CryptoTerminal.Api
     using Application.Interfaces;
     using Application.Validation;
     using Application.Users.IP;
+    using StartupConfiguration;
     using Domain.Database;
     using Infrastructure;
     using Domain.Auth;
@@ -33,6 +37,32 @@ namespace Ixcent.CryptoTerminal.Api
         {
             RegisterDatabase(services);
             RegisterUserIdentity(services);
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "CryptoTerminal API",
+                    Description = "An ASP.NET Core Web API for managing CryptoTerminal items",
+                });
+
+                string xmlFilename = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
+                options.AddSignalRSwaggerGen(opt =>
+                {
+                    opt.AutoDiscover = SignalRSwaggerGen.Enums.AutoDiscover.MethodsAndParams;
+                    opt.UseXmlComments(xmlFilename);
+                });
+                options.IncludeXmlComments(xmlFilename);
+                options.OperationFilter<FormatXmlCommentProperties>();
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressConsumesConstraintForFormFileParameters = true;
+                options.SuppressInferBindingSourcesForParameters = true;
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             // Make "Application" assembly - main handler of all queries.
             services.AddMediatR(typeof(LoginHandler).Assembly);
@@ -61,7 +91,6 @@ namespace Ixcent.CryptoTerminal.Api
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
-
                 //opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
             }).AddNewtonsoftJson()
               .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
@@ -72,6 +101,8 @@ namespace Ixcent.CryptoTerminal.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
             else
             {
@@ -91,7 +122,7 @@ namespace Ixcent.CryptoTerminal.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapHub<BinanceSpotDepthMarketHub>("/api/realtime/depth-market");
+                endpoints.MapHub<BinanceSpotDepthMarketHub>("/api/binance/spot/realtime/depth-market");
             });
         }
 

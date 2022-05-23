@@ -38,7 +38,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             {
                 throw new RestException(System.Net.HttpStatusCode.BadRequest, new
                 {
-                    Message = "Couldn't find a token."
+                    Message = "Couldn't find a token"
                 });
             }
 
