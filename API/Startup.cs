@@ -1,22 +1,24 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using FluentValidation.AspNetCore;
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Api
 {
-    using Application.Interfaces;
-    using Application.Users.IP;
+    using Application.Exchanges.Binance;
     using Application.Users.Login;
-    using Domain.Auth;
+    using Application.Interfaces;
+    using Application.Validation;
+    using Application.Users.IP;
     using Domain.Database;
-    using EFData;
-    using FluentValidation.AspNetCore;
     using Infrastructure;
-    using Ixcent.CryptoTerminal.Application.Validation;
+    using Domain.Auth;
+    using EFData;
+    using Hubs;
 
     public class Startup
     {
@@ -35,6 +37,8 @@ namespace Ixcent.CryptoTerminal.Api
             // Make "Application" assembly - main handler of all queries.
             services.AddMediatR(typeof(LoginHandler).Assembly);
 
+            services.AddSignalR();
+
             AddJwtAuthentication(services);
 
             // Add user accessor
@@ -48,6 +52,7 @@ namespace Ixcent.CryptoTerminal.Api
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddSingleton<ExchangesValidator>();
+            services.AddSingleton<RealtimeSpotDepthMarket>();
 
             services.AddControllers(opt =>
             {
@@ -86,6 +91,7 @@ namespace Ixcent.CryptoTerminal.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
+                endpoints.MapHub<BinanceSpotDepthMarketHub>("/api/realtime/depth-market");
             });
         }
 
