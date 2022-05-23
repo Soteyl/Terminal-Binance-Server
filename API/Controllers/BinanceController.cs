@@ -3,6 +3,7 @@
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
     using Application.Exchanges.Binance.Models;
+    using Binance.Net.Objects.Spot.SpotData;
 
     /// <summary>
     /// Controller for Binance users. Requires authorization. <para/>
@@ -23,6 +24,12 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         public async Task<ActionResult<MakeSpotOrderResult>> MakeSpotOrderAsync(MakeSpotOrderModel command)
         {
             return await Mediator.Send(command);
+        }
+
+        [HttpPost("balance-spot")]
+        public async Task<ActionResult<IEnumerable<BinanceBalance>>> GetAllBalancesAsync(GetAllBalancesSpotModel command)
+        {
+            return Ok(await Mediator.Send(command));
         }
     }
 }
