@@ -1,7 +1,6 @@
-﻿using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.Objects;
+﻿using Binance.Net;
 using Binance.Net.Interfaces;
-using Binance.Net;
+using CryptoExchange.Net.Sockets;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
 {
@@ -9,12 +8,12 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
     /// Subscribes to a Binance spot market, checks updated in a market depth for a coin.
     /// </summary>
     /// <remarks> Implements <see cref="IDisposable"/></remarks>
-    public class RealtimeSpotDepthMarket: IDisposable
+    public class RealtimeSpotDepthMarket : IDisposable
     {
         private readonly BinanceSocketClient _binanceClient = new BinanceSocketClient();
 
         private readonly Dictionary<string, UpdateSubscription> _subscriptions
-            = new Dictionary<string,UpdateSubscription>(StringComparer.OrdinalIgnoreCase);
+            = new Dictionary<string, UpdateSubscription>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Subscribes to a symbol. <br/>
@@ -26,7 +25,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
             {
                 if (_subscriptions.ContainsKey(symbol)) return;
 
-                var callResult =  _binanceClient.Spot.SubscribeToOrderBookUpdatesAsync(symbol, 1000, ReceiveDepthMarketUpdate);
+                var callResult = _binanceClient.Spot.SubscribeToOrderBookUpdatesAsync(symbol, 1000, ReceiveDepthMarketUpdate);
                 callResult.Wait();
                 if (callResult.Result.Success == false) return;
 

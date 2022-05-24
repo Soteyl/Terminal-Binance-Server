@@ -3,8 +3,8 @@ using SignalRSwaggerGen.Attributes;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs
 {
-    using Clients;
     using Broadcast;
+    using Clients;
 
     #region Test in browser
     /* var sc = document.createElement("script");

@@ -1,6 +1,6 @@
-﻿using System.Text;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace Ixcent.CryptoTerminal.Api.StartupConfiguration
 {

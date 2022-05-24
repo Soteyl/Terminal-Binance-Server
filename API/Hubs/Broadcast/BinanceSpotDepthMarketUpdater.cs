@@ -1,8 +1,8 @@
 ﻿using Binance.Net.Interfaces;
 
-using IBinanceSpotDepthMarketHubContext = 
+using IBinanceSpotDepthMarketHubContext =
     Microsoft.AspNetCore.SignalR.IHubContext<
-        Ixcent.CryptoTerminal.Api.Hubs.BinanceSpotDepthMarketHub, 
+        Ixcent.CryptoTerminal.Api.Hubs.BinanceSpotDepthMarketHub,
         Ixcent.CryptoTerminal.Api.Hubs.Clients.IBinanceSpotDepthMarketHubClient>;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
@@ -12,7 +12,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
 
     /// <summary> Receives updates from Binance spot market for Depth and sends it through the clients who subscribed. </summary>
     /// <remarks> Implements <see cref="IDisposable"/> </remarks>
-    public class BinanceSpotDepthMarketUpdater: IDisposable
+    public class BinanceSpotDepthMarketUpdater : IDisposable
     {
         private readonly IBinanceSpotDepthMarketHubContext _hubContext;
 
@@ -71,7 +71,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
 
         private void NotifyAboutMarketUpdates(object? sender, IBinanceOrderBook e)
         {
-                _hubContext.Clients.Group(e.Symbol).ReceiveDepthMarketUpdate(e);
+            _hubContext.Clients.Group(e.Symbol).ReceiveDepthMarketUpdate(e);
         }
     }
 }

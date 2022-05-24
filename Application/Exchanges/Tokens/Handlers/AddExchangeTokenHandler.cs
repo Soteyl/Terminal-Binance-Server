@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System.Net;
-using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
     using Domain.Database.Models;
-    using Exceptions;
-    using Validation;
     using EFData;
+    using Exceptions;
     using Models;
+    using Validation;
 
     /// <summary> Handler for adding exchange token into a database. </summary>
     /// <remarks>

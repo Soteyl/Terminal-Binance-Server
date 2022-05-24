@@ -1,28 +1,27 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using FluentValidation.AspNetCore;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
+﻿using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace Ixcent.CryptoTerminal.Api
 {
     using Application.Exchanges.Binance;
-    using Application.Users.Login;
     using Application.Interfaces;
-    using Application.Validation;
     using Application.Users.IP;
-    using StartupConfiguration;
-    using Domain.Database;
-    using Infrastructure;
+    using Application.Users.Login;
+    using Application.Validation;
     using Domain.Auth;
+    using Domain.Database;
     using EFData;
     using Hubs;
+    using Infrastructure;
+    using StartupConfiguration;
 
     public class Startup
     {
@@ -113,7 +112,7 @@ namespace Ixcent.CryptoTerminal.Api
             mvcBuilder.AddNewtonsoftJson();
             mvcBuilder.ConfigureApiBehaviorOptions(options =>
             {
-                  options.SuppressMapClientErrors = true;
+                options.SuppressMapClientErrors = true;
             });
             mvcBuilder.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
