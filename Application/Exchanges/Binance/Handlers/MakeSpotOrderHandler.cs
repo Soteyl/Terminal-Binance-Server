@@ -6,12 +6,12 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
     using Ixcent.CryptoTerminal.EFData;
     using Models;
 
-    /// <summary>
-    /// Handler for making Binance spot orders. <para/>
+    /// <summary> Handler for making Binance spot orders. </summary>
+    /// <remarks>
     /// Implements <see cref="IRequestHandler{TKey, TValue}"/> <br/>
     /// <c>TRequest</c> is <see cref="MakeSpotOrderModel"/> <br/>
     /// <c>TResponse</c> is <see cref="MakeSpotOrderResult"/>
-    /// </summary>
+    /// </remarks>
     public class MakeSpotOrderHandler : IRequestHandler<MakeSpotOrderModel, MakeSpotOrderResult>
     {
         private readonly IHttpContextAccessor _contextAccessor;
