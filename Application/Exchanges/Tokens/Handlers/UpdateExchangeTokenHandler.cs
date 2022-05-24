@@ -9,11 +9,11 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
     using Models;
     using Validation;
 
-    /// <summary>
-    /// Handler for editing exchange tokens. <para/>
+    /// <summary> Handler for editing exchange tokens.</summary>
+    /// <remarks>
     /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
     /// <c>TRequest</c> is <see cref="UpdateExchangeTokenQuery"/> <br/>
-    /// </summary>
+    /// </remarks>
     public class UpdateExchangeTokenHandler : IRequestHandler<UpdateExchangeTokenQuery>
     {
         private readonly IHttpContextAccessor _contextAccessor;

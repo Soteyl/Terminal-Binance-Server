@@ -5,16 +5,16 @@ using MediatR;
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
     using Domain.Database.Models;
-    using EFData;
     using Exceptions;
-    using Models;
     using Validation;
+    using EFData;
+    using Models;
 
-    /// <summary>
-    /// Handler for adding exchange token into a database. <para/>
+    /// <summary> Handler for adding exchange token into a database. </summary>
+    /// <remarks>
     /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
     /// <c>TRequest</c> is <see cref="AddExchangeTokenQuery"/> <br/>
-    /// </summary>
+    /// </remarks>
     public class AddExchangeTokenHandler : IRequestHandler<AddExchangeTokenQuery>
     {
         private readonly IHttpContextAccessor _contextAccessor;

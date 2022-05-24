@@ -1,19 +1,19 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
     using Domain.Database.Models;
+    using Validation;
     using EFData;
     using Models;
-    using Validation;
 
-    /// <summary>
-    /// Handler for getting exchange tokens. <para/>
+    /// <summary> Handler for getting exchange tokens. </summary>
+    /// <remarks>
     /// Implements <see cref="IRequestHandler{TRequest, TResponse}"/> <br/>
     /// <c>TRequest</c> is <see cref="GetExchangeTokensQuery"/> <br/>
     /// <c>TResponse</c> is <see cref="ExchangeTokensResult"/> <br/>
-    /// </summary>
+    /// </remarks>
     public class GetExchangeTokensHandler : IRequestHandler<GetExchangeTokensQuery, ExchangeTokensResult>
     {
         private readonly IHttpContextAccessor _contextAccessor;

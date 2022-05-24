@@ -8,11 +8,11 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
     using Exceptions;
     using Models;
 
-    /// <summary>
-    /// Handler for removing exchange tokens. <para/>
+    /// <summary> Handler for removing exchange tokens. </summary>
+    /// <remarks>
     /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
     /// <c>TRequest</c> is <see cref="RemoveExchangeTokenQuery"/> <br/>
-    /// </summary>
+    /// </remarks>
     public class RemoveExchangeTokenHandler : IRequestHandler<RemoveExchangeTokenQuery>
     {
         private readonly IHttpContextAccessor _contextAccessor;

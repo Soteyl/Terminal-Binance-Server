@@ -35,8 +35,17 @@ namespace Ixcent.CryptoTerminal.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            RegisterDatabase(services);
-            RegisterUserIdentity(services);
+            services.AddDbContext<CryptoTerminalContext>(opt =>
+            {
+                var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
+                string connection = Configuration.GetConnectionString("DefaultConnection");
+                opt.UseMySql(connection, serverVersion);
+            });
+            IdentityBuilder builder = services.AddIdentityCore<AppUser>();
+            IdentityBuilder identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddRoles<IdentityRole>();
+            identityBuilder.AddEntityFrameworkStores<CryptoTerminalContext>();
+            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
             services.AddSwaggerGen(options =>
             {
@@ -57,19 +66,26 @@ namespace Ixcent.CryptoTerminal.Api
                 options.OperationFilter<FormatXmlCommentProperties>();
             });
 
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressConsumesConstraintForFormFileParameters = true;
-                options.SuppressInferBindingSourcesForParameters = true;
-                options.SuppressModelStateInvalidFilter = true;
-            });
-
             // Make "Application" assembly - main handler of all queries.
             services.AddMediatR(typeof(LoginHandler).Assembly);
 
             services.AddSignalR();
 
-            AddJwtAuthentication(services);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidIssuer = AuthOptions.Issuer,
+                        ValidateAudience = false,
+                        ValidAudience = AuthOptions.Audience,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
 
             // Add user accessor
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -84,7 +100,7 @@ namespace Ixcent.CryptoTerminal.Api
             services.AddSingleton<ExchangesValidator>();
             services.AddSingleton<RealtimeSpotDepthMarket>();
 
-            services.AddControllers(opt =>
+            IMvcBuilder mvcBuilder = services.AddControllers(opt =>
             {
                 // Only authorized users
                 opt.EnableEndpointRouting = false;
@@ -92,8 +108,17 @@ namespace Ixcent.CryptoTerminal.Api
                                  .RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
                 //opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
-            }).AddNewtonsoftJson()
-              .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
+            });
+
+            mvcBuilder.AddNewtonsoftJson();
+            mvcBuilder.ConfigureApiBehaviorOptions(options =>
+            {
+                  options.SuppressMapClientErrors = true;
+            });
+            mvcBuilder.AddFluentValidation(fv =>
+                fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -124,44 +149,6 @@ namespace Ixcent.CryptoTerminal.Api
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapHub<BinanceSpotDepthMarketHub>("/api/binance/spot/realtime/depth-market");
             });
-        }
-
-        private void RegisterDatabase(IServiceCollection services)
-        {
-            services.AddDbContext<CryptoTerminalContext>(opt =>
-            {
-                var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
-                string connection = Configuration.GetConnectionString("DefaultConnection");
-                opt.UseMySql(connection, serverVersion);
-            });
-        }
-
-        private void RegisterUserIdentity(IServiceCollection services)
-        {
-            IdentityBuilder builder = services.AddIdentityCore<AppUser>();
-            IdentityBuilder identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-            identityBuilder.AddRoles<IdentityRole>();
-            identityBuilder.AddEntityFrameworkStores<CryptoTerminalContext>();
-            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
-        }
-
-        private void AddJwtAuthentication(IServiceCollection services)
-        {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = false,
-                        ValidIssuer = AuthOptions.Issuer,
-                        ValidateAudience = false,
-                        ValidAudience = AuthOptions.Audience,
-                        ValidateLifetime = true,
-                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true
-                    };
-                });
         }
 
         private void ConfigureIpCheck(IServiceCollection services)

@@ -8,7 +8,8 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
     /// <summary>
     /// Subscribes to a Binance spot market, checks updated in a market depth for a coin.
     /// </summary>
-    public class RealtimeSpotDepthMarket
+    /// <remarks> Implements <see cref="IDisposable"/></remarks>
+    public class RealtimeSpotDepthMarket: IDisposable
     {
         private readonly BinanceSocketClient _binanceClient = new BinanceSocketClient();
 
@@ -18,38 +19,45 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
         /// Subscribes to a symbol. <br/>
         /// After subscribing <see cref="DepthMarketUpdated"/> event starting return information about this symbol.
         /// </summary>
-        public async void SubscribeTo(string symbol)
+        public void SubscribeTo(string symbol)
         {
-            if (_subscriptions.ContainsKey(symbol)) return;
+            lock (_subscriptions)
+            {
+                if (_subscriptions.ContainsKey(symbol)) return;
 
-            CallResult<UpdateSubscription>? callResult = 
-                await _binanceClient.Spot.SubscribeToOrderBookUpdatesAsync(symbol, 1000, ReceiveDepthMarketUpdate);
+                var callResult =  _binanceClient.Spot.SubscribeToOrderBookUpdatesAsync(symbol, 1000, ReceiveDepthMarketUpdate);
+                callResult.Wait();
+                if (callResult.Result.Success == false) return;
 
-            if (callResult.Success == false) return;
-
-            _subscriptions.Add(symbol, callResult.Data);
+                _subscriptions.Add(symbol, callResult.Result.Data);
+            }
         }
 
-        /// <summary>
-        /// Unsubscribes from a symbol
-        /// </summary>
-        public async void UnsubscribeFrom(string symbol)
+        /// <summary> Unsubscribes from a symbol </summary>
+        public void UnsubscribeFrom(string symbol)
         {
-            if (_subscriptions.ContainsKey(symbol) == false) return;
+            lock (_subscriptions)
+            {
+                if (_subscriptions.ContainsKey(symbol) == false) return;
 
-            await _subscriptions[symbol].CloseAsync();
+                _subscriptions[symbol].CloseAsync().Wait();
 
-            _subscriptions.Remove(symbol);
+                _subscriptions.Remove(symbol);
+            }
         }
 
-        /// <summary>
-        /// Return updated information about subscribed symbols
-        /// </summary>
+        /// <summary> Disposes Binance client </summary>
+        public void Dispose()
+        {
+            _binanceClient.Dispose();
+        }
+
+        /// <summary> Return updated information about subscribed symbols </summary>
         public event EventHandler<IBinanceOrderBook> DepthMarketUpdated;
 
         private void ReceiveDepthMarketUpdate(DataEvent<IBinanceEventOrderBook> @event)
         {
-            DepthMarketUpdated.Invoke(this, @event.Data);
+            DepthMarketUpdated?.Invoke(this, @event.Data);
         }
     }
 }
