@@ -71,7 +71,7 @@
                     if (connections.Count == 0)
                     {
                         _connections.Remove(key);
-                        OnKeyEmpty.Invoke(key);
+                        OnKeyEmpty?.Invoke(key);
                     }
                 }
             }
@@ -83,9 +83,12 @@
         /// <param name="connectionId"></param>
         public void RemoveByConnectionId(string connectionId)
         {
-            foreach (KeyValuePair<T, HashSet<string>> connection in _connections)
+            lock (_connections)
             {
-                Remove(connection.Key, connectionId);
+                foreach (KeyValuePair<T, HashSet<string>> connection in _connections)
+                {
+                    Remove(connection.Key, connectionId);
+                }
             }
             //lock (_connections)
             //{

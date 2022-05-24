@@ -38,13 +38,21 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
             _realtimeMarket.SubscribeTo(symbol);
         }
 
-        /// <summary> Unubscribes a client to depth market updates </summary>
+        /// <summary> Unsubscribes a client from depth market updates </summary>
         /// <param name="symbol">Symbol pair like BTCUSDT</param>
         /// <param name="connectionId">Connection Id from hub context</param>
         public async Task UnsubscribeFromSymbol(string symbol, string connectionId)
         {
             await _hubContext.Groups.RemoveFromGroupAsync(connectionId, symbol.ToUpper());
             _subscribers.Remove(symbol, connectionId);
+        }
+
+        /// <summary> Unsubscribes a client from all depth market updates (only in private list, not in HubContext)</summary>
+        /// <param name="connectionId">Connection Id from hub context</param>
+        public Task UnsubscribeFromAll(string connectionId)
+        {
+            _subscribers.RemoveByConnectionId(connectionId);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -63,10 +71,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
 
         private void NotifyAboutMarketUpdates(object? sender, IBinanceOrderBook e)
         {
-            foreach (string? connection in _subscribers.GetConnections(e.Symbol))
-            {
-                _hubContext.Clients.Client(connection).ReceiveDepthMarketUpdate(e);
-            }
+                _hubContext.Clients.Group(e.Symbol).ReceiveDepthMarketUpdate(e);
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
     {
         private readonly BinanceSocketClient _binanceClient = new BinanceSocketClient();
 
-        private readonly Dictionary<string, UpdateSubscription> _subscriptions = new Dictionary<string,UpdateSubscription>();
+        private readonly Dictionary<string, UpdateSubscription> _subscriptions
+            = new Dictionary<string,UpdateSubscription>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Subscribes to a symbol. <br/>

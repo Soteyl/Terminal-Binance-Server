@@ -32,7 +32,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     public class BinanceSpotDepthMarketHub : Hub<IBinanceSpotDepthMarketHubClient>
     {
         #region Updater
-        private BinanceSpotDepthMarketUpdater __updater;
+        private static BinanceSpotDepthMarketUpdater __updater;
 
         private BinanceSpotDepthMarketUpdater Updater
         {
@@ -66,6 +66,13 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
         public async Task UnsubscribeFromSymbol(string symbol)
         {
             await Updater.UnsubscribeFromSymbol(symbol, Context.ConnectionId);
+        }
+
+        /// <summary> Unsubscribes from all subscribed updates. </summary>
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            await Updater.UnsubscribeFromAll(Context.ConnectionId);
+            await base.OnDisconnectedAsync(exception);
         }
     }
 }
