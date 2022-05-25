@@ -1,16 +1,16 @@
-﻿using Binance.Net;
-using Binance.Net.Objects.Spot.SpotData;
+﻿using Binance.Net.Objects.Spot.SpotData;
 using CryptoExchange.Net.Objects;
-using MediatR;
 using Microsoft.AspNetCore.Http;
+using Binance.Net;
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
 {
-    using Binance.Models;
     using Domain.Database.Models;
-    using EFData;
-    using Exceptions;
+    using Binance.Models;
     using Validation;
+    using Exceptions;
+    using EFData;
 
     /// <summary>
     /// Get all spot balances handler. Allows to get all cryptocurrency balances from the Binance.<br/>

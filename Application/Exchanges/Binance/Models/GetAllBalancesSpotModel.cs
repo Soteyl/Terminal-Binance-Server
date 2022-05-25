@@ -1,5 +1,4 @@
-﻿using Binance.Net.Objects.Spot.SpotData;
-using MediatR;
+﻿using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Models
 {
