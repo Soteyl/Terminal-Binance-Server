@@ -6,18 +6,19 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     using Binance.Net.Objects.Spot.SpotData;
 
     /// <summary>
-    /// Controller for Binance users. Requires authorization. <para/>
+    /// Controller for Binance users. Requires authorization.
+    /// </summary>
+    /// <remarks>
     /// Url: <c>api/binance/</c> <br/>
     /// Inherited from <see cref="BaseController"/> <br/>
     /// Contains <see cref="ApiControllerAttribute"/>, <see cref="RouteAttribute"/>
-    /// </summary>
+    /// </remarks>
     [ApiController]
     [Route("api/[controller]")]
     public class BinanceController : BaseController
     {
-        /// <summary>
-        /// POST Url: <c>api/binance/order</c>
-        /// </summary>
+        /// <summary> Makes Binance spot order </summary>
+        /// <remarks> POST Url: <c>api/binance/order</c> </remarks>
         /// <param name="command">spot order info</param>
         /// <returns><see cref="MakeSpotOrderResult"/> object</returns>
         [HttpPost("spot/order")]

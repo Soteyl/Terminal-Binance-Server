@@ -8,39 +8,50 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     using Microsoft.AspNetCore.Authorization;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Controller for registration and login <para/>
+    /// <summary> Controller for registration and login </summary>
+    /// <remarks>
     /// Url: <c>api/users/</c> <br/>
     /// Inherited from <see cref="BaseController"/> <br/>
     /// Contains <see cref="ApiControllerAttribute"/>, <see cref="RouteAttribute"/>, <see cref="AllowAnonymousAttribute"/>
-    /// </summary>
+    /// </remarks>
     [ApiController]
     [Route("api/[controller]")]
     [AllowAnonymous]
     public class UsersController : BaseController
     {
-        /// <summary>
-        /// POST Register user. <para/>
-        /// Url: <c>api/users/register</c>
-        /// </summary>
-        /// <param name="model">Registration info</param>
+        /// <summary> Register user </summary>
+        /// <remarks> POST Url: <c>api/users/register</c> </remarks>
+        /// <param name="command">Registration info</param>
         /// <returns><see cref="User"/> or <see cref="BadRequestObjectResult"/></returns>
+        /// 
+        /// <response code="200">Sucessful register</response>
+        /// <response code="400">
+        /// Email already exists <br/>
+        /// Username already exists
+        /// </response>
+        /// <response code="500">Client creation failed</response>
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<User>> RegisterAsync(RegistrationCommand command)
         {
             return await Mediator.Send(command);
         }
 
-        /// <summary>
-        /// POST Login user. <para/>
-        /// Url: <c>api/users/login</c>
-        /// </summary>
-        /// <param name="loginModel">Login info</param>
-        /// <returns><see cref="User"/> or <see cref="BadRequestObjectResult"/></returns>
+        /// <summary> Login user </summary>
+        /// <remarks> POST Url: <c>api/users/login</c> </remarks>
+        /// <param name="command">Login info</param>
+        /// <returns><see cref="User"/> or <see cref="UnauthorizedObjectResult"/></returns>
+        /// 
+        /// <response code="200">Successful login</response>
+        /// <response code="401">Invalid login/password</response>
         [HttpPost("login")]
-        public async Task<ActionResult<User>> LoginAsync(LoginQuery query)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<User>> LoginAsync(LoginQuery command)
         {
-            return await Mediator.Send(query);
+            return await Mediator.Send(command);
         }
     }
 }

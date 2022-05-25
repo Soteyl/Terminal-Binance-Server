@@ -31,7 +31,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Login
 
             if (user == null)
             {
-                throw new RestException(HttpStatusCode.Unauthorized);
+                throw new RestException(HttpStatusCode.Unauthorized, new { Message = "Invalid login/password" });
             }
 
             SignInResult? result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
