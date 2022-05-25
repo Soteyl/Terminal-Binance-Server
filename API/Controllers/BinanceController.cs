@@ -30,11 +30,17 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// GET Url: <c>api/binance/balance-spot</c>
         /// </summary>
         /// <returns> Collection of <see cref="BinanceBalance"/> </returns>
-        // TODO : add response codes
+        /// <response code="200">Returns all the balances in the binance exchange for current user.</response>
+        /// <response code="400">
+        /// API exchange token is outdated. <br/>
+        /// No token was found. <br/>
+        /// </response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("spot/balance")]
-        public async Task<ActionResult<IEnumerable<BinanceBalance>>> GetAllBalancesSpotAsync()
+        public async Task<ActionResult<GetAllBalancesSpotResult>> GetAllBalancesSpotAsync()
         {
-            return Ok(await Mediator.Send(new GetAllBalancesSpotModel()));
+            return await Mediator.Send(new GetAllBalancesSpotModel());
         }
     }
 }

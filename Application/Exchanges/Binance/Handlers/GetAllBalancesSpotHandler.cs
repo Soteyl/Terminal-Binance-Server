@@ -1,23 +1,23 @@
-﻿using MediatR;
-using Binance.Net;
+﻿using Binance.Net;
 using Binance.Net.Objects.Spot.SpotData;
 using CryptoExchange.Net.Objects;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
 {
-    using Domain.Database.Models;
     using Binance.Models;
+    using Domain.Database.Models;
+    using EFData;
     using Exceptions;
     using Validation;
-    using EFData;
 
     /// <summary>
     /// Get all spot balances handler. Allows to get all cryptocurrency balances from the Binance.<br/>
-    /// Implements: <see cref="IRequestHandler{GetAllBalancesSpotModel, IEnumerable{BinanceBalance}"/><br/>
+    /// Implements: <see cref="IRequestHandler{GetAllBalancesSpotModel, GetAllBalancesSpotResult"/><br/>
     /// Is used by: MediatR
     /// </summary>
-    public class GetAllBalancesSpotHandler : IRequestHandler<GetAllBalancesSpotModel, IEnumerable<BinanceBalance>>
+    public class GetAllBalancesSpotHandler : IRequestHandler<GetAllBalancesSpotModel, GetAllBalancesSpotResult>
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
@@ -44,7 +44,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="RestException"></exception>
-        public async Task<IEnumerable<BinanceBalance>> Handle(GetAllBalancesSpotModel request, CancellationToken cancellationToken)
+        public async Task<GetAllBalancesSpotResult> Handle(GetAllBalancesSpotModel request, CancellationToken cancellationToken)
         {
             BinanceClient client = new BinanceClient();
 
@@ -76,7 +76,10 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
 
             IEnumerable<BinanceBalance> balances = info.Data.Balances;
 
-            return balances;
+            return new GetAllBalancesSpotResult
+            {
+                AvailableBalances = balances
+            };
         }
     }
 }

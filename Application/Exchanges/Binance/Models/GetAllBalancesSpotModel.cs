@@ -8,7 +8,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Models
     /// Model for <see cref="GetAllBalancesSpotHandler"/><br/>
     /// Used by: <c> MediatR </c>
     /// </summary>
-    public class GetAllBalancesSpotModel : IRequest<IEnumerable<BinanceBalance>>
+    public class GetAllBalancesSpotModel : IRequest<GetAllBalancesSpotResult>
     {
     }
 }
