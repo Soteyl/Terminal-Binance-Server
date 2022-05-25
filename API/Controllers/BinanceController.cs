@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
-    using Application.Exchanges.Binance.Models;
+    using Application.Exchanges.Binance.Spot.Models;
+    using Application.Exchanges.Binance.Spot.Results;
 
     /// <summary>
     /// Controller for Binance users. Requires authorization.
@@ -20,16 +21,15 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// <summary> Makes Binance spot order </summary>
         /// <remarks> POST Url: <c>api/binance/order</c> </remarks>
         /// <param name="command">spot order info</param>
-        /// <returns><see cref="MakeSpotOrderResult"/> object</returns>
+        /// <returns><see cref="MakeOrderResult"/> object</returns>
         [HttpPost("spot/order")]
-        public async Task<ActionResult<MakeSpotOrderResult>> MakeSpotOrderAsync(MakeSpotOrderModel command)
+        public async Task<ActionResult<MakeOrderResult>> MakeSpotOrderAsync(MakeOrderModel command)
         {
             return await Mediator.Send(command);
         }
 
-        /// <summary>
-        /// GET Url: <c>api/binance/balance-spot</c>
-        /// </summary>
+        /// <summary> Gets account balances </summary>
+        /// <remarks> GET Url: <c>api/binance/spot/balance</c> </remarks>
         /// <returns> Collection of <see cref="BinanceBalance"/> </returns>
         /// <response code="200">Returns all the balances in the binance exchange for current user.</response>
         /// <response code="400">
@@ -39,9 +39,20 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("spot/balance")]
-        public async Task<ActionResult<GetAllBalancesSpotResult>> GetAllBalancesSpotAsync()
+        public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesSpotAsync()
         {
-            return await Mediator.Send(new GetAllBalancesSpotModel());
+            return await Mediator.Send(new GetAllBalancesModel());
+        }
+
+        /// <summary> Gets all symbols and their prices </summary>
+        /// <remarks> GET Url: <c>api/binance/spot/prices</c></remarks>
+        /// <returns> Collection of <see cref="Binance.Net.Objects.Spot.MarketData.BinancePrice"/></returns>
+        /// <response code="200"/>
+        [HttpGet("spot/prices")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<SymbolPricesResult>> GetAllPrices()
+        {
+            return await Mediator.Send(new SymbolPricesModel());
         }
     }
 }

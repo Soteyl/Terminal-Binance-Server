@@ -1,14 +1,16 @@
 ﻿using Binance.Net.Enums;
 using MediatR;
 
-namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Models
+namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models
 {
+    using Results;
+
     /// <summary>
     /// Request model for making Binance spot orders. <para/>
     /// 
-    /// Implements <see cref="IRequest{TResponse}"/> whose generic type is <see cref="MakeSpotOrderResult"/>
+    /// Implements <see cref="IRequest{TResponse}"/> whose generic type is <see cref="MakeOrderResult"/>
     /// </summary>
-    public class MakeSpotOrderModel : IRequest<MakeSpotOrderResult>
+    public class MakeOrderModel : IRequest<MakeOrderResult>
     {
         public string Symbol { get; set; } = string.Empty;
 
