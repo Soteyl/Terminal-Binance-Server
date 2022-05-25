@@ -4,20 +4,25 @@ using Microsoft.AspNetCore.Http;
 using Binance.Net;
 using MediatR;
 
-namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
+namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
     using Domain.Database.Models;
-    using Binance.Models;
     using Validation;
     using Exceptions;
+    using Results;
+    using Models;
     using EFData;
 
     /// <summary>
-    /// Get all spot balances handler. Allows to get all cryptocurrency balances from the Binance.<br/>
-    /// Implements: <see cref="IRequestHandler{GetAllBalancesSpotModel, GetAllBalancesSpotResult"/><br/>
-    /// Is used by: MediatR
+    /// Get all spot balances handler. Allows to get all cryptocurrency balances from the Binance.
     /// </summary>
-    public class GetAllBalancesSpotHandler : IRequestHandler<GetAllBalancesSpotModel, GetAllBalancesSpotResult>
+    /// <remarks>
+    /// Implements: <see cref="IRequestHandler{TRequest, TResponse}"/><br/>
+    /// <c>TRequest</c> is <see cref="GetAllBalancesModel"/><br/>
+    /// <c>TResponse</c> is <see cref="GetAllBalancesResult"/><br/>
+    /// Is used by: MediatR
+    /// </remarks>
+    public class GetAllBalancesHandler : IRequestHandler<GetAllBalancesModel, GetAllBalancesResult>
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
@@ -25,13 +30,13 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
 
         private readonly ExchangesValidator _validator;
         /// <summary>
-        /// Constructor for <see cref="GetAllBalancesSpotHandler"/>.
+        /// Constructor for <see cref="GetAllBalancesHandler"/>.
         /// All the parameters in the contructor provided by the dependency injection.
         /// </summary>
         /// <param name="contextAccessor"> Context accessor which is required to get information about user. </param>
         /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
         /// <param name="validator"> Validates whether provided token for Binance is valid or not.</param>
-        public GetAllBalancesSpotHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context, ExchangesValidator validator)
+        public GetAllBalancesHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context, ExchangesValidator validator)
         {
             _context = context;
             _contextAccessor = contextAccessor;
@@ -44,7 +49,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="RestException"></exception>
-        public async Task<GetAllBalancesSpotResult> Handle(GetAllBalancesSpotModel request, CancellationToken cancellationToken)
+        public async Task<GetAllBalancesResult> Handle(GetAllBalancesModel request, CancellationToken cancellationToken)
         {
             BinanceClient client = new BinanceClient();
 
@@ -76,7 +81,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
 
             IEnumerable<BinanceBalance> balances = info.Data.Balances;
 
-            return new GetAllBalancesSpotResult
+            return new GetAllBalancesResult
             {
                 AvailableBalances = balances
             };
