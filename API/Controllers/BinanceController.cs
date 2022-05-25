@@ -20,7 +20,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// </summary>
         /// <param name="command">spot order info</param>
         /// <returns><see cref="MakeSpotOrderResult"/> object</returns>
-        [HttpPost("order")]
+        [HttpPost("spot/order")]
         public async Task<ActionResult<MakeSpotOrderResult>> MakeSpotOrderAsync(MakeSpotOrderModel command)
         {
             return await Mediator.Send(command);
@@ -30,8 +30,9 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// GET Url: <c>api/binance/balance-spot</c>
         /// </summary>
         /// <returns> Collection of <see cref="BinanceBalance"/> </returns>
-        [HttpGet("balance-spot")]
-        public async Task<ActionResult<IEnumerable<BinanceBalance>>> GetAllBalancesAsync()
+        // TODO : add response codes
+        [HttpGet("spot/balance")]
+        public async Task<ActionResult<IEnumerable<BinanceBalance>>> GetAllBalancesSpotAsync()
         {
             return Ok(await Mediator.Send(new GetAllBalancesSpotModel()));
         }

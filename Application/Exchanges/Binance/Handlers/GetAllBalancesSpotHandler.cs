@@ -48,7 +48,10 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Handlers
         {
             BinanceClient client = new BinanceClient();
 
-            var token = _context.ExchangeTokens.FirstOrDefault(t => t.Exchange == "Binance" && t.UserId == _contextAccessor.GetCurrentUserId());
+            string exchangeName = "Binance";
+            string userId = _contextAccessor.GetCurrentUserId();
+
+            var token = _context.ExchangeTokens.FirstOrDefault(t => t.Exchange == exchangeName && t.UserId == userId);
 
             if (token == null)
                 throw new RestException(System.Net.HttpStatusCode.BadRequest, new
