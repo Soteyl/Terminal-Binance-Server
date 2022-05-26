@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using Serilog;
 
 namespace Ixcent.CryptoTerminal.Api.Middlewares
 {
@@ -30,18 +31,23 @@ namespace Ixcent.CryptoTerminal.Api.Middlewares
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             string result = "";
+            context.Response.ContentType = "application/json";
             switch (exception)
             {
                 case RestException validationException:
-                    context.Response.ContentType = "application/json";
-                    context.Response.StatusCode = (int)validationException.Code;
-                    result = JsonConvert.SerializeObject(new { errors = validationException.Errors });
+                    context.Response.StatusCode = (int)validationException.StatusCode;
+                    result = JsonConvert.SerializeObject(
+                        new
+                        {
+                            code = validationException.ErrorCode,
+                            errors = validationException.Errors
+                        });
                     break;
                 default:
-                    context.Response.ContentType = "application/json";
+                    Log.Error(exception.ToString());
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
             }

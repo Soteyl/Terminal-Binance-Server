@@ -16,7 +16,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     [Route("api/[controller]")]
     public class ExchangesController : BaseController
     {
-        /// <summary> Adds an exchange token into a server database </summary>
+        /// <summary> Adds or updates an exchange token into a server database </summary>
         /// <remarks> POST Url: <c>api/exchanges/token</c> </remarks>
         /// <param name="command">token key, secret, exchange name</param>
         /// <returns>error or Ok result</returns>
@@ -31,25 +31,6 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Add(AddExchangeTokenQuery command)
-        {
-            await Mediator.Send(command);
-            return Ok();
-        }
-
-        /// <summary> Edits existing exchange token in a database </summary>
-        /// <remarks> PUT Url: <c>api/exchanges/token</c> </remarks>
-        /// <param name="command">token key, secret, exchange name</param>
-        /// <returns>error or Ok result</returns>
-        /// 
-        /// <response code="200">Updates existing exchange token</response>
-        /// <response code="400">
-        /// Invalid user <br/>
-        /// Bad key or secret 
-        /// </response>
-        [HttpPut("token")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Edit(UpdateExchangeTokenQuery command)
         {
             await Mediator.Send(command);
             return Ok();

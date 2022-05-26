@@ -14,6 +14,7 @@
         /// }
         /// </code>
         /// </summary>
-        public Dictionary<string, List<string>> AvailableExchanges { get; set; } = new Dictionary<string, List<string>>();
+        public Dictionary<string, IEnumerable<string>> AvailableExchanges { get; set; }
+            = new Dictionary<string, IEnumerable<string>>();
     }
 }

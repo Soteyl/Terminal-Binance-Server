@@ -2,7 +2,7 @@
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
-namespace Ixcent.CryptoTerminal.Api.StartupConfiguration
+namespace Ixcent.CryptoTerminal.Api.Additional
 {
     /// <summary> Updates xml comments for SWAGGER documentation generator. </summary>
     /// <remarks> Implements <see cref="IOperationFilter"/> </remarks>

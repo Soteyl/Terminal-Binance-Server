@@ -8,20 +8,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Serilog;
 
 namespace Ixcent.CryptoTerminal.Api
 {
     using Application.Exchanges.Binance;
-    using Application.Interfaces;
-    using Application.Users.IP;
     using Application.Users.Login;
+    using Application.Interfaces;
     using Application.Validation;
-    using Domain.Auth;
+    using Application.Users.IP;
     using Domain.Database;
+    using Infrastructure;
+    using Domain.Auth;
+    using Additional;
     using EFData;
     using Hubs;
-    using Infrastructure;
-    using StartupConfiguration;
 
     public class Startup
     {
@@ -96,7 +97,6 @@ namespace Ixcent.CryptoTerminal.Api
             services.AddAuthorization();
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
-            services.AddSingleton<ExchangesValidator>();
             services.AddSingleton<RealtimeSpotDepthMarket>();
 
             IMvcBuilder mvcBuilder = services.AddControllers(opt =>
@@ -116,8 +116,6 @@ namespace Ixcent.CryptoTerminal.Api
             });
             mvcBuilder.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
-
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -148,6 +146,8 @@ namespace Ixcent.CryptoTerminal.Api
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapHub<BinanceSpotDepthMarketHub>("/api/binance/spot/realtime/depth-market");
             });
+
+            Log.Information("Server is started");
         }
 
         private void ConfigureIpCheck(IServiceCollection services)

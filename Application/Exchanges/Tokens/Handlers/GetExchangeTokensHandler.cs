@@ -1,12 +1,12 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
     using Domain.Database.Models;
+    using Validation;
     using EFData;
     using Models;
-    using Validation;
 
     /// <summary> Handler for getting exchange tokens. </summary>
     /// <remarks>
@@ -18,15 +18,15 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
-        private readonly ExchangesValidator _validator;
+        private readonly ExchangesValidatorByToken _validator;
 
         private readonly CryptoTerminalContext _context;
 
-        public GetExchangeTokensHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context, ExchangesValidator validator)
+        public GetExchangeTokensHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context)
         {
             _contextAccessor = contextAccessor;
             _context = context;
-            _validator = validator;
+            _validator = new ExchangesValidator().ByToken();
         }
 
         public async Task<ExchangeTokensResult> Handle(GetExchangeTokensQuery request, CancellationToken cancellationToken)
@@ -39,9 +39,9 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 
             foreach (ExchangeToken? token in tokens)
             {
-                List<string>? list = await _validator.Validate(token.Key, token.Secret, token.Exchange);
+                IEnumerable<string>? list = await _validator.Validate(token.Key, token.Secret, token.Exchange);
 
-                if (list.Count == 0)
+                if (list.Count() == 0)
                 {
                     _context.ExchangeTokens.Remove(token);
                     await _context.SaveChangesAsync();

@@ -54,5 +54,16 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         {
             return await Mediator.Send(new SymbolPricesModel());
         }
+
+        /// <summary> Gets all open orders for current user </summary>
+        /// <remarks> GET Url: <c>api/binance/spot/open-orders</c></remarks>
+        /// <returns>Collection of <see cref="BinanceOrder"/></returns>
+        /// <response code="200/>
+        [HttpGet("spot/open-orders")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<OpenOrdersResult>> GetOpenOrders()
+        {
+            return await Mediator.Send(new OpenOrdersModel());
+        }
     }
 }

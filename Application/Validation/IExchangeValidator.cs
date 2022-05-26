@@ -1,39 +1,16 @@
-﻿using Binance.Net;
-
-namespace Ixcent.CryptoTerminal.Application.Validation
+﻿namespace Ixcent.CryptoTerminal.Application.Validation
 {
-    internal interface IExchangeValidator
+    /// <summary>
+    /// Validator for exchange tokens
+    /// </summary>
+    public interface IExchangeValidator
     {
-        Task<List<string>> Validate(string token, string secret);
+        /// <summary>
+        /// Validates an exchange token
+        /// </summary>
+        /// <param name="key">Token key</param>
+        /// <param name="secret">Token secret</param>
+        /// <returns>A cllection with names of accesses items</returns>
+        Task<IEnumerable<string>> Validate(string key, string secret);
     }
-
-    public class BinanceValidator : IExchangeValidator
-    {
-        public async Task<List<string>> Validate(string token, string secret)
-        {
-            BinanceClient client = new BinanceClient();
-            client.SetApiCredentials(token, secret);
-
-            List<string> result = new List<string>();
-
-            var data = (await client.General.GetAPIKeyPermissionsAsync()).Data;
-
-            if (data == null)
-                return result;
-
-            if (data.EnableMargin)
-                result.Add("margin");
-
-            if (data.EnableFutures)
-                result.Add("futures");
-
-            if (data.EnableSpotAndMarginTrading)
-            {
-                result.Add("spot");
-            }
-
-            return result;
-        }
-    }
-
 }

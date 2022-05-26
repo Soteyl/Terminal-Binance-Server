@@ -2,7 +2,7 @@
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
-    using Application.Users.Login;
+    using Users.Login;
 
     public class LoginQueryValidation : AbstractValidator<LoginQuery>
     {

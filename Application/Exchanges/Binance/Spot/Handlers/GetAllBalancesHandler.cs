@@ -7,11 +7,10 @@ using MediatR;
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
     using Domain.Database.Models;
-    using Validation;
     using Exceptions;
-    using Results;
-    using Models;
     using EFData;
+    using Models;
+    using Results;
 
     /// <summary>
     /// Get all spot balances handler. Allows to get all cryptocurrency balances from the Binance.
@@ -28,7 +27,6 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         private readonly CryptoTerminalContext _context;
 
-        private readonly ExchangesValidator _validator;
         /// <summary>
         /// Constructor for <see cref="GetAllBalancesHandler"/>.
         /// All the parameters in the contructor provided by the dependency injection.
@@ -36,48 +34,27 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
         /// <param name="contextAccessor"> Context accessor which is required to get information about user. </param>
         /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
         /// <param name="validator"> Validates whether provided token for Binance is valid or not.</param>
-        public GetAllBalancesHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context, ExchangesValidator validator)
+        public GetAllBalancesHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context)
         {
             _context = context;
             _contextAccessor = contextAccessor;
-            _validator = validator;
         }
-        /// <summary>
-        /// Main method 
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+
+        /// <summary> Main method </summary>
         /// <exception cref="RestException"></exception>
         public async Task<GetAllBalancesResult> Handle(GetAllBalancesModel request, CancellationToken cancellationToken)
         {
             BinanceClient client = new BinanceClient();
 
-            string exchangeName = "Binance";
-            string userId = _contextAccessor.GetCurrentUserId();
+            string userId = _contextAccessor.GetCurrentUserId()!;
 
-            var token = _context.ExchangeTokens.FirstOrDefault(t => t.Exchange == exchangeName && t.UserId == userId);
+            var token = _context.ExchangeTokens.FirstOrDefault(token => token.UserId == userId);
 
-            if (token == null)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
-                {
-                    Token = "Failed to get API token for specified parameters."
-                });
-
-            string key = token.Key;
-            string secret = token.Secret;
-
-            bool isValid = _validator.Validate(key, secret, "Binance").Result.Contains("spot");
-
-            if (!isValid)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
-                {
-                    Token = "Passed user API token is outdated!"
-                });
-
-            client.SetApiCredentials(key, secret);
+            client.SetApiCredentials(token.Key, token.Secret);
 
             WebCallResult<BinanceAccountInfo> info = await client.General.GetAccountInfoAsync();
+
+            info.RemoveTokenAndThrowRestIfInvalid(_context, token);
 
             IEnumerable<BinanceBalance> balances = info.Data.Balances;
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Ixcent.CryptoTerminal.Api
 {
@@ -10,11 +11,31 @@ namespace Ixcent.CryptoTerminal.Api
     {
         public static void Main(string[] args)
         {
-            IHost? host = CreateHostBuilder(args).Build();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Console()
+                .WriteTo.File(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                            "Ixcent", "CryptoTerminal", "logs", ".log"),
+                            rollingInterval: RollingInterval.Day,
+                            rollOnFileSizeLimit: true)
+                .CreateLogger();
 
-            RefreshDatabase(host);
+            try
+            {
+                IHost? host = CreateHostBuilder(args).Build();
 
-            host.Run();
+                RefreshDatabase(host);
+
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static void RefreshDatabase(IHost host)
@@ -41,6 +62,7 @@ namespace Ixcent.CryptoTerminal.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
