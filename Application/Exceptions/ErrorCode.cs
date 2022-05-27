@@ -17,6 +17,11 @@
         /// <summary>
         /// Item is not found
         /// </summary>
-        NotFound
+        NotFound,
+
+        /// <summary>
+        /// Data sended from client is invalid
+        /// </summary>
+        InvalidData
     }
 }
