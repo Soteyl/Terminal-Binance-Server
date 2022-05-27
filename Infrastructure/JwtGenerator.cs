@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace Ixcent.CryptoTerminal.Infrastructure
 {
     using Application.Interfaces;
-    using Domain.Auth;
     using Domain.Database;
+    using Domain.Auth;
 
     public class JwtGenerator : IJwtGenerator
     {
@@ -20,7 +20,7 @@ namespace Ixcent.CryptoTerminal.Infrastructure
 
         public string CreateToken(AppUser user)
         {
-            var claims = new List<Claim> { new Claim(JwtRegisteredClaimNames.NameId, user.UserName) };
+            var claims = new List<Claim> { new Claim(JwtRegisteredClaimNames.NameId, user.Id) };
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 

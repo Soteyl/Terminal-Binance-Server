@@ -9,7 +9,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models
     /// Implements <see cref="IRequest{TResponse}"/> <br/>
     /// <c>TResponse</c> is <see cref="Results.SymbolPricesResult"/>
     /// </remarks>
-    public class SymbolPricesModel: IRequest<Results.SymbolPricesResult>
+    public class SymbolPricesModel : IRequest<Results.SymbolPricesResult>
     {
     }
 }

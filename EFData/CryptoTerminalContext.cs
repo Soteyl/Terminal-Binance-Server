@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ixcent.CryptoTerminal.EFData
 {
-    using Domain.Database;
     using Domain.Database.Models;
+    using Domain.Database;
 
     /// <summary>
     /// Main database context.
@@ -13,6 +13,7 @@ namespace Ixcent.CryptoTerminal.EFData
     public class CryptoTerminalContext : IdentityDbContext<AppUser>
     {
         public DbSet<ExchangeToken> ExchangeTokens { get; set; }
+
         public DbSet<AvailableExchange> AvailableExchanges { get; set; }
 
         public CryptoTerminalContext(DbContextOptions<CryptoTerminalContext> options)
@@ -20,7 +21,5 @@ namespace Ixcent.CryptoTerminal.EFData
         {
             Database.EnsureCreated();
         }
-
-
     }
 }

@@ -29,12 +29,16 @@ namespace Ixcent.CryptoTerminal.Application.Users.Registration
         {
             if (await _context.Users.Where(x => x.Email == request.Email).AnyAsync())
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exists" });
+                throw new RestException(HttpStatusCode.BadRequest, 
+                                        ErrorCode.AlreadyExist, 
+                                        new { Email = "Email already exists" });
             }
 
             if (await _context.Users.Where(x => x.UserName == request.UserName).AnyAsync())
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Username = "Username already exists" });
+                throw new RestException(HttpStatusCode.BadRequest,
+                                        ErrorCode.AlreadyExist,
+                                        new { Username = "Username already exists" });
             }
 
             var user = new AppUser
@@ -56,7 +60,9 @@ namespace Ixcent.CryptoTerminal.Application.Users.Registration
                 };
             }
 
-            throw new RestException(HttpStatusCode.InternalServerError, new { Message = "Client creation failed" });
+            throw new RestException(HttpStatusCode.InternalServerError,
+                                    ErrorCode.Unknown,
+                                    new { Message = "Client creation failed" });
         }
     }
 }

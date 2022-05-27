@@ -1,11 +1,11 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
     using Domain.Database.Models;
-    using EFData;
     using Exceptions;
+    using EFData;
     using Models;
 
     /// <summary> Handler for removing exchange tokens. </summary>
@@ -36,7 +36,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 
             if (possibleToken == null)
             {
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, new
+                throw new RestException(System.Net.HttpStatusCode.BadRequest, ErrorCode.NotFound, new
                 {
                     Message = "Couldn't find a token"
                 });

@@ -15,14 +15,14 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     /// Contains <see cref="ApiControllerAttribute"/>, <see cref="RouteAttribute"/>
     /// </remarks>
     [ApiController]
-    [Route("api/[controller]")]
-    public class BinanceController : BaseController
+    [Route("api/binance/spot")]
+    public class BinanceSpotController : BaseController
     {
         /// <summary> Makes Binance spot order </summary>
         /// <remarks> POST Url: <c>api/binance/order</c> </remarks>
         /// <param name="command">spot order info</param>
         /// <returns><see cref="MakeOrderResult"/> object</returns>
-        [HttpPost("spot/order")]
+        [HttpPost("order")]
         public async Task<ActionResult<MakeOrderResult>> MakeSpotOrderAsync(MakeOrderModel command)
         {
             return await Mediator.Send(command);
@@ -38,7 +38,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// </response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpGet("spot/balance")]
+        [HttpGet("balance")]
         public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesSpotAsync()
         {
             return await Mediator.Send(new GetAllBalancesModel());
@@ -48,11 +48,22 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// <remarks> GET Url: <c>api/binance/spot/prices</c></remarks>
         /// <returns> Collection of <see cref="Binance.Net.Objects.Spot.MarketData.BinancePrice"/></returns>
         /// <response code="200"/>
-        [HttpGet("spot/prices")]
+        [HttpGet("prices")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<SymbolPricesResult>> GetAllPrices()
         {
             return await Mediator.Send(new SymbolPricesModel());
+        }
+
+        /// <summary> Gets all open orders for current user </summary>
+        /// <remarks> GET Url: <c>api/binance/spot/open-orders</c></remarks>
+        /// <returns>Collection of <see cref="BinanceOrder"/></returns>
+        /// <response code="200/>
+        [HttpGet("open-orders")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<OpenOrdersResult>> GetOpenOrders()
+        {
+            return await Mediator.Send(new OpenOrdersModel());
         }
     }
 }

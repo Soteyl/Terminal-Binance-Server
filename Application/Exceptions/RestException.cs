@@ -6,14 +6,20 @@ namespace Ixcent.CryptoTerminal.Application.Exceptions
     /// <remarks> Inherited from <see cref="Exception"/> </remarks>
     public class RestException : Exception
     {
-        public RestException(HttpStatusCode code, object? errors = null)
+        public RestException(HttpStatusCode code, ErrorCode errorCode, object? errors = null)
         {
-            Code = code;
+            StatusCode = code;
+            ErrorCode = errorCode;
             Errors = errors;
         }
 
-        public HttpStatusCode Code { get; }
+        /// <summary> Http page status code </summary>
+        public HttpStatusCode StatusCode { get; }
 
+        /// <summary> Additional error information </summary>
         public object? Errors { get; set; }
+
+        /// <summary> Server error code </summary>
+        public ErrorCode ErrorCode { get; set; }
     }
 }
