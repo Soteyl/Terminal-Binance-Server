@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
+    using CryptoExchange.Net.Objects;
+    using global::Binance.Net;
+    using global::Binance.Net.Objects.Spot.SpotData;
+    using Ixcent.CryptoTerminal.Application.Exceptions;
     using Ixcent.CryptoTerminal.EFData;
     using Models;
     using Results;
@@ -25,11 +29,40 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
             _context = context;
         }
 
-        public Task<MakeOrderResult> Handle(MakeOrderModel request, CancellationToken cancellationToken)
+        public async Task<MakeOrderResult> Handle(MakeOrderModel request, CancellationToken cancellationToken)
         {
-            //TODO its a test method and it must be implemented later
-            string a = _contextAccessor.GetCurrentUserId();
-            return null;
+            BinanceClient client = new BinanceClient();
+
+            string userId = _contextAccessor.GetCurrentUserId()!;
+
+            var token = _context.ExchangeTokens.FirstOrDefault(token => token.UserId == userId &&
+                                                                        token.Exchange.Equals("Binance"));
+
+            if (token == null)
+                throw new RestException(System.Net.HttpStatusCode.BadRequest,
+                                        ErrorCode.BadExchangeToken,
+                                        new { Token = "Missing API token" });
+
+            client.SetApiCredentials(token.Key, token.Secret);
+
+            WebCallResult<BinancePlacedOrder> info = await client.Spot.Order.PlaceOrderAsync(
+                symbol: request.Symbol,
+                side: request.OrderSide, 
+                type: request.OrderType, 
+                quantity: request.Quantity,
+                timeInForce: request.TimeInForce, 
+                price: request.Price,
+                icebergQty: request.IcebergQuantity,
+                stopPrice: request.StopPrice,
+                ct: cancellationToken
+                );
+
+            info.RemoveTokenAndThrowRestIfInvalid(_context, token);
+
+            return new MakeOrderResult
+            {
+
+            };
         }
     }
 }
