@@ -1,13 +1,14 @@
-﻿using Binance.Net;
+﻿using Microsoft.AspNetCore.Http;
+using Binance.Net;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
+    using Domain.Database.Models;
+    using Exceptions;
     using EFData;
     using Models;
     using Results;
-    using Validation;
 
     /// <summary>
     /// Get all open spot orders handler. Allows to get all active orders from the Binance.
@@ -32,13 +33,27 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         public async Task<OpenOrdersResult> Handle(OpenOrdersModel request, CancellationToken cancellationToken)
         {
-            var binanceClient = new BinanceClient(); //TODO
+            var client = new BinanceClient(); 
             string userId = _contextAccessor.GetCurrentUserId()!;
 
-            TokenValidationResult? result = await new ExchangesValidator()
-                .ByUser(_context, userId).Binance().Spot().ValidateOrThrowRest();
+            ExchangeToken? token = _context.ExchangeTokens.FirstOrDefault(t => t.UserId == userId &&
+                                                                    t.Exchange == "Binance");
 
-            return null;
+            if (token == null)
+                throw new RestException(System.Net.HttpStatusCode.BadRequest,
+                                        ErrorCode.BadExchangeToken,
+                                        new { Token = "Missing API token" });
+
+            client.SetApiCredentials(token.Key, token.Secret);
+
+            var result = await client.Spot.Order.GetOpenOrdersAsync();
+
+            result.RemoveTokenAndThrowRestIfInvalid(_context, token);
+
+            return new OpenOrdersResult
+            {
+                Orders = result.Data
+            };
         }
     }
 }

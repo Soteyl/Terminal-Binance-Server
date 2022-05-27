@@ -48,8 +48,14 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             string userId = _contextAccessor.GetCurrentUserId()!;
 
-            var token = _context.ExchangeTokens.FirstOrDefault(token => token.UserId == userId);
+            var token = _context.ExchangeTokens.FirstOrDefault(token => token.UserId == userId &&
+                                                                        token.Exchange.Equals("Binance"));
 
+            if (token == null)
+                throw new RestException(System.Net.HttpStatusCode.BadRequest,
+                                        ErrorCode.BadExchangeToken,
+                                        new { Token = "Missing API token" });
+            
             client.SetApiCredentials(token.Key, token.Secret);
 
             WebCallResult<BinanceAccountInfo> info = await client.General.GetAccountInfoAsync();
