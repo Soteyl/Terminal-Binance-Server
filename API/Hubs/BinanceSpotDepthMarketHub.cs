@@ -69,6 +69,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
         }
 
         /// <summary> Unsubscribes from all subscribed updates. </summary>
+        [SignalRHidden]
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             await Updater.UnsubscribeFromAll(Context.ConnectionId);
