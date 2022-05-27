@@ -58,7 +58,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// <summary> Gets all open orders for current user </summary>
         /// <remarks> GET Url: <c>api/binance/spot/open-orders</c></remarks>
         /// <returns>Collection of <see cref="BinanceOrder"/></returns>
-        /// <response code="200/>
+        /// <response code="200"/>
         [HttpGet("open-orders")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<OpenOrdersResult>> GetOpenOrders()
