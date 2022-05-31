@@ -1,15 +1,16 @@
-﻿using MediatR;
+﻿using Binance.Net.Objects.Spot.SpotData;
 using Microsoft.AspNetCore.Http;
+using Binance.Net;
+using MediatR;
+
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
-    using CryptoExchange.Net.Objects;
-    using global::Binance.Net;
-    using global::Binance.Net.Objects.Spot.SpotData;
     using Ixcent.CryptoTerminal.Application.Exceptions;
     using Ixcent.CryptoTerminal.EFData;
-    using Models;
+    using CryptoExchange.Net.Objects;
     using Results;
+    using Models;
 
     /// <summary> Handler for making Binance spot orders. </summary>
     /// <remarks>
@@ -61,7 +62,8 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             return new MakeOrderResult
             {
-
+                HasPlacedOrder = info.Success,
+                Message = info.Error!.Message ?? "Error message is null"
             };
         }
     }

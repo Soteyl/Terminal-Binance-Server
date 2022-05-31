@@ -5,5 +5,8 @@
     /// </summary>
     public class MakeOrderResult
     {
+        public bool HasPlacedOrder { get; set; }
+
+        public string? Message { get; set; }
     }
 }
