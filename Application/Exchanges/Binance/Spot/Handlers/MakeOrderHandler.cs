@@ -24,12 +24,25 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         private readonly CryptoTerminalContext _context;
 
+        /// <summary>
+        /// Constructor for <see cref="GetAllBalancesHandler"/>.
+        /// All the parameters in the contructor provided by the dependency injection.
+        /// </summary>
+        /// <param name="httpContextAccessor"> Context accessor which is required to get information about user. </param>
+        /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
         public MakeOrderHandler(IHttpContextAccessor httpContextAccessor, CryptoTerminalContext context)
         {
             _contextAccessor = httpContextAccessor;
             _context = context;
         }
 
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="RestException"></exception>
         public async Task<MakeOrderResult> Handle(MakeOrderModel request, CancellationToken cancellationToken)
         {
             BinanceClient client = new BinanceClient();
@@ -62,8 +75,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             return new MakeOrderResult
             {
-                HasPlacedOrder = info.Success,
-                Message = info.Error!.Message ?? "Error message is null"
+                PlacedOrder = info.Data
             };
         }
     }
