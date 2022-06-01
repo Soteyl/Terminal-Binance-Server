@@ -33,7 +33,6 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
         /// </summary>
         /// <param name="contextAccessor"> Context accessor which is required to get information about user. </param>
         /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
-        /// <param name="validator"> Validates whether provided token for Binance is valid or not.</param>
         public GetAllBalancesHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context)
         {
             _context = context;

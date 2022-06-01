@@ -1,11 +1,16 @@
-﻿using MediatR;
+﻿using Binance.Net.Objects.Spot.SpotData;
 using Microsoft.AspNetCore.Http;
+using Binance.Net;
+using MediatR;
+
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
+    using Ixcent.CryptoTerminal.Application.Exceptions;
     using Ixcent.CryptoTerminal.EFData;
-    using Models;
+    using CryptoExchange.Net.Objects;
     using Results;
+    using Models;
 
     /// <summary> Handler for making Binance spot orders. </summary>
     /// <remarks>
@@ -19,17 +24,59 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         private readonly CryptoTerminalContext _context;
 
+        /// <summary>
+        /// Constructor for <see cref="GetAllBalancesHandler"/>.
+        /// All the parameters in the contructor provided by the dependency injection.
+        /// </summary>
+        /// <param name="httpContextAccessor"> Context accessor which is required to get information about user. </param>
+        /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
         public MakeOrderHandler(IHttpContextAccessor httpContextAccessor, CryptoTerminalContext context)
         {
             _contextAccessor = httpContextAccessor;
             _context = context;
         }
 
-        public Task<MakeOrderResult> Handle(MakeOrderModel request, CancellationToken cancellationToken)
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="RestException"></exception>
+        public async Task<MakeOrderResult> Handle(MakeOrderModel request, CancellationToken cancellationToken)
         {
-            //TODO its a test method and it must be implemented later
-            string a = _contextAccessor.GetCurrentUserId();
-            return null;
+            BinanceClient client = new BinanceClient();
+
+            string userId = _contextAccessor.GetCurrentUserId()!;
+
+            var token = _context.ExchangeTokens.FirstOrDefault(token => token.UserId == userId &&
+                                                                        token.Exchange.Equals("Binance"));
+
+            if (token == null)
+                throw new RestException(System.Net.HttpStatusCode.BadRequest,
+                                        ErrorCode.BadExchangeToken,
+                                        new { Token = "Missing API token" });
+
+            client.SetApiCredentials(token.Key, token.Secret);
+
+            WebCallResult<BinancePlacedOrder> info = await client.Spot.Order.PlaceOrderAsync(
+                symbol: request.Symbol,
+                side: request.OrderSide, 
+                type: request.OrderType, 
+                quantity: request.Quantity,
+                timeInForce: request.TimeInForce, 
+                price: request.Price,
+                icebergQty: request.IcebergQuantity,
+                stopPrice: request.StopPrice,
+                ct: cancellationToken
+                );
+
+            info.RemoveTokenAndThrowRestIfInvalid(_context, token);
+
+            return new MakeOrderResult
+            {
+                PlacedOrder = info.Data
+            };
         }
     }
 }

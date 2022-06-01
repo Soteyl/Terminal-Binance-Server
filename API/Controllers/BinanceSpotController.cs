@@ -22,6 +22,10 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// <remarks> POST Url: <c>api/binance/order</c> </remarks>
         /// <param name="command">spot order info</param>
         /// <returns><see cref="MakeOrderResult"/> object</returns>
+        /// <response code="200"> Returns placed order result. </response>
+        /// <response code="400"> Bad API token</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("order")]
         public async Task<ActionResult<MakeOrderResult>> MakeSpotOrderAsync(MakeOrderModel command)
         {

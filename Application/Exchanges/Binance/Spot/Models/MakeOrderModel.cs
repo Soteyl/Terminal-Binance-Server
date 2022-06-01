@@ -20,6 +20,10 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models
 
         public decimal? Price { get; set; }
 
+        public decimal? IcebergQuantity { get; set; }
+
+        public decimal? StopPrice { get; set; }
+
         public OrderSide OrderSide { get; set; }
 
         public OrderType OrderType { get; set; }
