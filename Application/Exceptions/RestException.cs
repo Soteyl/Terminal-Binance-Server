@@ -6,6 +6,10 @@ namespace Ixcent.CryptoTerminal.Application.Exceptions
     /// <remarks> Inherited from <see cref="Exception"/> </remarks>
     public class RestException : Exception
     {
+        public static RestException MissingApiToken => new RestException(HttpStatusCode.BadRequest,
+                                        ErrorCode.BadExchangeToken,
+                                        new { Token = "Missing API token" });
+
         public RestException(HttpStatusCode code, ErrorCode errorCode, object? errors = null)
         {
             StatusCode = code;

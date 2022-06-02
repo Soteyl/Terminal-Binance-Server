@@ -6,7 +6,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models
     /// Model for <see cref="Handlers.GetAllBalancesHandler"/><br/>
     /// Used by: <c> MediatR </c>
     /// </summary>
-    public class GetAllBalancesModel : IRequest<Results.GetAllBalancesResult>
+    public class AllBalancesModel : IRequest<Results.GetAllBalancesResult>
     {
     }
 }

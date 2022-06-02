@@ -45,7 +45,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [HttpGet("balance")]
         public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesSpotAsync()
         {
-            return await Mediator.Send(new GetAllBalancesModel());
+            return await Mediator.Send(new AllBalancesModel());
         }
 
         /// <summary> Gets all symbols and their prices </summary>
@@ -68,6 +68,18 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         public async Task<ActionResult<OpenOrdersResult>> GetOpenOrders()
         {
             return await Mediator.Send(new OpenOrdersModel());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("orders-history")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<OrdersHistoryResult>> GetOrdersHistoryResult()
+        {
+            return await Mediator.Send(new OrdersHistoryModel()); 
         }
     }
 }

@@ -17,11 +17,11 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
     /// </summary>
     /// <remarks>
     /// Implements: <see cref="IRequestHandler{TRequest, TResponse}"/><br/>
-    /// <c>TRequest</c> is <see cref="GetAllBalancesModel"/><br/>
+    /// <c>TRequest</c> is <see cref="AllBalancesModel"/><br/>
     /// <c>TResponse</c> is <see cref="GetAllBalancesResult"/><br/>
     /// Is used by: MediatR
     /// </remarks>
-    public class GetAllBalancesHandler : IRequestHandler<GetAllBalancesModel, GetAllBalancesResult>
+    public class GetAllBalancesHandler : IRequestHandler<AllBalancesModel, GetAllBalancesResult>
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
@@ -41,7 +41,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         /// <summary> Main method </summary>
         /// <exception cref="RestException"></exception>
-        public async Task<GetAllBalancesResult> Handle(GetAllBalancesModel request, CancellationToken cancellationToken)
+        public async Task<GetAllBalancesResult> Handle(AllBalancesModel request, CancellationToken cancellationToken)
         {
             BinanceClient client = new BinanceClient();
 
@@ -51,10 +51,9 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
                                                                         token.Exchange.Equals("Binance"));
 
             if (token == null)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest,
-                                        ErrorCode.BadExchangeToken,
-                                        new { Token = "Missing API token" });
-            
+                throw RestException.MissingApiToken;
+
+
             client.SetApiCredentials(token.Key, token.Secret);
 
             WebCallResult<BinanceAccountInfo> info = await client.General.GetAccountInfoAsync();
