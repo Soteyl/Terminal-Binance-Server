@@ -3,6 +3,8 @@ using SignalRSwaggerGen.Attributes;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs
 {
+    [SignalRHidden]
+    [SignalRHub()]
     public abstract class SubscriberHubBase<THub, THubClient, THubSubscriberService, TData> : Hub<THubClient>
         where THubSubscriberService : SubscriberHubService<THub, THubClient, TData>, new()
         where THub : SubscriberHubBase<THub, THubClient, THubSubscriberService, TData>

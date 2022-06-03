@@ -144,7 +144,7 @@ namespace Ixcent.CryptoTerminal.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapHub<BinanceSpotDepthMarketHub>("/api/binance/spot/realtime/depth-market");
+                endpoints.MapSignalRHubs();
             });
 
             Log.Information("Server is started");
