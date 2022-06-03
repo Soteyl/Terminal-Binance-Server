@@ -15,7 +15,7 @@
 
         connection.on("ReceiveDepthMarketUpdate", function (e) { console.log({e}); });
         connection.start();
-        connection.invoke("SubscribeToSymbol", "BTCUSDT");
+        connection.invoke("Subscribe", "BTCUSDT");
      */
     #endregion
 
@@ -46,7 +46,7 @@
         /// <param name="groupName">Name of group</param>
         public virtual async Task Unsubscribe(string groupName)
         {
-            await Service.Subscribe(null, groupName, Context);
+            await Service.Unsubscribe(groupName, Context);
         }
     }
 
@@ -76,11 +76,10 @@
         /// <summary>
         /// Method for unsubscribing to a group
         /// </summary>
-        /// <param name="data">Custom data</param>
         /// <param name="groupName">Name of group</param>
-        public virtual async Task Unsubscribe(TData data, string groupName)
+        public virtual async Task Unsubscribe(string groupName)
         {
-            await Service.Subscribe(data, groupName, Context);
+            await Service.Unsubscribe(groupName, Context);
         }
     }
 }

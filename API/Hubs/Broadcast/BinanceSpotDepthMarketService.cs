@@ -13,9 +13,11 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
     {
         private readonly RealtimeSpotDepthMarket _realtimeMarket = new RealtimeSpotDepthMarket();
 
-        public BinanceSpotDepthMarketService()
+        public override SubscriberHubService<BinanceSpotDepthMarketHub, IBinanceSpotDepthMarketHubClient, object> AddHubContext(IHubContext<BinanceSpotDepthMarketHub, IBinanceSpotDepthMarketHubClient> hubContext)
         {
+            base.AddHubContext(hubContext);
             _realtimeMarket.DepthMarketUpdated += NotifyAboutMarketUpdates;
+            return this;
         }
 
         public override async Task Subscribe(object? data, string groupName, HubCallerContext context)
