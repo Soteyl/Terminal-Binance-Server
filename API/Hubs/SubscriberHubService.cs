@@ -23,9 +23,9 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
             _subscribers.OnKeyEmpty += SubscriberKeyEmpty;
         }
 
-        public SubscriberHubService<THub, THubClient, TData> AddHubContext(IHubContext<THub, THubClient> hubContext)
+        public virtual SubscriberHubService<THub, THubClient, TData> AddHubContext(IHubContext<THub, THubClient> hubContext)
         {
-            if (_hubContext != null)
+            if (_hubContext == null)
                 _hubContext = hubContext;
 
             return this;
@@ -51,7 +51,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
         /// </summary>
         /// <param name="groupName">Name of group</param>
         /// <param name="context">Caller context</param>
-        public virtual async Task Unsubsribe(string groupName, HubCallerContext context)
+        public virtual async Task Unsubscribe(string groupName, HubCallerContext context)
         {
             if (_hubContext == null) return;
 
