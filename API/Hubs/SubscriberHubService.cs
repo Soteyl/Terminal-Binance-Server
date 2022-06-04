@@ -10,7 +10,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     /// <typeparam name="THub"></typeparam>
     /// <typeparam name="THubClient"></typeparam>
     /// <typeparam name="TData"></typeparam>
-    public abstract class SubscriberHubService<THub, THubClient, TData> : IDisposable
+    public abstract class SubscriberHubService<THub, THubClient, TData> : ISubscriberHubService<THub, THubClient, TData>, IDisposable
         where THub : Hub<THubClient>
         where THubClient : class
     {

@@ -1,16 +1,22 @@
-﻿using Binance.Net.Objects.Spot.SpotData;
+﻿using Binance.Net.Objects.Spot.UserStream;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs.Clients
 {
     /// <summary>
-    /// Client for <see cref="BinanceSpotOpenOrdersHub"/>
+    /// Client for <see cref="BinanceSpotUserDataHub"/>
     /// </summary>
-    public interface IBinanceSpotOpenOrdersHubClient
+    public interface IBinanceSpotUserDataHubClient
     {
         /// <summary>
         /// Reveives binance spot open orders update
         /// </summary>
-        /// <param name="orders">collection with all open orders</param>
-        void ReceiveOpenOrders(IEnumerable<BinanceOrder> orders);
+        /// <param name="orderUpdate">order updates</param>
+        Task ReceiveOpenOrderUpdate(BinanceStreamOrderUpdate orderUpdate);
+
+        Task ReceiveAccountPositionUpdate(BinanceStreamPositionsUpdate positionUpdate);
+
+        Task ReceiveStreamBalanceUpdate(BinanceStreamBalanceUpdate balanceUpdate);
+
+        Task ReceiveOcoOrderUpdate(BinanceStreamOrderList orderList);
     }
 }

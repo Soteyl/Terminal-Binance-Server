@@ -1,19 +1,20 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using SignalRSwaggerGen.Attributes;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs
 {
     using Broadcast;
     using Clients;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// SignalR Hub for subscribing to a binance spot depth market updates <para/>
     /// Inherited from <see cref="Hub"/>
     /// </summary>
+    [Authorize]
     [SignalRHub("api/binance/spot/realtime/depth-market")]
-    public class BinanceSpotDepthMarketHub : SubscriberHub<BinanceSpotDepthMarketHub, 
-                                                           IBinanceSpotDepthMarketHubClient, 
+    public class BinanceSpotDepthMarketHub : SubscriberHub<BinanceSpotDepthMarketHub,
+                                                           IBinanceSpotDepthMarketHubClient,
                                                            BinanceSpotDepthMarketService>
     {
         /// <summary>

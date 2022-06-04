@@ -6,11 +6,13 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     [SignalRHidden]
     [SignalRHub()]
     public abstract class SubscriberHubBase<THub, THubClient, THubSubscriberService, TData> : Hub<THubClient>
-        where THubSubscriberService : SubscriberHubService<THub, THubClient, TData>, new()
+        where THubSubscriberService : ISubscriberHubService<THub, THubClient, TData>, new()
         where THub : SubscriberHubBase<THub, THubClient, THubSubscriberService, TData>
         where THubClient : class
     {
         private static THubSubscriberService __service;
+
+        private static object _serviceLocker = new object();
 
         protected THubSubscriberService Service
         {
@@ -18,8 +20,14 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
             {
                 if (__service == null)
                 {
-                    __service = new THubSubscriberService();
-                    __service.AddServiceProvider(Context.GetHttpContext()!.RequestServices);
+                    lock (_serviceLocker)
+                    {
+                        if (__service == null)
+                        {
+                            __service = new THubSubscriberService();
+                            __service.AddServiceProvider(Context.GetHttpContext()!.RequestServices);
+                        }
+                    }
                 }
 
                 return __service;

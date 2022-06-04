@@ -13,10 +13,8 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
 
         private readonly CancellationTokenSource _keepAliveCancellationToken;
 
-        private readonly BinanceSocketClient _binanceClient = new BinanceSocketClient();
-
-        private readonly Dictionary<SpotOpenOrdersSubscriber, SpotOpenOrdersSubscribeData> _subscriptions =
-            new Dictionary<SpotOpenOrdersSubscriber, SpotOpenOrdersSubscribeData>();
+        private readonly Dictionary<string, SpotOpenOrdersSubscribeData> _subscriptions =
+            new Dictionary<string, SpotOpenOrdersSubscribeData>();
 
         private UserData()
         {
@@ -40,28 +38,51 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
                 || string.IsNullOrWhiteSpace(subscriber.Token.Secret))
                 throw new ArgumentException("Subscriber must not be null, must contain not nullable connectionId and ExchangeToken");
 
-            var listener = new BinanceClient();
-            listener.SetApiCredentials(subscriber.Token.Key, subscriber.Token.Secret);
-            WebCallResult<string>? listenKeyResult = await listener.Spot.UserStream.StartUserStreamAsync();
-
-            if (!listenKeyResult.Success)
-                throw new InvalidOperationException("Cannot subscribe");
-
-            var subscriberData = new SpotOpenOrdersSubscribeData
+            lock (_subscriptions)
             {
-                Client = listener,
-                ListenerKey = listenKeyResult.Data,
-                SocketClient = new BinanceSocketClient()
-            };
-            subscriberData.SocketClient.SetApiCredentials(subscriber.Token.Key, subscriber.Token.Secret);
 
-            await subscriberData.SocketClient.Spot.SubscribeToUserDataUpdatesAsync(subscriberData.ListenerKey,
-                (orderUpdate) => OnOrderUpdate?.Invoke(this, orderUpdate.Data),
-                (ocoOrderUpdate) => OnOcoOrderUpdate?.Invoke(this, ocoOrderUpdate.Data),
-                (positionUpdate) => OnAccountPositionUpdate?.Invoke(this, positionUpdate.Data),
-                (balanceUpdate) => OnAccountBalanceUpdate?.Invoke(this, balanceUpdate.Data));
+                if (_subscriptions.ContainsKey(subscriber.ConnectionId))
+                {
+                    Unsubscribe(subscriber.ConnectionId);
+                }
 
-            _subscriptions.Add(subscriber, subscriberData);
+                var listener = new BinanceClient();
+                listener.SetApiCredentials(subscriber.Token.Key, subscriber.Token.Secret);
+                WebCallResult<string>? listenKeyResult = listener.Spot.UserStream.StartUserStreamAsync().WaitThis().Result;
+
+                if (!listenKeyResult.Success)
+                    throw new InvalidOperationException("Cannot subscribe");
+
+                var subscriberData = new SpotOpenOrdersSubscribeData
+                {
+                    Client = listener,
+                    ListenerKey = listenKeyResult.Data,
+                    SocketClient = new BinanceSocketClient()
+                };
+                subscriberData.SocketClient.SetApiCredentials(subscriber.Token.Key, subscriber.Token.Secret);
+
+                var result = subscriberData.SocketClient.Spot.SubscribeToUserDataUpdatesAsync(subscriberData.ListenerKey,
+                    (orderUpdate) => OnOrderUpdate?.Invoke(subscriber.ConnectionId, orderUpdate.Data),
+                    (ocoOrderUpdate) => OnOcoOrderUpdate?.Invoke(subscriber.ConnectionId, ocoOrderUpdate.Data),
+                    (positionUpdate) => OnAccountPositionUpdate?.Invoke(subscriber.ConnectionId, positionUpdate.Data),
+                    (balanceUpdate) => OnAccountBalanceUpdate?.Invoke(subscriber.ConnectionId, balanceUpdate.Data)).WaitThis().Result;
+
+                _subscriptions[subscriber.ConnectionId] = subscriberData;
+            }
+        }
+
+        public async Task Unsubscribe(string connectionId)
+        {
+            KeyValuePair<string, SpotOpenOrdersSubscribeData> subscriber = _subscriptions.FirstOrDefault(sub => sub.Key.Equals(connectionId));
+            if (subscriber.Key == null)
+                return;
+
+            await subscriber.Value.SocketClient.UnsubscribeAllAsync();
+            subscriber.Value.SocketClient.Dispose();
+            await subscriber.Value.Client.Spot.UserStream.StopUserStreamAsync(subscriber.Value.ListenerKey);
+            subscriber.Value.Client.Dispose();
+
+            _subscriptions.Remove(subscriber.Key);
         }
 
         public void Dispose()
@@ -88,6 +109,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
                 {
                     await listener.Client.Spot.UserStream.KeepAliveUserStreamAsync(listener.ListenerKey);
                 }
+                // listen stops after 60 mins
                 await Task.Delay(TimeSpan.FromMinutes(50));
             }
         }

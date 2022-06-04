@@ -27,7 +27,7 @@
     /// <typeparam name="THubSubscriberService">Subscriber service for this hub</typeparam>
     public abstract class SubscriberHub<THub, THubClient, THubSubscriberService>
             : SubscriberHubBase<THub, THubClient, THubSubscriberService, object?>
-        where THubSubscriberService : SubscriberHubService<THub, THubClient, object?>, new()
+        where THubSubscriberService : ISubscriberHubService<THub, THubClient, object?>, new()
         where THub : SubscriberHubBase<THub, THubClient, THubSubscriberService, object?>
         where THubClient : class
     {
