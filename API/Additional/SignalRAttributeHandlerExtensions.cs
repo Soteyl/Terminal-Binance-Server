@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SignalRSwaggerGen.Attributes;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace Ixcent.CryptoTerminal.Api.Additional
 {

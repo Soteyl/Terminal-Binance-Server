@@ -5,7 +5,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     using Ixcent.CryptoTerminal.Infrastructure;
 
     /// <summary>
-    /// Abstract class of subscribe hub singleton service used in inheritences of <see cref="SubscriberHubBase{THub, THubClient, THubSubscriberService}"/>
+    /// Abstract class of subscribe hub singleton service used in inheritences of <see cref="SubscriberHub{THub, THubClient, THubSubscriberService}"/>
     /// </summary>
     /// <typeparam name="THub"></typeparam>
     /// <typeparam name="THubClient"></typeparam>
@@ -14,6 +14,8 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
         where THub : Hub<THubClient>
         where THubClient : class
     {
+        protected IServiceProvider _serviceProvider;
+
         protected IHubContext<THub, THubClient> _hubContext;
 
         protected readonly ConnectionMapping<string> _subscribers = new ConnectionMapping<string>();
@@ -23,12 +25,13 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
             _subscribers.OnKeyEmpty += SubscriberKeyEmpty;
         }
 
-        public virtual SubscriberHubService<THub, THubClient, TData> AddHubContext(IHubContext<THub, THubClient> hubContext)
+        public virtual void AddServiceProvider(IServiceProvider provider)
         {
-            if (_hubContext == null)
-                _hubContext = hubContext;
+            if (_serviceProvider == null)
+                _serviceProvider = provider;
 
-            return this;
+            if (_hubContext == null)
+                _hubContext = provider.GetService<IHubContext<THub, THubClient>>()!;
         }
 
         /// <summary>
@@ -79,4 +82,14 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
         protected virtual void SubscriberKeyEmpty(string key)
         { }
     }
+
+    /// <summary>
+    /// Abstract class of subscribe hub singleton service used in inheritences of <see cref="SubscriberHub{THub, THubClient, THubSubscriberService}"/>
+    /// </summary>
+    /// <typeparam name="THub"></typeparam>
+    /// <typeparam name="THubClient"></typeparam>
+    public class SubscriberHubService<THub, THubClient>: SubscriberHubService<THub, THubClient, object?>
+        where THub : Hub<THubClient>
+        where THubClient : class
+    { }
 }

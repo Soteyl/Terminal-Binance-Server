@@ -18,10 +18,8 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
             {
                 if (__service == null)
                 {
-                    var hubContext = Context.GetHttpContext().RequestServices.GetService
-                            <IHubContext<THub, THubClient>>();
                     __service = new THubSubscriberService();
-                    __service.AddHubContext(hubContext);
+                    __service.AddServiceProvider(Context.GetHttpContext()!.RequestServices);
                 }
 
                 return __service;

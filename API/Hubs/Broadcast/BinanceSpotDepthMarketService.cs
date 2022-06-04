@@ -3,21 +3,20 @@ using Binance.Net.Interfaces;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
 {
-    using Application.Exchanges.Binance;
+    using Application.Exchanges.Binance.Spot.Realtime;
     using Clients;
 
     /// <summary> Receives updates from Binance spot market for Depth and sends it through the clients who subscribed. </summary>
     /// <remarks> Implements <see cref="IDisposable"/> </remarks>
     public class BinanceSpotDepthMarketService
-        : SubscriberHubService<BinanceSpotDepthMarketHub, IBinanceSpotDepthMarketHubClient, object?>
+        : SubscriberHubService<BinanceSpotDepthMarketHub, IBinanceSpotDepthMarketHubClient>
     {
-        private readonly RealtimeSpotDepthMarket _realtimeMarket = new RealtimeSpotDepthMarket();
+        private readonly DepthMarket _realtimeMarket = new DepthMarket();
 
-        public override SubscriberHubService<BinanceSpotDepthMarketHub, IBinanceSpotDepthMarketHubClient, object> AddHubContext(IHubContext<BinanceSpotDepthMarketHub, IBinanceSpotDepthMarketHubClient> hubContext)
+        public override void AddServiceProvider(IServiceProvider provider)
         {
-            base.AddHubContext(hubContext);
+            base.AddServiceProvider(provider);
             _realtimeMarket.DepthMarketUpdated += NotifyAboutMarketUpdates;
-            return this;
         }
 
         public override async Task Subscribe(object? data, string groupName, HubCallerContext context)

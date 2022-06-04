@@ -27,7 +27,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("order")]
-        public async Task<ActionResult<MakeOrderResult>> MakeSpotOrderAsync(MakeOrderModel command)
+        public async Task<ActionResult<MakeOrderResult>> MakeOrderAsync(MakeOrderModel command)
         {
             return await Mediator.Send(command);
         }
@@ -43,7 +43,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("balance")]
-        public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesSpotAsync()
+        public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesAsync()
         {
             return await Mediator.Send(new GetAllBalancesModel());
         }

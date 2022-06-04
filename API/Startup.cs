@@ -12,7 +12,7 @@ using Serilog;
 
 namespace Ixcent.CryptoTerminal.Api
 {
-    using Application.Exchanges.Binance;
+    using Application.Exchanges.Binance.Spot.Realtime;
     using Application.Users.Login;
     using Application.Interfaces;
     using Application.Validation;
@@ -97,7 +97,7 @@ namespace Ixcent.CryptoTerminal.Api
             services.AddAuthorization();
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
-            services.AddSingleton<RealtimeSpotDepthMarket>();
+            services.AddSingleton<DepthMarket>();
 
             IMvcBuilder mvcBuilder = services.AddControllers(opt =>
             {
