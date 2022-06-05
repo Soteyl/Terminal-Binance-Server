@@ -1,6 +1,7 @@
 ﻿using Binance.Net;
 using Binance.Net.Interfaces;
 using Binance.Net.Objects;
+
 using CryptoExchange.Net.Sockets;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
@@ -56,6 +57,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
         public void Dispose()
         {
             _binanceClient.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         /// <summary> Return updated information about subscribed symbols </summary>

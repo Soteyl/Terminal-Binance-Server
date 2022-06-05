@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Ixcent.CryptoTerminal.Infrastructure;
+
+using Microsoft.AspNetCore.SignalR;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs
 {
-    using Ixcent.CryptoTerminal.Infrastructure;
-
     /// <summary>
     /// Abstract class of subscribe hub singleton service used in inheritences of <see cref="SubscriberHub{THub, THubClient, THubSubscriberService}"/>
     /// </summary>
@@ -25,6 +25,10 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
             _subscribers.OnKeyEmpty += SubscriberKeyEmpty;
         }
 
+        /// <summary>
+        /// Required build method for resolve all dependencies needed for concrete service
+        /// </summary>
+        /// <param name="provider">Dependency services provider</param>
         public virtual void AddServiceProvider(IServiceProvider provider)
         {
             if (_serviceProvider == null)
@@ -77,6 +81,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
         public virtual void Dispose()
         {
             _subscribers.OnKeyEmpty -= SubscriberKeyEmpty;
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void SubscriberKeyEmpty(string key)
@@ -88,7 +93,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     /// </summary>
     /// <typeparam name="THub"></typeparam>
     /// <typeparam name="THubClient"></typeparam>
-    public class SubscriberHubService<THub, THubClient>: SubscriberHubService<THub, THubClient, object?>
+    public class SubscriberHubService<THub, THubClient> : SubscriberHubService<THub, THubClient, object?>
         where THub : Hub<THubClient>
         where THubClient : class
     { }

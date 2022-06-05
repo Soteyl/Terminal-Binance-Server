@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+
 using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
 
 namespace Ixcent.CryptoTerminal.Application.Validation

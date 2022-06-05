@@ -1,8 +1,16 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+
 using SignalRSwaggerGen.Attributes;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs
 {
+    /// <summary>
+    /// Base subscriber hub class, containing singleton service
+    /// </summary>
+    /// <typeparam name="THub">Current class, where is SubscriberHub inherited</typeparam>
+    /// <typeparam name="THubClient">Some client</typeparam>
+    /// <typeparam name="THubSubscriberService">Subscriber service for this hub</typeparam>
+    /// <typeparam name="TData">Additional data for subscribing methods</typeparam>
     [SignalRHidden]
     [SignalRHub()]
     public abstract class SubscriberHubBase<THub, THubClient, THubSubscriberService, TData> : Hub<THubClient>
@@ -12,7 +20,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     {
         private static THubSubscriberService __service;
 
-        private static object _serviceLocker = new object();
+        private static readonly object _serviceLocker = new object();
 
         protected THubSubscriberService Service
         {

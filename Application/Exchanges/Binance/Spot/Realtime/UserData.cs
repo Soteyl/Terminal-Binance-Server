@@ -1,12 +1,20 @@
-﻿using Binance.Net.Objects.Spot.UserStream;
-using System.Diagnostics.CodeAnalysis;
-using CryptoExchange.Net.Objects;
+﻿using System.Diagnostics.CodeAnalysis;
+
 using Binance.Net;
+using Binance.Net.Objects.Spot.UserStream;
+
+using CryptoExchange.Net.Objects;
+
+using Ixcent.CryptoTerminal.Domain.Database.Models;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
 {
-    using Domain.Database.Models;
-
+    /// <summary>
+    /// Singleton uploader account data for subscribers.
+    /// </summary>
+    /// <remarks>
+    /// Implements <see cref="IDisposable"/>
+    /// </remarks>
     public class UserData : IDisposable
     {
         private static UserData _instance;
@@ -19,9 +27,14 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
         private UserData()
         {
             _keepAliveCancellationToken = new CancellationTokenSource();
+#pragma warning disable CS4014
             KeepAliveListeners(_keepAliveCancellationToken.Token);
+#pragma warning restore CS4014
         }
 
+        /// <summary>
+        /// Returns a single instance of a class
+        /// </summary>
         public static UserData GetInstance()
         {
             if (_instance == null)
@@ -29,7 +42,14 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
             return _instance;
         }
 
-        public async Task Subscribe([NotNull] SpotOpenOrdersSubscriber subscriber)
+        /// <summary>
+        /// Subscribes to a receiving userdata from binance spot account. 
+        /// Data sends via events. For receiving this data - subscribe for concrete event.
+        /// </summary>
+        /// <param name="subscriber">Subscriber data</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        public Task Subscribe([NotNull] SpotOpenOrdersSubscriber subscriber)
         {
             if (subscriber == null
                 || string.IsNullOrWhiteSpace(subscriber.ConnectionId)
@@ -43,7 +63,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
 
                 if (_subscriptions.ContainsKey(subscriber.ConnectionId))
                 {
-                    Unsubscribe(subscriber.ConnectionId);
+                    Unsubscribe(subscriber.ConnectionId).Wait();
                 }
 
                 var listener = new BinanceClient();
@@ -69,8 +89,14 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
 
                 _subscriptions[subscriber.ConnectionId] = subscriberData;
             }
+
+            return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Unsubscribes from receiving user data
+        /// </summary>
+        /// <param name="connectionId">connection id of user to unsubscribe</param>
         public async Task Unsubscribe(string connectionId)
         {
             KeyValuePair<string, SpotOpenOrdersSubscribeData> subscriber = _subscriptions.FirstOrDefault(sub => sub.Key.Equals(connectionId));
@@ -88,14 +114,27 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
         public void Dispose()
         {
             _keepAliveCancellationToken.Cancel();
+            GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Invokes when there are changes with any spot order in your account
+        /// </summary>
         public event EventHandler<BinanceStreamOrderUpdate> OnOrderUpdate;
 
+        /// <summary>
+        /// Invokes when there are changes with any spot OCO order in your account
+        /// </summary>
         public event EventHandler<BinanceStreamOrderList> OnOcoOrderUpdate;
 
+        /// <summary>
+        /// Invokes on position update (check return object class)
+        /// </summary>
         public event EventHandler<BinanceStreamPositionsUpdate> OnAccountPositionUpdate;
 
+        /// <summary>
+        /// Invokes on account balance update
+        /// </summary>
         public event EventHandler<BinanceStreamBalanceUpdate> OnAccountBalanceUpdate;
 
         private async Task KeepAliveListeners(CancellationToken cancellationToken)
@@ -107,10 +146,10 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
 
                 foreach (SpotOpenOrdersSubscribeData listener in _subscriptions.Values)
                 {
-                    await listener.Client.Spot.UserStream.KeepAliveUserStreamAsync(listener.ListenerKey);
+                    await listener.Client.Spot.UserStream.KeepAliveUserStreamAsync(listener.ListenerKey, CancellationToken.None);
                 }
                 // listen stops after 60 mins
-                await Task.Delay(TimeSpan.FromMinutes(50));
+                await Task.Delay(TimeSpan.FromMinutes(50), CancellationToken.None);
             }
         }
 
@@ -124,6 +163,9 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
         }
     }
 
+    /// <summary>
+    /// Subscriber data
+    /// </summary>
     public class SpotOpenOrdersSubscriber
     {
         public string ConnectionId { get; set; }

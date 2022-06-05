@@ -1,13 +1,15 @@
-﻿using MediatR;
+﻿using System.Net;
+
+using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Database;
+
+using MediatR;
+
 using Microsoft.AspNetCore.Identity;
-using System.Net;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Login
 {
-    using Application.Exceptions;
-    using Application.Interfaces;
-    using Domain.Database;
-
     public class LoginHandler : IRequestHandler<LoginQuery, User>
     {
         private readonly UserManager<AppUser> _userManager;

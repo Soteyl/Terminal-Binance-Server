@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.EFData;
+
 using MediatR;
+
+using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
-    using Domain.Database.Models;
-    using Exceptions;
-    using EFData;
-    using Models;
-
     /// <summary> Handler for removing exchange tokens. </summary>
     /// <remarks>
     /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
@@ -25,7 +26,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
             _context = context;
         }
 
-        public async Task<Unit> Handle(RemoveExchangeTokenQuery request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(RemoveExchangeTokenQuery request, CancellationToken cancellationToken)
         {
             string exchange = request.Exchange;
             string userId = _contextAccessor.GetCurrentUserId();
@@ -46,7 +47,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 
             _context.SaveChanges();
 
-            return Unit.Value;
+            return Task.FromResult(Unit.Value);
         }
     }
 }

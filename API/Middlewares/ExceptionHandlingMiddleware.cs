@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
+
+using Ixcent.CryptoTerminal.Application.Exceptions;
+
+using Newtonsoft.Json;
+
 using Serilog;
 
 namespace Ixcent.CryptoTerminal.Api.Middlewares
 {
-    using Application.Exceptions;
-
     /// <summary>
     /// Handles all request exceptions. If this is a specific <see cref="RestException"/>,
     /// then shows needed information to user in API response.

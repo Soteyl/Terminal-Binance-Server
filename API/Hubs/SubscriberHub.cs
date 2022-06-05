@@ -20,7 +20,7 @@
     #endregion
 
     /// <summary>
-    /// Base class for subscriber hubs
+    /// Base class for subscriber hubs, containing default subscribe and unsubscribe methods
     /// </summary>
     /// <typeparam name="THub">Current class, where is SubscriberHub inherited</typeparam>
     /// <typeparam name="THubClient">Some client</typeparam>
@@ -51,7 +51,7 @@
     }
 
     /// <summary>
-    /// Base class for subscriber hubs
+    /// Base class for subscriber hubs, containing default subscribe and unsubscribe methods
     /// </summary>
     /// <typeparam name="THub">Current class, where is SubscriberHub inherited</typeparam>
     /// <typeparam name="THubClient">Some client</typeparam>

@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ixcent.CryptoTerminal.Application.Exceptions;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
-    using Exceptions;
-
     /// <summary>
     /// Complex validator for all exchange tokens.
     /// </summary>
@@ -26,7 +24,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
         public async Task<IEnumerable<string>> Validate(string key, string secret, string exchangeName)
         {
 
-            if (!_exchangesValidators.Keys.Contains(exchangeName))
+            if (!_exchangesValidators.ContainsKey(exchangeName))
                 throw new RestException(System.Net.HttpStatusCode.BadRequest, ErrorCode.NotFound, new
                 {
                     Exchange = "Wrong exchange name!"

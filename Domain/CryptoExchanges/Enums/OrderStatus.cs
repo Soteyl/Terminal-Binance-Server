@@ -1,8 +1,7 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
-{
-    using Interfaces;
-    using System.Collections.Generic;
+﻿using Ixcent.CryptoTerminal.Domain.Interfaces;
 
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
+{
     public sealed class OrderStatus : IAdvancedEnum
     {
         private OrderStatus(byte value, string name)

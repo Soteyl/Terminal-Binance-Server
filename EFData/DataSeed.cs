@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Ixcent.CryptoTerminal.Domain.Database;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+
+using Microsoft.AspNetCore.Identity;
 
 namespace Ixcent.CryptoTerminal.EFData
 {
-    using Domain.Database;
-    using Domain.Database.Models;
-
     public class DataSeed
     {
         public static async Task SeedDataAsync(CryptoTerminalContext context,

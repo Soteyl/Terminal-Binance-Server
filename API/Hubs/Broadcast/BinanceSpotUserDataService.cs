@@ -1,13 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Binance.Net.Objects.Spot.UserStream;
+
+using Ixcent.CryptoTerminal.Api.Hubs.Clients;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
+using Ixcent.CryptoTerminal.EFData;
+
 using Microsoft.AspNetCore.SignalR;
-using Binance.Net.Objects.Spot.UserStream;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
 {
-    using Application.Exchanges.Binance.Spot.Realtime;
-    using Clients;
-    using EFData;
-
+    /// <summary>
+    /// Hub Service for receiving user data from Binance spot account.
+    /// </summary>
+    /// <remarks>
+    /// Implements <see cref="ISubscriberHubService{THub, THubClient, TData}"/> <br/>
+    /// <c>THub</c> is <see cref="BinanceSpotUserDataHub"/><br/>
+    /// <c>THubClient</c> is <see cref="IBinanceSpotUserDataHubClient"/><br/>
+    /// <c>TData</c> is <see cref="object"/>?
+    /// </remarks>
     public class BinanceSpotUserDataService : ISubscriberHubService<BinanceSpotUserDataHub, IBinanceSpotUserDataHubClient, object?>
     {
         private readonly UserData _userData = UserData.GetInstance();
@@ -20,10 +30,10 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
         {
             _database = provider.GetService<CryptoTerminalContext>()!;
             _hubContext = provider.GetService<IHubContext<BinanceSpotUserDataHub, IBinanceSpotUserDataHubClient>>()!;
-            _userData.OnOrderUpdate += _userData_OnOrderUpdate;
-            _userData.OnAccountPositionUpdate += _userData_OnAccountPositionUpdate;
-            _userData.OnAccountBalanceUpdate += _userData_OnAccountBalanceUpdate;
-            _userData.OnOcoOrderUpdate += _userData_OnOcoOrderUpdate;
+            _userData.OnOrderUpdate += OrderUpdate;
+            _userData.OnAccountPositionUpdate += AccountPositionUpdate;
+            _userData.OnAccountBalanceUpdate += AccountBalanceUpdate;
+            _userData.OnOcoOrderUpdate += OcoOrderUpdate;
         }
 
         public async Task Subscribe(object? data, string groupName, HubCallerContext context)
@@ -46,22 +56,22 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
             await _userData.Unsubscribe(context.ConnectionId);
         }
 
-        private void _userData_OnOcoOrderUpdate(object? sender, BinanceStreamOrderList e)
+        private void OcoOrderUpdate(object? sender, BinanceStreamOrderList e)
         {
             _hubContext.Clients.Client(sender!.ToString()!).ReceiveOcoOrderUpdate(e);
         }
 
-        private void _userData_OnAccountBalanceUpdate(object? sender, BinanceStreamBalanceUpdate e)
+        private void AccountBalanceUpdate(object? sender, BinanceStreamBalanceUpdate e)
         {
             _hubContext.Clients.Client(sender!.ToString()!).ReceiveStreamBalanceUpdate(e);
         }
 
-        private void _userData_OnAccountPositionUpdate(object? sender, BinanceStreamPositionsUpdate e)
+        private void AccountPositionUpdate(object? sender, BinanceStreamPositionsUpdate e)
         {
             _hubContext.Clients.Client(sender!.ToString()!).ReceiveAccountPositionUpdate(e);
         }
 
-        private void _userData_OnOrderUpdate(object? sender, BinanceStreamOrderUpdate e)
+        private void OrderUpdate(object? sender, BinanceStreamOrderUpdate e)
         {
             _hubContext.Clients.Client(sender!.ToString()!).ReceiveOpenOrderUpdate(e);
         }

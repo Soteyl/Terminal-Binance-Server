@@ -1,15 +1,17 @@
-﻿using MediatR;
+﻿using System.Net;
+
+using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Database;
+using Ixcent.CryptoTerminal.EFData;
+
+using MediatR;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Registration
 {
-    using Application.Exceptions;
-    using Application.Interfaces;
-    using Domain.Database;
-    using EFData;
-
     public class RegistrationHandler : IRequestHandler<RegistrationCommand, User>
     {
         private readonly UserManager<AppUser> _userManager;
@@ -27,14 +29,14 @@ namespace Ixcent.CryptoTerminal.Application.Users.Registration
 
         public async Task<User> Handle(RegistrationCommand request, CancellationToken cancellationToken)
         {
-            if (await _context.Users.Where(x => x.Email == request.Email).AnyAsync())
+            if (await _context.Users.Where(x => x.Email == request.Email).AnyAsync(CancellationToken.None))
             {
-                throw new RestException(HttpStatusCode.BadRequest, 
-                                        ErrorCode.AlreadyExist, 
+                throw new RestException(HttpStatusCode.BadRequest,
+                                        ErrorCode.AlreadyExist,
                                         new { Email = "Email already exists" });
             }
 
-            if (await _context.Users.Where(x => x.UserName == request.UserName).AnyAsync())
+            if (await _context.Users.Where(x => x.UserName == request.UserName).AnyAsync(CancellationToken.None))
             {
                 throw new RestException(HttpStatusCode.BadRequest,
                                         ErrorCode.AlreadyExist,

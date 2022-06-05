@@ -1,8 +1,9 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
-{
-    using Binance.Net.Objects.Futures.FuturesData;
-    using Enums;
+﻿using Binance.Net.Objects.Futures.FuturesData;
 
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
+{
     public class FuturesOrder
     {
         private decimal? _price;

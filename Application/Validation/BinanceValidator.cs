@@ -1,9 +1,9 @@
 ﻿using Binance.Net;
 
+using Ixcent.CryptoTerminal.EFData;
+
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
-    using EFData;
-
     /// <summary> Class that validates binance token by key and secret </summary>
     public class BinanceValidator : IExchangeValidator
     {

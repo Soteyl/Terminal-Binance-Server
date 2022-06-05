@@ -1,11 +1,12 @@
 ﻿using Binance.Net;
+
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
+
 using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
-    using Results;
-    using Models;
-
     /// <summary>
     /// Get all spot symbols prices handler. Allows to get all cryptocurrency prices from the Binance.
     /// </summary>
@@ -21,7 +22,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
         {
             return new SymbolPricesResult
             {
-                Prices = (await new BinanceClient().Spot.Market.GetPricesAsync()).Data
+                Prices = (await new BinanceClient().Spot.Market.GetPricesAsync(ct: CancellationToken.None)).Data
             };
         }
     }

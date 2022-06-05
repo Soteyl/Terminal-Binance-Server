@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
-    using Application.Exchanges.Tokens.Models;
-
     /// <summary>
     /// Controller for adding, editing, removing, getting exchange tokens by this template <c>{ key, secret }</c>
     /// </summary>
@@ -62,6 +62,5 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         {
             return await Mediator.Send(new GetExchangeTokensQuery());
         }
-
     }
 }

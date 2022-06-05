@@ -2,13 +2,15 @@
 using Binance.Net.Interfaces.SubClients.Spot;
 using Binance.Net.Objects.Spot.MarketData;
 using Binance.Net.Objects.Spot.SpotData;
+
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data;
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results;
+
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
-    using Data;
-    using Results;
     /// <summary>
     /// Implementation of Binance Spot instrument. <para/>
     /// 
@@ -16,11 +18,11 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
     /// </summary>
     public class BinanceSpot : CryptoSpot
     {
-        private IBinanceClientSpot _spot;
+        private readonly IBinanceClientSpot _spot;
 
-        private IExchangeClient _exchangeClient;
+        private readonly IExchangeClient _exchangeClient;
 
-        private IBinanceClientGeneral _general;
+        private readonly IBinanceClientGeneral _general;
 
         internal BinanceSpot(IBinanceClientSpot spot, IBinanceClientGeneral general, IExchangeClient exClient)
         {

@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using Binance.Net.Interfaces;
+﻿using Binance.Net.Interfaces;
+
+using Ixcent.CryptoTerminal.Api.Hubs.Clients;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
+
+using Microsoft.AspNetCore.SignalR;
 
 namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
 {
-    using Application.Exchanges.Binance.Spot.Realtime;
-    using Clients;
-
     /// <summary> Receives updates from Binance spot market for Depth and sends it through the clients who subscribed. </summary>
     /// <remarks> Implements <see cref="IDisposable"/> </remarks>
     public class BinanceSpotDepthMarketService
@@ -41,6 +42,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
         {
             _realtimeMarket.DepthMarketUpdated -= NotifyAboutMarketUpdates;
             base.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         private void NotifyAboutMarketUpdates(object? sender, IBinanceOrderBook e)

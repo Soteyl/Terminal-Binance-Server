@@ -1,11 +1,11 @@
 ﻿using CryptoExchange.Net.Objects;
 
+using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.EFData;
+
 namespace Ixcent.CryptoTerminal.Application
 {
-    using Domain.Database.Models;
-    using Exceptions;
-    using EFData;
-
     /// <summary>
     /// Extensions for <see cref="WebCallResult{T}"/>
     /// </summary>

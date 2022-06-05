@@ -1,14 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+
+using Ixcent.CryptoTerminal.Application.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Auth;
+using Ixcent.CryptoTerminal.Domain.Database;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Ixcent.CryptoTerminal.Infrastructure
 {
-    using Application.Interfaces;
-    using Domain.Database;
-    using Domain.Auth;
-
     public class JwtGenerator : IJwtGenerator
     {
         private readonly SymmetricSecurityKey _key;

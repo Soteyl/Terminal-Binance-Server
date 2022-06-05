@@ -1,10 +1,10 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
 
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data;
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results;
+
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
-    using Data;
-    using Results;
-
     public abstract class CryptoSpot
     {
         public abstract Task<IEnumerable<ICommonBalance>> GetCoinBalances();
@@ -23,7 +23,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public abstract void CancelOrder(SpotOrder order);
 
-        public async Task<MakeGridResult> MakeGrid(IEnumerable<SpotOrder> orders)
+        public Task<MakeGridResult> MakeGrid(IEnumerable<SpotOrder> orders)
         {
             // TODO
             throw new NotImplementedException();

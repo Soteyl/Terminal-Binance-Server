@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using System.Reflection;
+
+using Microsoft.AspNetCore.SignalR;
+
 using SignalRSwaggerGen.Attributes;
-using System.Reflection;
 
 namespace Ixcent.CryptoTerminal.Api.Additional
 {
+    /// <summary>
+    /// Extension uses reflection to find all hubs and map them on startup automaticly
+    /// </summary>
     public static class SignalRAttributeHandlerExtensions
     {
         private static Dictionary<Type, string> __signalRHubs;
@@ -23,7 +28,6 @@ namespace Ixcent.CryptoTerminal.Api.Additional
         /// <summary>
         /// Automaticly finds all <see cref="Hub"/> inheritences and map them.
         /// </summary>
-        /// <param name="source"></param>
         public static void MapSignalRHubs(this IEndpointRouteBuilder source)
         {
             MethodInfo method = typeof(HubEndpointRouteBuilderExtensions).GetMethods().First(m => m.Name.Equals(nameof(HubEndpointRouteBuilderExtensions.MapHub)));
@@ -36,23 +40,27 @@ namespace Ixcent.CryptoTerminal.Api.Additional
         private static void InitializeSignalRHubs()
         {
             __signalRHubs = new Dictionary<Type, string>();
+
+            // Get all classes inherited from Hub
             IEnumerable<Type>? allHubs = Assembly.GetAssembly(typeof(SignalRAttributeHandlerExtensions))!.GetTypes()
                 .Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(Hub)));
 
             foreach (Type? hub in allHubs)
             {
                 IEnumerable<Attribute>? attributes = hub.GetCustomAttributes();
+                // If class has hidden attribute, dont use them
                 if (!attributes.Any(at => at is SignalRHiddenAttribute))
                 {
+                    // If has signalr attribute then map by path if its not empty. If it is, maps by hub name
                     var signalRAttribute = (SignalRHubAttribute)attributes.FirstOrDefault(at => at is SignalRHubAttribute);
-                    if (signalRAttribute != null)
+                    if (signalRAttribute != null && string.IsNullOrWhiteSpace(signalRAttribute.Path))
                     {
                         __signalRHubs.Add(hub, signalRAttribute.Path);
                     }
                     else
                     {
                         string hubRoute = hub.Name.Substring(hub.Name.Length - 3, 3).Equals("Hub", StringComparison.OrdinalIgnoreCase)
-                            ? hub.Name.Substring(0, hub.Name.Length - 3) : hub.Name;
+                            ? hub.Name[0..^3] : hub.Name;
                         __signalRHubs.Add(hub, hubRoute);
                     }
                 }

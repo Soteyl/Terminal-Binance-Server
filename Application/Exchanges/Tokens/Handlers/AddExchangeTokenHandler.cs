@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net;
+﻿using System.Net;
+
+using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+using Ixcent.CryptoTerminal.Application.Validation;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.EFData;
+
 using MediatR;
+
+using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
 {
-    using Domain.Database.Models;
-    using Exceptions;
-    using Validation;
-    using EFData;
-    using Models;
-
     /// <summary> Handler for updating exchange token into a database. </summary>
     /// <remarks>
     /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
@@ -28,14 +30,14 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
         {
             _contextAccessor = contextAccessor;
             _context = context;
-            _validator = new ExchangesValidator().ByToken();
+            _validator = ExchangesValidator.ByToken();
         }
 
         public async Task<Unit> Handle(AddExchangeTokenQuery request, CancellationToken cancellationToken)
         {
             string currentUserId = _contextAccessor.GetCurrentUserId();
 
-            if ((await _validator.Validate(request.Key, request.Secret, request.Exchange)).Count() == 0)
+            if ((await _validator.Validate(request.Key, request.Secret, request.Exchange)).Any() == false)
                 throw new RestException(HttpStatusCode.BadRequest, ErrorCode.BadExchangeToken, new
                 {
                     Message = "Bad key or secret"
