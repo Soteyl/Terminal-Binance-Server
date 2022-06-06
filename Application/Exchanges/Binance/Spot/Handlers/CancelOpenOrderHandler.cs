@@ -9,21 +9,34 @@ using Ixcent.CryptoTerminal.Application.Exceptions;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
+
     /// <summary>
-    /// Handler for canceling open orders on binance spot.
+    /// Cancel open binance spot order.
     /// </summary>
+    /// <remarks>
+    /// Implements: <see cref="IRequestHandler{TRequest, TResponse}"/><br/>
+    /// <c>TRequest</c> is <see cref="CancelOpenOrderModel"/><br/>
+    /// <c>TResponse</c> is <see cref="CancelOpenOrderResult"/><br/>
+    /// Is used by: MediatR
+    /// </remarks>
     public class CancelOpenOrderHandler : IRequestHandler<CancelOpenOrderModel, CancelOpenOrderResult>
     {
         private readonly CryptoTerminalContext _context;
 
         private readonly IHttpContextAccessor _contextAccessor;
 
+        /// <summary>
+        /// Constructor for <see cref="CancelOpenOrderHandler"/>.
+        /// All the parameters in the contructor provided by the dependency injection.
+        /// </summary>
+        /// <param name="contextAccessor"> Context accessor which is required to get information about user. </param>
+        /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
         public CancelOpenOrderHandler(CryptoTerminalContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
             _contextAccessor = contextAccessor;
         }
-        
+
         public async Task<CancelOpenOrderResult> Handle(CancelOpenOrderModel request, CancellationToken cancellationToken)
         {
             var client = new BinanceClient();
@@ -36,7 +49,10 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             client.SetApiCredentials(token.Key, token.Secret);
 
-            var result = await client.Spot.Order.CancelOrderAsync(request.Symbol, request.Id);
+            var result = await client.Spot.Order.CancelOrderAsync(
+                symbol: request.Symbol!, 
+                orderId: request.Id!
+                );
 
             result.RemoveTokenAndThrowRestIfInvalid(_context, token);
 
