@@ -1,5 +1,4 @@
-﻿
-using Binance.Net.Objects.Spot.SpotData;
+﻿using Binance.Net.Objects.Spot.SpotData;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results
 {
