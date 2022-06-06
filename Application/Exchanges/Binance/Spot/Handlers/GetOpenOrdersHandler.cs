@@ -40,9 +40,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
                                                                     t.Exchange == "Binance");
 
             if (token == null)
-                throw new RestException(System.Net.HttpStatusCode.BadRequest,
-                                        ErrorCode.BadExchangeToken,
-                                        new { Token = "Missing API token" });
+                throw RestException.MissingApiToken;
 
             client.SetApiCredentials(token.Key, token.Secret);
 

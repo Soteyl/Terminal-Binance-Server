@@ -1,10 +1,11 @@
 ﻿using Binance.Net.Objects.Spot.SpotData;
 using Microsoft.AspNetCore.Mvc;
+using CryptoExchange.Net.ExchangeInterfaces;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
-    using Application.Exchanges.Binance.Spot.Models;
-    using Application.Exchanges.Binance.Spot.Results;
 
     /// <summary>
     /// Controller for Binance users. Requires authorization.
@@ -45,7 +46,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [HttpGet("balance")]
         public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesSpotAsync()
         {
-            return await Mediator.Send(new GetAllBalancesModel());
+            return await Mediator.Send(new AllBalancesModel());
         }
 
         /// <summary> Gets all symbols and their prices </summary>
@@ -63,11 +64,24 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// <remarks> GET Url: <c>api/binance/spot/open-orders</c></remarks>
         /// <returns>Collection of <see cref="BinanceOrder"/></returns>
         /// <response code="200"/>
-        [HttpGet("open-orders")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("open-orders")]
         public async Task<ActionResult<OpenOrdersResult>> GetOpenOrders()
         {
             return await Mediator.Send(new OpenOrdersModel());
+        }
+
+        /// <summary> Gets spot orders history for current user</summary>
+        /// <remarks> GET Url: <c>api/binance/spot/orders-history</c></remarks>
+        /// <returns> Collection of <see cref="ICommonSymbol"/></returns>
+        /// <response code="200"/>  
+        /// <param name="command">Contains <see cref="OrdersHistoryModel.Symbol"/> which specifies required symbol trades. </param>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("orders-history")]
+        public async Task<ActionResult<OrdersHistoryResult>> GetOrdersHistoryResult(OrdersHistoryModel command)
+        {
+            return await Mediator.Send(command); 
         }
     }
 }
