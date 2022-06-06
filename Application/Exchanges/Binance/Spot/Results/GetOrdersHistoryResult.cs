@@ -12,6 +12,6 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results
         /// <summary>
         /// List of ever done trades.
         /// </summary>
-        public IEnumerable<BinanceTrade> ClosedOrders { get; set; }
+        public IEnumerable<ICommonOrder> Orders { get; set; }
     }
 }

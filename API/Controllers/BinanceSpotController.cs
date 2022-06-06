@@ -1,11 +1,11 @@
 ﻿using Binance.Net.Objects.Spot.SpotData;
 using Microsoft.AspNetCore.Mvc;
+using CryptoExchange.Net.ExchangeInterfaces;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
-    using Application.Exchanges.Binance.Spot.Models;
-    using Application.Exchanges.Binance.Spot.Results;
-    using CryptoExchange.Net.ExchangeInterfaces;
 
     /// <summary>
     /// Controller for Binance users. Requires authorization.

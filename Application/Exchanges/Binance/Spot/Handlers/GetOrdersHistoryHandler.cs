@@ -6,10 +6,10 @@ using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.EFData;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
-
     /// <summary>
     /// Get all spot orders history handler. Allows to get orders history from the Binance.
     /// </summary>
@@ -49,13 +49,14 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             client.SetApiCredentials(token.Key, token.Secret);
 
-            var info = await client.Spot.Order.GetUserTradesAsync(request.Symbol.ToUpper());
+            var info = await (client as IExchangeClient).GetClosedOrdersAsync(request.Symbol.ToUpper());
             info.RemoveTokenAndThrowRestIfInvalid(_context, token);
-            var trades = info.Data;
+
+            var ordersHistory = info.Data;
 
             return new OrdersHistoryResult
             {
-                ClosedOrders = trades
+                ClosedOrders = ordersHistory
             };
         }
     }
