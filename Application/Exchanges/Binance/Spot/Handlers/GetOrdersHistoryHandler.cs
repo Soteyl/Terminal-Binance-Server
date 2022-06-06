@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MediatR;
 using Binance.Net;
+using CryptoExchange.Net.ExchangeInterfaces;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.EFData;
-using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {

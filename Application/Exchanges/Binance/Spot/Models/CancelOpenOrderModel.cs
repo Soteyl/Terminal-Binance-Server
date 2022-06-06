@@ -1,6 +1,6 @@
-﻿using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
+﻿using System.ComponentModel.DataAnnotations;
 using MediatR;
-using System.ComponentModel.DataAnnotations;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models
 {
