@@ -1,17 +1,20 @@
-﻿using Binance.Net.Objects.Spot.SpotData;
-using Microsoft.AspNetCore.Http;
-using Binance.Net;
+﻿using Binance.Net;
+using Binance.Net.Objects.Spot.SpotData;
+
+using CryptoExchange.Net.Objects;
+
+using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
+using Ixcent.CryptoTerminal.EFData;
+
 using MediatR;
+
+using Microsoft.AspNetCore.Http;
 
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
-    using Ixcent.CryptoTerminal.Application.Exceptions;
-    using Ixcent.CryptoTerminal.EFData;
-    using CryptoExchange.Net.Objects;
-    using Results;
-    using Models;
-
     /// <summary> Handler for making Binance spot orders. </summary>
     /// <remarks>
     /// Implements <see cref="IRequestHandler{TKey, TValue}"/> <br/>
@@ -59,10 +62,10 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             WebCallResult<BinancePlacedOrder> info = await client.Spot.Order.PlaceOrderAsync(
                 symbol: request.Symbol,
-                side: request.OrderSide, 
-                type: request.OrderType, 
+                side: request.OrderSide,
+                type: request.OrderType,
                 quantity: request.Quantity,
-                timeInForce: request.TimeInForce, 
+                timeInForce: request.TimeInForce,
                 price: request.Price,
                 icebergQty: request.IcebergQuantity,
                 stopPrice: request.StopPrice,

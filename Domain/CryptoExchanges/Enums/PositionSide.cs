@@ -1,7 +1,7 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
-{
-    using Interfaces;
+﻿using Ixcent.CryptoTerminal.Domain.Interfaces;
 
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
+{
     public sealed class PositionSide : IAdvancedEnum
     {
         private PositionSide(byte value, string name)

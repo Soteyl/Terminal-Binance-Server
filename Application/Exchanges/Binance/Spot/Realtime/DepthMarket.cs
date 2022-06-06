@@ -1,16 +1,23 @@
 ﻿using Binance.Net;
 using Binance.Net.Interfaces;
+using Binance.Net.Objects;
+
 using CryptoExchange.Net.Sockets;
 
-namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
+namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
 {
     /// <summary>
     /// Subscribes to a Binance spot market, checks updated in a market depth for a coin.
     /// </summary>
     /// <remarks> Implements <see cref="IDisposable"/></remarks>
-    public class RealtimeSpotDepthMarket : IDisposable
+    public class DepthMarket
+        : IDisposable
     {
-        private readonly BinanceSocketClient _binanceClient = new BinanceSocketClient();
+        private readonly BinanceSocketClient _binanceClient = new BinanceSocketClient(new BinanceSocketClientOptions()
+        {
+            AutoReconnect = true,
+            ReconnectInterval = TimeSpan.FromSeconds(15)
+        });
 
         private readonly Dictionary<string, UpdateSubscription> _subscriptions
             = new Dictionary<string, UpdateSubscription>(StringComparer.OrdinalIgnoreCase);
@@ -50,6 +57,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance
         public void Dispose()
         {
             _binanceClient.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         /// <summary> Return updated information about subscribed symbols </summary>

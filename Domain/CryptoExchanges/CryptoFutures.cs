@@ -1,10 +1,10 @@
 ﻿using Binance.Net.Enums;
 
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data;
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results;
+
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 {
-    using Data;
-    using Results;
-
     public abstract class CryptoFutures
     {
         private readonly string _mainCoin;

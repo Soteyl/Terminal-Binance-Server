@@ -1,18 +1,18 @@
-﻿namespace Ixcent.CryptoTerminal.Application.Validation
-{
-    using EFData;
+﻿using Ixcent.CryptoTerminal.EFData;
 
+namespace Ixcent.CryptoTerminal.Application.Validation
+{
     /// <summary>
     /// Validation factory for exchange tokens
     /// </summary>
-    public class ExchangesValidator
+    public static class ExchangesValidator
     {
-        public ExchangesValidatorByToken ByToken()
+        public static ExchangesValidatorByToken ByToken()
         {
             return new ExchangesValidatorByToken();
         }
 
-        public ExchangesValidatorByUser ByUser(CryptoTerminalContext context, string userId)
+        public static ExchangesValidatorByUser ByUser(CryptoTerminalContext context, string userId)
         {
             return new ExchangesValidatorByUser(context, userId);
         }

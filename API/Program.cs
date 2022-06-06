@@ -1,12 +1,13 @@
+using Ixcent.CryptoTerminal.Domain.Database;
+using Ixcent.CryptoTerminal.EFData;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 using Serilog;
 
 namespace Ixcent.CryptoTerminal.Api
 {
-    using Domain.Database;
-    using EFData;
-
     public class Program
     {
         public static void Main(string[] args)
@@ -40,22 +41,20 @@ namespace Ixcent.CryptoTerminal.Api
 
         public static void RefreshDatabase(IHost host)
         {
-            using (IServiceScope? scope = host.Services.CreateScope())
+            using IServiceScope? scope = host.Services.CreateScope();
+            IServiceProvider? services = scope.ServiceProvider;
+            try
             {
-                IServiceProvider? services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<CryptoTerminalContext>();
-                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    context.Database.Migrate();
-                    DataSeed.SeedDataAsync(context, userManager, roleManager).Wait();
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occured during migration");
-                }
+                var context = services.GetRequiredService<CryptoTerminalContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                context.Database.Migrate();
+                DataSeed.SeedDataAsync(context, userManager, roleManager).Wait();
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occured during migration");
             }
         }
 

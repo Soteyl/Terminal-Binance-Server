@@ -1,10 +1,8 @@
-﻿using Binance.Net.Objects.Futures.FuturesData;
+﻿using Binance.Net.Enums;
+using Binance.Net.Objects.Futures.FuturesData;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
 {
-
-    using Enums;
-
     public class FuturesTrade
     {
         public string Symbol { get; set; } = string.Empty;

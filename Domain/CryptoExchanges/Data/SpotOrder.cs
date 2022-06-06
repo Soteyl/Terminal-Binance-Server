@@ -1,9 +1,11 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
-{
-    using Binance.Net.Objects.Spot.SpotData;
-    using CryptoExchange.Net.ExchangeInterfaces;
-    using Enums;
+﻿using Binance.Net.Objects.Spot.SpotData;
 
+using CryptoExchange.Net.ExchangeInterfaces;
+
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums;
+
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data
+{
     public class SpotOrder : ICommonOrder
     {
         public string Symbol { get; set; } = string.Empty;

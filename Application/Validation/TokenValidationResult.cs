@@ -1,7 +1,7 @@
-﻿namespace Ixcent.CryptoTerminal.Application.Validation
-{
-    using Domain.Database.Models;
+﻿using Ixcent.CryptoTerminal.Domain.Database.Models;
 
+namespace Ixcent.CryptoTerminal.Application.Validation
+{
     /// <summary>
     /// Result of validation for Exchange tokens
     /// </summary>
@@ -19,5 +19,4 @@
         public static TokenValidationResult Error(ExchangeToken? token, object? errors)
             => new TokenValidationResult { ValidatedToken = token, IsSuccess = false, Errors = errors };
     }
-
 }

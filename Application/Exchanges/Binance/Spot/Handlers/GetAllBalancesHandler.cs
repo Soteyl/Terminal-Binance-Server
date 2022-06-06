@@ -1,17 +1,19 @@
-﻿using Binance.Net.Objects.Spot.SpotData;
+﻿using Binance.Net;
+using Binance.Net.Objects.Spot.SpotData;
+
 using CryptoExchange.Net.Objects;
-using Microsoft.AspNetCore.Http;
-using Binance.Net;
+
+using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
+using Ixcent.CryptoTerminal.EFData;
+
 using MediatR;
+
+using Microsoft.AspNetCore.Http;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
-    using Domain.Database.Models;
-    using Exceptions;
-    using EFData;
-    using Models;
-    using Results;
-
     /// <summary>
     /// Get all spot balances handler. Allows to get all cryptocurrency balances from the Binance.
     /// </summary>
@@ -56,7 +58,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             client.SetApiCredentials(token.Key, token.Secret);
 
-            WebCallResult<BinanceAccountInfo> info = await client.General.GetAccountInfoAsync();
+            WebCallResult<BinanceAccountInfo> info = await client.General.GetAccountInfoAsync(ct: CancellationToken.None);
 
             info.RemoveTokenAndThrowRestIfInvalid(_context, token);
 

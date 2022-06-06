@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 
+using Ixcent.CryptoTerminal.Application.Users.Login;
+
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
-    using Users.Login;
-
     public class LoginQueryValidation : AbstractValidator<LoginQuery>
     {
         public LoginQueryValidation()

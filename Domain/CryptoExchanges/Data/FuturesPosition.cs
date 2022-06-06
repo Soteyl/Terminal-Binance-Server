@@ -1,4 +1,5 @@
 ﻿using Binance.Net.Objects.Futures.FuturesData;
+
 using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data

@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ixcent.CryptoTerminal.Application.Users;
+using Ixcent.CryptoTerminal.Application.Users.Login;
+using Ixcent.CryptoTerminal.Application.Users.Registration;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
-    using Application.Users;
-    using Application.Users.Login;
-    using Application.Users.Registration;
-    using Microsoft.AspNetCore.Authorization;
-    using System.Threading.Tasks;
-
     /// <summary> Controller for registration and login </summary>
     /// <remarks>
     /// Url: <c>api/users/</c> <br/>

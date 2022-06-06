@@ -3,20 +3,20 @@ using Binance.Net.Interfaces.SubClients.Futures;
 using Binance.Net.Objects.Futures.FuturesData;
 using Binance.Net.Objects.Futures.MarketData;
 using Binance.Net.Objects.Spot.MarketData;
+
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Data;
+using Ixcent.CryptoTerminal.Domain.CryptoExchanges.Results;
+
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 {
-    using CryptoExchanges;
-    using Data;
-    using Results;
-
     public class BinanceFuturesUSDT : CryptoFutures
     {
-        private IBinanceClientFuturesUsdt _client;
+        private readonly IBinanceClientFuturesUsdt _client;
 
-        private IExchangeClient _exClient;
+        private readonly IExchangeClient _exClient;
 
         public BinanceFuturesUSDT(IBinanceClientFuturesUsdt binanceFuturesClient, IExchangeClient exClient)
             : base("USDT")
@@ -81,7 +81,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
             return tradesList;
         }
 
-        public override async Task<IEnumerable<FuturesOrder>> GetOrdersHistory()
+        public override Task<IEnumerable<FuturesOrder>> GetOrdersHistory()
         {
             throw new NotImplementedException();
         }

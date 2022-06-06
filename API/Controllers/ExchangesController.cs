@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+﻿using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {

@@ -7,8 +7,6 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results
     /// </summary>
     public class MakeOrderResult
     {
-
         public BinancePlacedOrder PlacedOrder { get; set; }
-
     }
 }

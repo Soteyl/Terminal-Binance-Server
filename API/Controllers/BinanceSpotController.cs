@@ -1,4 +1,8 @@
 ﻿using Binance.Net.Objects.Spot.SpotData;
+
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
+
 using Microsoft.AspNetCore.Mvc;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
@@ -6,7 +10,6 @@ using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
-
     /// <summary>
     /// Controller for Binance users. Requires authorization.
     /// </summary>
@@ -28,7 +31,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("order")]
-        public async Task<ActionResult<MakeOrderResult>> MakeSpotOrderAsync(MakeOrderModel command)
+        public async Task<ActionResult<MakeOrderResult>> MakeOrderAsync(MakeOrderModel command)
         {
             return await Mediator.Send(command);
         }
@@ -44,7 +47,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("balance")]
-        public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesSpotAsync()
+        public async Task<ActionResult<GetAllBalancesResult>> GetAllBalancesAsync()
         {
             return await Mediator.Send(new AllBalancesModel());
         }

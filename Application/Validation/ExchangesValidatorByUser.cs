@@ -1,7 +1,7 @@
-﻿namespace Ixcent.CryptoTerminal.Application.Validation
-{
-    using EFData;
+﻿using Ixcent.CryptoTerminal.EFData;
 
+namespace Ixcent.CryptoTerminal.Application.Validation
+{
     /// <summary>
     /// Factory for validating exchange tokens by a user and a database
     /// </summary>
@@ -45,5 +45,4 @@
             return new BinanceTokenValidator(_context, _userId);
         }
     }
-
 }

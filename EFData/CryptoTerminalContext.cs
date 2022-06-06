@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Ixcent.CryptoTerminal.Domain.Database;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ixcent.CryptoTerminal.EFData
 {
-    using Domain.Database.Models;
-    using Domain.Database;
-
     /// <summary>
     /// Main database context.
     /// <see cref="_exchangesTokens"/> is responsible for storing api tokens with different exchanges.

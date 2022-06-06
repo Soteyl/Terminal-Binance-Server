@@ -1,7 +1,7 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
-{
-    using Interfaces;
+﻿using Ixcent.CryptoTerminal.Domain.Interfaces;
 
+namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
+{
     public sealed class TimeInForce : IAdvancedEnum
     {
         private TimeInForce(byte value, string name)

@@ -1,29 +1,31 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+
 using FluentValidation.AspNetCore;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
+
+using Ixcent.CryptoTerminal.Api.Additional;
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
+using Ixcent.CryptoTerminal.Application.Interfaces;
+using Ixcent.CryptoTerminal.Application.Users.Login;
+using Ixcent.CryptoTerminal.Application.Validation;
+using Ixcent.CryptoTerminal.Domain.Auth;
+using Ixcent.CryptoTerminal.Domain.Database;
+using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.Infrastructure;
+
 using MediatR;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
 using Serilog;
 
 namespace Ixcent.CryptoTerminal.Api
 {
-    using Application.Exchanges.Binance;
-    using Application.Users.Login;
-    using Application.Interfaces;
-    using Application.Validation;
-    using Application.Users.IP;
-    using Domain.Database;
-    using Infrastructure;
-    using Domain.Auth;
-    using Additional;
-    using EFData;
-    using Hubs;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -85,6 +87,20 @@ namespace Ixcent.CryptoTerminal.Api
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                         ValidateIssuerSigningKey = true
                     };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            if (!string.IsNullOrEmpty(accessToken))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             // Add user accessor
@@ -97,7 +113,7 @@ namespace Ixcent.CryptoTerminal.Api
             services.AddAuthorization();
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
-            services.AddSingleton<RealtimeSpotDepthMarket>();
+            services.AddSingleton<DepthMarket>();
 
             IMvcBuilder mvcBuilder = services.AddControllers(opt =>
             {
@@ -144,20 +160,20 @@ namespace Ixcent.CryptoTerminal.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapHub<BinanceSpotDepthMarketHub>("/api/binance/spot/realtime/depth-market");
+                endpoints.MapSignalRHubs();
             });
 
             Log.Information("Server is started");
         }
 
-        private void ConfigureIpCheck(IServiceCollection services)
-        {
-            services.AddSingleton<IAuthorizationHandler, IpCheckHandler>();
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("SameIpPolicy",
-                    policy => policy.Requirements.Add(new IpCheckRequirement { IpClaimRequired = true }));
-            });
-        }
+        //private void ConfigureIpCheck(IServiceCollection services)
+        //{
+        //    services.AddSingleton<IAuthorizationHandler, IpCheckHandler>();
+        //    services.AddAuthorization(options =>
+        //    {
+        //        options.AddPolicy("SameIpPolicy",
+        //            policy => policy.Requirements.Add(new IpCheckRequirement { IpClaimRequired = true }));
+        //    });
+        //}
     }
 }

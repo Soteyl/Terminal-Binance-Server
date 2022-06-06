@@ -1,10 +1,10 @@
 ﻿
+using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.EFData;
+
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
-    using Domain.Database.Models;
-    using Exceptions;
-    using EFData;
-
     /// <summary>
     /// Next factory entity for validating exchange tokens by user id with choosed exchange
     /// </summary>
@@ -50,7 +50,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
             if (result.IsSuccess == false)
             {
                 throw new RestException(System.Net.HttpStatusCode.BadRequest,
-                                        ErrorCode.BadExchangeToken, 
+                                        ErrorCode.BadExchangeToken,
                                         result.Errors);
             }
             return result;
@@ -85,5 +85,4 @@ namespace Ixcent.CryptoTerminal.Application.Validation
             return TokenValidationResult.Success(token);
         }
     }
-
 }

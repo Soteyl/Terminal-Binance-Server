@@ -1,10 +1,11 @@
 ﻿using Binance.Net.Enums;
+
+using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
+
 using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models
 {
-    using Results;
-
     /// <summary>
     /// Request model for making Binance spot orders. <para/>
     /// 
