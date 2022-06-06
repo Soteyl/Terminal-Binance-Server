@@ -75,6 +75,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// <remarks> GET Url: <c>api/binance/spot/orders-history</c></remarks>
         /// <returns> Collection of <see cref="ICommonSymbol"/></returns>
         /// <response code="200"/>  
+        /// <response code="400"/>  
         /// <param name="command">Contains <see cref="OrdersHistoryModel.Symbol"/> which specifies required symbol trades. </param>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -82,6 +83,21 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         public async Task<ActionResult<OrdersHistoryResult>> GetOrdersHistoryResult(OrdersHistoryModel command)
         {
             return await Mediator.Send(command); 
+        }
+
+        /// <summary>
+        /// Gets transaction from a concrete order.
+        /// </summary>
+        /// <param name="command">Symbol and order id</param>
+        /// <returns>Collection of transactions</returns>
+        /// <response code="200"/>  
+        /// <response code="400"/>  
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("transactions")]
+        public async Task<ActionResult<GetTransactionsByOrderResult>> GetTransactionsByOrder(GetTransactionsByOrderModel command)
+        {
+            return await Mediator.Send(command);
         }
     }
 }
