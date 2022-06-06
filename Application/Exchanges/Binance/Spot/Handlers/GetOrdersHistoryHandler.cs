@@ -56,7 +56,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             return new OrdersHistoryResult
             {
-                ClosedOrders = ordersHistory
+                Orders = ordersHistory
             };
         }
     }
