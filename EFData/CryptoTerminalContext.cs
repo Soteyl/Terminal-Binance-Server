@@ -22,4 +22,13 @@ namespace Ixcent.CryptoTerminal.EFData
             Database.EnsureCreated();
         }
     }
+
+    public static class CryptoTerminalContextExtensions
+    {
+        public static async Task<ExchangeToken?> GetBinanceToken(this DbSet<ExchangeToken> source, string userId)
+        {
+            return await source.FirstOrDefaultAsync(t => t.UserId == userId &&
+                                                    t.Exchange == "Binance");
+        }
+    }
 }

@@ -1,11 +1,13 @@
 ﻿using Binance.Net;
+using Binance.Net.Objects.Spot.SpotData;
+
+using CryptoExchange.Net.Objects;
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.EFData;
-
 using MediatR;
 
 using Microsoft.AspNetCore.Http;
@@ -13,46 +15,45 @@ using Microsoft.AspNetCore.Http;
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
     /// <summary>
-    /// Get all open spot orders handler. Allows to get all active orders from the Binance.
+    /// Get transaction by concrete order id from binance spot market.
     /// </summary>
     /// <remarks>
     /// Implements: <see cref="IRequestHandler{TRequest, TResponse}"/><br/>
-    /// <c>TRequest</c> is <see cref="OpenOrdersModel"/><br/>
-    /// <c>TResponse</c> is <see cref="OpenOrdersResult"/><br/>
+    /// <c>TRequest</c> is <see cref="GetTransactionsByOrderModel"/><br/>
+    /// <c>TResponse</c> is <see cref="GetTransactionsByOrderResult"/><br/>
     /// Is used by: MediatR
     /// </remarks>
-    public class GetOpenOrdersHandler : IRequestHandler<OpenOrdersModel, OpenOrdersResult>
+    public class GetTransactionsByOrderHandler : IRequestHandler<GetTransactionsByOrderModel, GetTransactionsByOrderResult>
     {
         private readonly CryptoTerminalContext _context;
 
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public GetOpenOrdersHandler(CryptoTerminalContext context, IHttpContextAccessor contextAccessor)
+        public GetTransactionsByOrderHandler(CryptoTerminalContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<OpenOrdersResult> Handle(OpenOrdersModel request, CancellationToken cancellationToken)
+        public async Task<GetTransactionsByOrderResult> Handle(GetTransactionsByOrderModel request, CancellationToken cancellationToken)
         {
             var client = new BinanceClient();
             string userId = _contextAccessor.GetCurrentUserId()!;
 
-            ExchangeToken? token = _context.ExchangeTokens.FirstOrDefault(t => t.UserId == userId &&
-                                                                    t.Exchange == "Binance");
+            ExchangeToken? token = await _context.ExchangeTokens.GetBinanceToken(userId);
 
             if (token == null)
                 throw RestException.MissingApiToken;
 
             client.SetApiCredentials(token.Key, token.Secret);
 
-            var result = await client.Spot.Order.GetOpenOrdersAsync(ct: CancellationToken.None);
+            WebCallResult<IEnumerable<BinanceTrade>>? result = await client.Spot.Order.GetUserTradesAsync(request.Symbol, request.OrderId);
 
             result.RemoveTokenAndThrowRestIfInvalid(_context, token);
 
-            return new OpenOrdersResult
+            return new GetTransactionsByOrderResult
             {
-                Orders = result.Data
+                Trades = result.Data
             };
         }
     }
