@@ -39,7 +39,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         /// <summary> Gets account balances </summary>
         /// <remarks> GET Url: <c>api/binance/spot/balance</c> </remarks>
         /// <returns> Collection of <see cref="BinanceBalance"/> </returns>
-        /// <response code="200">Returns all the balances in the binance exchange for current user.</response>
+        /// <response code="200"> Returns all the balances in the binance exchange for current user.</response>
         /// <response code="400">
         /// API exchange token is outdated. <br/>
         /// No token was found. <br/>
@@ -65,7 +65,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
 
         /// <summary> Gets all open orders for current user </summary>
         /// <remarks> GET Url: <c>api/binance/spot/open-orders</c></remarks>
-        /// <returns>Collection of <see cref="BinanceOrder"/></returns>
+        /// <returns> Collection of <see cref="BinanceOrder"/></returns>
         /// <response code="200"/>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("open-orders")]
@@ -83,11 +83,28 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("orders-history")]
-        public async Task<ActionResult<OrdersHistoryResult>> GetOrdersHistoryResult(OrdersHistoryModel command)
+        public async Task<ActionResult<OrdersHistoryResult>> GetOrdersHistory(OrdersHistoryModel command)
         {
             return await Mediator.Send(command); 
         }
 
+        /// <summary> Cancels open order on binance spot by symbol and order id</summary>
+        /// <remarks> DELETE Url: <c>api/binance/spot/cancel-order</c></remarks>
+        /// <returns> <see cref="CancelOpenOrderResult"/></returns>
+        /// <response code="200"/>  
+        /// <response code="400"> API exchange token is outdated. </response> 
+        /// <param name="command">
+        /// Contains <see cref="CancelOpenOrderModel.Symbol"/> which specifies required symbol of <br/>
+        /// orders and <see cref="CancelOpenOrderModel.Id"/> for order id. 
+        /// </param>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpDelete("cancel-order")]
+        public async Task<ActionResult<CancelOpenOrderResult>> CancelOpenOrder(CancelOpenOrderModel command) 
+        {
+            return await Mediator.Send(command);
+        }
+        
         /// <summary>
         /// Gets transaction from a concrete order.
         /// </summary>

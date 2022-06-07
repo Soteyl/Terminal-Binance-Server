@@ -1,43 +1,43 @@
 ﻿using Microsoft.AspNetCore.Http;
-using MediatR;
 using Binance.Net;
-using CryptoExchange.Net.ExchangeInterfaces;
+using MediatR;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
-using Ixcent.CryptoTerminal.Application.Exceptions;
-using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.Application.Exceptions;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
+
     /// <summary>
-    /// Get all spot orders history handler including open orders. Allows to get orders history from the Binance.
+    /// Cancel open binance spot order.
     /// </summary>
     /// <remarks>
     /// Implements: <see cref="IRequestHandler{TRequest, TResponse}"/><br/>
-    /// <c>TRequest</c> is <see cref="OrdersHistoryModel"/><br/>
-    /// <c>TResponse</c> is <see cref="OrdersHistoryResult"/><br/>
+    /// <c>TRequest</c> is <see cref="CancelOpenOrderModel"/><br/>
+    /// <c>TResponse</c> is <see cref="CancelOpenOrderResult"/><br/>
     /// Is used by: MediatR
     /// </remarks>
-    public class GetOrdersHistoryHandler : IRequestHandler<OrdersHistoryModel, OrdersHistoryResult>
+    public class CancelOpenOrderHandler : IRequestHandler<CancelOpenOrderModel, CancelOpenOrderResult>
     {
-        private readonly IHttpContextAccessor _contextAccessor;
-
         private readonly CryptoTerminalContext _context;
 
+        private readonly IHttpContextAccessor _contextAccessor;
+
         /// <summary>
-        /// Constructor for <see cref="GetOrdersHistoryHandler"/>.
+        /// Constructor for <see cref="CancelOpenOrderHandler"/>.
         /// All the parameters in the contructor provided by the dependency injection.
         /// </summary>
         /// <param name="contextAccessor"> Context accessor which is required to get information about user. </param>
         /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
-        public GetOrdersHistoryHandler(IHttpContextAccessor httpContext, CryptoTerminalContext context)
+        public CancelOpenOrderHandler(CryptoTerminalContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
-            _contextAccessor = httpContext;
+            _contextAccessor = contextAccessor;
         }
 
-        public async Task<OrdersHistoryResult> Handle(OrdersHistoryModel request, CancellationToken cancellationToken)
+        public async Task<CancelOpenOrderResult> Handle(CancelOpenOrderModel request, CancellationToken cancellationToken)
         {
             var client = new BinanceClient();
             string userId = _contextAccessor.GetCurrentUserId()!;
@@ -49,15 +49,16 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
             client.SetApiCredentials(token.Key, token.Secret);
 
-            var info = await client.Spot.Order.GetOrdersAsync(request.Symbol.ToUpper());
-            
-            info.RemoveTokenAndThrowRestIfInvalid(_context, token);
+            var result = await client.Spot.Order.CancelOrderAsync(
+                symbol: request.Symbol!, 
+                orderId: request.Id!
+                );
 
-            var ordersHistory = info.Data;
+            result.RemoveTokenAndThrowRestIfInvalid(_context, token);
 
-            return new OrdersHistoryResult
+            return new CancelOpenOrderResult
             {
-                Orders = ordersHistory
+                CanceledOrder = result.Data
             };
         }
     }
