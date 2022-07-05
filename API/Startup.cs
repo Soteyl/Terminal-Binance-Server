@@ -66,6 +66,7 @@ namespace Ixcent.CryptoTerminal.Api
                 });
                 options.IncludeXmlComments(xmlFilename);
                 options.OperationFilter<FormatXmlCommentProperties>();
+                options.CustomSchemaIds(type => type.ToString());
             });
 
             // Make "Application" assembly - main handler of all queries.
@@ -149,7 +150,7 @@ namespace Ixcent.CryptoTerminal.Api
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowCredentials().AllowAnyHeader());
             app.UseMiddleware<Middlewares.ExceptionHandlingMiddleware>();
 
             app.UseRouting();
