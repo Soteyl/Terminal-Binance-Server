@@ -22,7 +22,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
         {
             return new SymbolPricesResult
             {
-                Prices = (await new BinanceClient().Spot.Market.GetPricesAsync(ct: CancellationToken.None)).Data
+                Prices = (await new BinanceClient().Spot.Market.GetTickersAsync(ct: CancellationToken.None)).Data
             };
         }
     }
