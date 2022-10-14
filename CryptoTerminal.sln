@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{46B31900-1B80-4595-B36F-6D396A10E258}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFData", "EFData\EFData.csproj", "{555934BA-2A7F-4A6A-B3D0-57B0574B68A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorageHandle", "StorageHandle\StorageHandle.csproj", "{555934BA-2A7F-4A6A-B3D0-57B0574B68A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3B4E423A-71C5-4283-BB9B-6F807A4D8595}"
 EndProject

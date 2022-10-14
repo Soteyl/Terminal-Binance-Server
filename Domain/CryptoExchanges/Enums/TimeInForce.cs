@@ -11,17 +11,17 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
             Values.Add(value, this);
         }
 
-        public static SortedList<byte, IAdvancedEnum> Values { get; } = new SortedList<byte, IAdvancedEnum>();
+        public static SortedList<byte, IAdvancedEnum> Values { get; } = new();
 
-        public static TimeInForce GoodTillCancel { get; } = new TimeInForce(0, nameof(GoodTillCancel));
+        public static TimeInForce GoodTillCancel { get; } = new(0, nameof(GoodTillCancel));
 
-        public static TimeInForce ImmediateOrCancel { get; } = new TimeInForce(1, nameof(ImmediateOrCancel));
+        public static TimeInForce ImmediateOrCancel { get; } = new(1, nameof(ImmediateOrCancel));
 
-        public static TimeInForce FillOrKill { get; } = new TimeInForce(2, nameof(FillOrKill));
+        public static TimeInForce FillOrKill { get; } = new(2, nameof(FillOrKill));
 
-        public static TimeInForce GoodTillCrossing { get; } = new TimeInForce(3, nameof(GoodTillCrossing));
+        public static TimeInForce GoodTillCrossing { get; } = new(3, nameof(GoodTillCrossing));
 
-        public static TimeInForce GoodTillExpiredOrCanceled { get; } = new TimeInForce(4, nameof(GoodTillExpiredOrCanceled));
+        public static TimeInForce GoodTillExpiredOrCanceled { get; } = new(4, nameof(GoodTillExpiredOrCanceled));
 
         public string Name { get; }
 

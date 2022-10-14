@@ -15,6 +15,6 @@
         /// </code>
         /// </summary>
         public Dictionary<string, IEnumerable<string>> AvailableExchanges { get; set; }
-            = new Dictionary<string, IEnumerable<string>>();
+            = new();
     }
 }

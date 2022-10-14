@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Binance.Net" Version="7.2.7" />
     <PackageReference Include="FluentValidation" Version="11.0.1" />
     <PackageReference Include="MediatR" Version="10.0.1" />
@@ -19,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\EFData\EFData.csproj" />
+    <ProjectReference Include="..\StorageHandle\StorageHandle.csproj" />
   </ItemGroup>
 
 </Project>

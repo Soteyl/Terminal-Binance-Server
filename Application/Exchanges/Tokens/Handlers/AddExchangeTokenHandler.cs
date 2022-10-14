@@ -1,10 +1,14 @@
 ﻿using System.Net;
 
+using AutoMapper;
+
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Services;
+using Ixcent.CryptoTerminal.Application.Mediatr;
 using Ixcent.CryptoTerminal.Application.Validation;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 using MediatR;
 
@@ -17,57 +21,33 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
     /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
     /// <c>TRequest</c> is <see cref="AddExchangeTokenQuery"/> <br/>
     /// </remarks>
-    public class AddExchangeTokenHandler : IRequestHandler<AddExchangeTokenQuery>
+    public class AddExchangeTokenHandler : IRequestHandlerBase<AddExchangeTokenQuery>
     {
         private readonly IHttpContextAccessor _contextAccessor;
-
-        private readonly ExchangesValidatorByToken _validator;
-
-        private readonly CryptoTerminalContext _context;
+        
+        private readonly IExchangeTokenService _service;
+        
+        private readonly IMapper _mapper;
 
         public AddExchangeTokenHandler(IHttpContextAccessor contextAccessor,
-                                       CryptoTerminalContext context)
+                                       IExchangeTokenService service,
+                                       IMapper mapper)
         {
             _contextAccessor = contextAccessor;
-            _context = context;
-            _validator = ExchangesValidator.ByToken();
+            _service = service;
+            _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(AddExchangeTokenQuery request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(AddExchangeTokenQuery request, CancellationToken cancellationToken)
         {
             string currentUserId = _contextAccessor.GetCurrentUserId();
 
-            if ((await _validator.Validate(request.Key, request.Secret, request.Exchange)).Any() == false)
-                throw new RestException(HttpStatusCode.BadRequest, ErrorCode.BadExchangeToken, new
-                {
-                    Message = "Bad key or secret"
-                });
+            UserExchangeToken token = _mapper.Map<UserExchangeToken>(request);
+            token.UserId = currentUserId;
 
-            ExchangeToken? existingToken = _context.ExchangeTokens.FirstOrDefault(
-                t => request.Exchange == t.Exchange &&
-                currentUserId == t.UserId);
-
-            if (existingToken != null)
-            {
-                existingToken.Key = request.Key;
-                existingToken.Secret = request.Secret;
-                _context.ExchangeTokens.Update(existingToken);
-            }
-            else
-            {
-                _context.ExchangeTokens.Add(
-                    new ExchangeToken
-                    {
-                        Exchange = request.Exchange,
-                        Key = request.Key,
-                        Secret = request.Secret,
-                        UserId = currentUserId
-                    });
-            }
-
-            _context.SaveChanges();
-
-            return Unit.Value;
+            Response response = await _service.AddToken(token);
+            
+            return response;
         }
     }
 }

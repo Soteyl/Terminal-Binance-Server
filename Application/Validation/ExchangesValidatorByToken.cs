@@ -1,4 +1,5 @@
 ﻿using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Status;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
@@ -8,7 +9,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
     public class ExchangesValidatorByToken
     {
         private readonly Dictionary<string, IExchangeValidator> _exchangesValidators =
-            new Dictionary<string, IExchangeValidator>(StringComparer.OrdinalIgnoreCase)
+            new(StringComparer.OrdinalIgnoreCase)
             {
                 { "Binance", new BinanceValidator() }
             };
@@ -20,12 +21,12 @@ namespace Ixcent.CryptoTerminal.Application.Validation
         /// <param name="secret">Token secret</param>
         /// <param name="exchangeName">Name of exchange</param>
         /// <returns>A collection with names of accessed items</returns>
-        /// <exception cref="RestException"></exception>
+        /// <exception cref="ServerException"></exception>
         public async Task<IEnumerable<string>> Validate(string key, string secret, string exchangeName)
         {
 
             if (!_exchangesValidators.ContainsKey(exchangeName))
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, ErrorCode.NotFound, new
+                throw new ServerException(System.Net.HttpStatusCode.BadRequest, ServerResponseCode.NotFound, new
                 {
                     Exchange = "Wrong exchange name!"
                 });

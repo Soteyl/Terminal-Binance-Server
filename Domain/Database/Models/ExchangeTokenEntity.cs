@@ -1,6 +1,6 @@
 ﻿namespace Ixcent.CryptoTerminal.Domain.Database.Models
 {
-    public class ExchangeToken
+    public class ExchangeTokenEntity
     {
         public long Id { get; set; }
 

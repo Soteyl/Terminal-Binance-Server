@@ -52,7 +52,7 @@ namespace Ixcent.CryptoTerminal.Api.Additional
                 if (!attributes.Any(at => at is SignalRHiddenAttribute))
                 {
                     // If has signalr attribute then map by path if its not empty. If it is, maps by hub name
-                    var signalRAttribute = (SignalRHubAttribute)attributes.FirstOrDefault(at => at is SignalRHubAttribute);
+                    SignalRHubAttribute? signalRAttribute = (SignalRHubAttribute)attributes.FirstOrDefault(at => at is SignalRHubAttribute);
                     if (signalRAttribute != null && string.IsNullOrWhiteSpace(signalRAttribute.Path))
                     {
                         __signalRHubs.Add(hub, signalRAttribute.Path);

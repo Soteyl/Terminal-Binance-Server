@@ -1,7 +1,8 @@
 ﻿
 using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Status;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
@@ -41,16 +42,16 @@ namespace Ixcent.CryptoTerminal.Application.Validation
         }
 
         /// <summary>
-        /// Calls <see cref="Validate"/> method and if it is not success, throws a <see cref="RestException"/> instance
+        /// Calls <see cref="Validate"/> method and if it is not success, throws a <see cref="ServerException"/> instance
         /// </summary>
-        /// <exception cref="RestException"></exception>
+        /// <exception cref="ServerException"></exception>
         public async Task<TokenValidationResult> ValidateOrThrowRest()
         {
-            var result = await Validate();
+            TokenValidationResult? result = await Validate();
             if (result.IsSuccess == false)
             {
-                throw new RestException(System.Net.HttpStatusCode.BadRequest,
-                                        ErrorCode.BadExchangeToken,
+                throw new ServerException(System.Net.HttpStatusCode.BadRequest,
+                                        ServerResponseCode.BadExchangeToken,
                                         result.Errors);
             }
             return result;
@@ -61,7 +62,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
         /// </summary>
         public async Task<TokenValidationResult> Validate()
         {
-            ExchangeToken? token = _context.ExchangeTokens
+            ExchangeTokenEntity? token = _context.ExchangeTokens
                 .FirstOrDefault(t => t.Exchange == ExchangeName && t.UserId == _userId);
 
             if (token == null)
@@ -73,7 +74,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
 
             IEnumerable<string>? availablePoints = await _tokenValidator.Validate(token.Key, token.Secret);
 
-            foreach (var point in _requiredPoints)
+            foreach (string? point in _requiredPoints)
             {
                 if (availablePoints.Contains(point) == false)
                     return TokenValidationResult.Error(token, new

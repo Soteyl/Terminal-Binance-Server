@@ -1,7 +1,10 @@
 ﻿using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Services;
+using Ixcent.CryptoTerminal.Application.Mediatr;
+using Ixcent.CryptoTerminal.Application.Status;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 using MediatR;
 
@@ -14,40 +17,26 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Handlers
     /// Implements <see cref="IRequestHandler{TRequest}"/> <br/>
     /// <c>TRequest</c> is <see cref="RemoveExchangeTokenQuery"/> <br/>
     /// </remarks>
-    public class RemoveExchangeTokenHandler : IRequestHandler<RemoveExchangeTokenQuery>
+    public class RemoveExchangeTokenHandler : IRequestHandlerBase<RemoveExchangeTokenQuery>
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
-        private readonly CryptoTerminalContext _context;
+        private readonly IExchangeTokenService _service;
 
-        public RemoveExchangeTokenHandler(IHttpContextAccessor contextAccessor, CryptoTerminalContext context)
+        public RemoveExchangeTokenHandler(IHttpContextAccessor contextAccessor, IExchangeTokenService service)
         {
             _contextAccessor = contextAccessor;
-            _context = context;
+            _service = service;
         }
 
-        public Task<Unit> Handle(RemoveExchangeTokenQuery request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(RemoveExchangeTokenQuery request, CancellationToken cancellationToken)
         {
-            string exchange = request.Exchange;
             string userId = _contextAccessor.GetCurrentUserId();
 
-            ExchangeToken? possibleToken =
-                _context.ExchangeTokens.FirstOrDefault(t => exchange == t.Exchange
-                                                      && userId == t.UserId);
+            Response response =
+                await _service.RemoveToken(new UserExchange { Exchange = request.Exchange, UserId = userId });
 
-            if (possibleToken == null)
-            {
-                throw new RestException(System.Net.HttpStatusCode.BadRequest, ErrorCode.NotFound, new
-                {
-                    Message = "Couldn't find a token"
-                });
-            }
-
-            _context.ExchangeTokens.Remove(possibleToken);
-
-            _context.SaveChanges();
-
-            return Task.FromResult(Unit.Value);
+            return response;
         }
     }
 }

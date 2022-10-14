@@ -1,16 +1,20 @@
 ﻿using System.Reflection;
 
+using AutoMapper;
+
 using FluentValidation.AspNetCore;
 
 using Ixcent.CryptoTerminal.Api.Additional;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
 using Ixcent.CryptoTerminal.Application.Interfaces;
+using Ixcent.CryptoTerminal.Application.Mediatr;
 using Ixcent.CryptoTerminal.Application.Users.Login;
 using Ixcent.CryptoTerminal.Application.Validation;
 using Ixcent.CryptoTerminal.Domain.Auth;
 using Ixcent.CryptoTerminal.Domain.Database;
-using Ixcent.CryptoTerminal.EFData;
 using Ixcent.CryptoTerminal.Infrastructure;
+using Ixcent.CryptoTerminal.StorageHandle;
+using Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens;
 
 using MediatR;
 
@@ -19,6 +23,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -39,12 +44,12 @@ namespace Ixcent.CryptoTerminal.Api
         {
             services.AddDbContext<CryptoTerminalContext>(opt =>
             {
-                var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
+                MySqlServerVersion? serverVersion = new(new Version(8, 0, 27));
                 string connection = Configuration.GetConnectionString("DefaultConnection");
                 opt.UseMySql(connection, serverVersion);
             });
             IdentityBuilder builder = services.AddIdentityCore<AppUser>();
-            IdentityBuilder identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            IdentityBuilder identityBuilder = new(builder.UserType, builder.Services);
             identityBuilder.AddRoles<IdentityRole>();
             identityBuilder.AddEntityFrameworkStores<CryptoTerminalContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
@@ -93,7 +98,7 @@ namespace Ixcent.CryptoTerminal.Api
                     {
                         OnMessageReceived = context =>
                         {
-                            var accessToken = context.Request.Query["access_token"];
+                            StringValues accessToken = context.Request.Query["access_token"];
 
                             if (!string.IsNullOrEmpty(accessToken))
                             {
@@ -106,21 +111,36 @@ namespace Ixcent.CryptoTerminal.Api
 
             // Add user accessor
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
+            // Auto mapper
+            MapperConfiguration? mapperConfig = new(mc =>
+            {
+                // Possible to add profiles here
+            });
 
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            
             //! these lines are for configuring authorization
             //! use ONLY this line (ip check) (also requires line inside AddControllers block)
             //ConfigureIpCheck(services);
             //! OR THIS (basic)
             services.AddAuthorization();
 
+            services.AddScoped<IExchangeTokenRepository, EntityFrameworkExchangeTokensRepository>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddSingleton<DepthMarket>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+            });
 
             IMvcBuilder mvcBuilder = services.AddControllers(opt =>
             {
                 // Only authorized users
                 opt.EnableEndpointRouting = false;
-                var policy = new AuthorizationPolicyBuilder()
+                AuthorizationPolicy? policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
                 //opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));

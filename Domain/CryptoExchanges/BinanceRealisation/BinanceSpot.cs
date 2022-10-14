@@ -56,7 +56,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<ICommonOrderBook> resultOrderBook = await _exchangeClient.GetOrderBookAsync(symbol);
             // Convert ISymbolOrderBookEntry to OrderBookEntry
-            var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
+            OrderBook? preparedResult = new(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
                                                 resultOrderBook.Data.CommonAsks.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)));
             return preparedResult;
         }
@@ -70,7 +70,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<IEnumerable<ICommonOrder>> GetOrderHistory()
         {
-            var orderHistory = new List<ICommonOrder>();
+            List<ICommonOrder>? orderHistory = new();
             IEnumerable<ICommonSymbol> symbols = (await _exchangeClient.GetSymbolsAsync()).Data;
             foreach (ICommonSymbol symbol in symbols)
             {
@@ -81,7 +81,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
         public override async Task<IEnumerable<ICommonTrade>> GetTransactionsHistory()
         {
-            var transactionHistory = new List<ICommonTrade>();
+            List<ICommonTrade>? transactionHistory = new();
             IEnumerable<ICommonOrder> orders = await GetOrderHistory();
             foreach (ICommonOrder order in orders)
             {

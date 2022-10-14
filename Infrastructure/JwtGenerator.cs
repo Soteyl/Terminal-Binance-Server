@@ -21,19 +21,19 @@ namespace Ixcent.CryptoTerminal.Infrastructure
 
         public string CreateToken(AppUser user)
         {
-            var claims = new List<Claim> { new Claim(JwtRegisteredClaimNames.NameId, user.Id) };
+            List<Claim> claims = new() { new Claim(JwtRegisteredClaimNames.NameId, user.Id) };
 
-            var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            SigningCredentials credentials = new(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            SecurityTokenDescriptor tokenDescriptor = new()
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(7),
                 SigningCredentials = credentials
             };
-            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new();
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            SecurityToken? token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
         }

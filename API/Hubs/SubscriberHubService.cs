@@ -18,7 +18,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
 
         protected IHubContext<THub, THubClient> _hubContext;
 
-        protected readonly ConnectionMapping<string> _subscribers = new ConnectionMapping<string>();
+        protected readonly ConnectionMapping<string> _subscribers = new();
 
         public SubscriberHubService()
         {

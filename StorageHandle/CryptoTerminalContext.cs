@@ -4,17 +4,19 @@ using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ixcent.CryptoTerminal.EFData
+namespace Ixcent.CryptoTerminal.StorageHandle
 {
     /// <summary>
     /// Main database context.
-    /// <see cref="_exchangesTokens"/> is responsible for storing api tokens with different exchanges.
     /// </summary>
-    public class CryptoTerminalContext : IdentityDbContext<AppUser>
+    /// <remarks>
+    /// <see cref="ExchangeTokens"/> is responsible for storing api tokens with different exchanges.
+    /// </remarks>
+    public sealed class CryptoTerminalContext : IdentityDbContext<AppUser>
     {
-        public DbSet<ExchangeToken> ExchangeTokens { get; set; }
+        public DbSet<ExchangeTokenEntity> ExchangeTokens { get; set; }
 
-        public DbSet<AvailableExchange> AvailableExchanges { get; set; }
+        public DbSet<AvailableExchangeEntity> AvailableExchanges { get; set; }
 
         public CryptoTerminalContext(DbContextOptions<CryptoTerminalContext> options)
             : base(options)
@@ -25,7 +27,7 @@ namespace Ixcent.CryptoTerminal.EFData
 
     public static class CryptoTerminalContextExtensions
     {
-        public static async Task<ExchangeToken?> GetBinanceToken(this DbSet<ExchangeToken> source, string userId)
+        public static async Task<ExchangeTokenEntity?> GetBinanceToken(this DbSet<ExchangeTokenEntity> source, string userId)
         {
             return await source.FirstOrDefaultAsync(t => t.UserId == userId &&
                                                     t.Exchange == "Binance");

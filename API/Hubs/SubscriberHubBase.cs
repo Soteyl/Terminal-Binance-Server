@@ -20,7 +20,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs
     {
         private static THubSubscriberService __service;
 
-        private static readonly object _serviceLocker = new object();
+        private static readonly object _serviceLocker = new();
 
         protected THubSubscriberService Service
         {

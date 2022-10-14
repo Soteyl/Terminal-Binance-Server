@@ -1,6 +1,7 @@
 using Ixcent.CryptoTerminal.Domain.Database;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,15 +46,15 @@ namespace Ixcent.CryptoTerminal.Api
             IServiceProvider? services = scope.ServiceProvider;
             try
             {
-                var context = services.GetRequiredService<CryptoTerminalContext>();
-                var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                CryptoTerminalContext? context = services.GetRequiredService<CryptoTerminalContext>();
+                UserManager<AppUser>? userManager = services.GetRequiredService<UserManager<AppUser>>();
+                RoleManager<IdentityRole>? roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 context.Database.Migrate();
                 DataSeed.SeedDataAsync(context, userManager, roleManager).Wait();
             }
             catch (Exception ex)
             {
-                var logger = services.GetRequiredService<ILogger<Program>>();
+                ILogger<Program>? logger = services.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An error occured during migration");
             }
         }
@@ -64,7 +65,8 @@ namespace Ixcent.CryptoTerminal.Api
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                              .UseKestrel();
                 });
     }
 }

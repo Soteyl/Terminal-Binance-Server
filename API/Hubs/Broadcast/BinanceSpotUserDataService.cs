@@ -2,7 +2,8 @@
 
 using Ixcent.CryptoTerminal.Api.Hubs.Clients;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
 
         public async Task Subscribe(object? data, string groupName, HubCallerContext context)
         {
-            var token = await _database.ExchangeTokens.FirstOrDefaultAsync(token => token.UserId.Equals(context.UserIdentifier) && token.Exchange.Equals("Binance"));
+            ExchangeTokenEntity? token = await _database.ExchangeTokens.FirstOrDefaultAsync(token => token.UserId.Equals(context.UserIdentifier) && token.Exchange.Equals("Binance"));
             await _userData.Subscribe(new SpotOpenOrdersSubscriber
             {
                 ConnectionId = context.ConnectionId,

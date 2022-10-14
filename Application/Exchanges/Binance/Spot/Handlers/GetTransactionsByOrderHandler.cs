@@ -7,7 +7,8 @@ using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
+
 using MediatR;
 
 using Microsoft.AspNetCore.Http;
@@ -37,13 +38,13 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         public async Task<GetTransactionsByOrderResult> Handle(GetTransactionsByOrderModel request, CancellationToken cancellationToken)
         {
-            var client = new BinanceClient();
+            BinanceClient? client = new();
             string userId = _contextAccessor.GetCurrentUserId()!;
 
-            ExchangeToken? token = await _context.ExchangeTokens.GetBinanceToken(userId);
+            ExchangeTokenEntity? token = await _context.ExchangeTokens.GetBinanceToken(userId);
 
             if (token == null)
-                throw RestException.MissingApiToken;
+                throw ServerException.MissingApiToken;
 
             client.SetApiCredentials(token.Key, token.Secret);
 

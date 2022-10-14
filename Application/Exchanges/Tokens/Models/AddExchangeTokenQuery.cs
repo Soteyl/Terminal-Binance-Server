@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Ixcent.CryptoTerminal.Application.Mediatr;
+
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models
 {
@@ -6,7 +8,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models
     /// Query for adding exchange token to a database<para/>
     /// Implements <see cref="IRequest"/>
     /// </summary>
-    public class AddExchangeTokenQuery : IRequest
+    public class AddExchangeTokenQuery : IRequestBase
     {
         /// <summary>
         /// Crypto exchange token key

@@ -1,5 +1,6 @@
-﻿using MediatR;
+﻿using Ixcent.CryptoTerminal.Application.Mediatr;
 
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models
 {
@@ -7,7 +8,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models
     /// Query object for removing crypto exchange tokens from database. <para/>
     /// Implements <see cref="IRequest"/>
     /// </summary>
-    public class RemoveExchangeTokenQuery : IRequest
+    public class RemoveExchangeTokenQuery : IRequestBase
     {
         /// <summary>
         /// Name of crypto exchange where to remove key

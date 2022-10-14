@@ -1,6 +1,8 @@
 ﻿using System.Net;
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Mediatr;
+using Ixcent.CryptoTerminal.Application.Status;
 
 using Newtonsoft.Json;
 
@@ -9,7 +11,7 @@ using Serilog;
 namespace Ixcent.CryptoTerminal.Api.Middlewares
 {
     /// <summary>
-    /// Handles all request exceptions. If this is a specific <see cref="RestException"/>,
+    /// Handles all request exceptions. If this is a specific <see cref="ServerException"/>,
     /// then shows needed information to user in API response.
     /// </summary>
     public class ExceptionHandlingMiddleware
@@ -37,22 +39,10 @@ namespace Ixcent.CryptoTerminal.Api.Middlewares
         {
             string result = "";
             context.Response.ContentType = "application/json";
-            switch (exception)
-            {
-                case RestException validationException:
-                    context.Response.StatusCode = (int)validationException.StatusCode;
-                    result = JsonConvert.SerializeObject(
-                        new
-                        {
-                            code = validationException.ErrorCode,
-                            errors = validationException.Errors
-                        });
-                    break;
-                default:
-                    Log.Error(exception.ToString());
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    break;
-            }
+            Log.Error(exception.ToString()); // TODO ADD EMAIL SERVICE
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            result = JsonConvert.SerializeObject(
+                Response.WithError(ServerResponseCode.InternalError));
 
             return context.Response.WriteAsync(result);
         }

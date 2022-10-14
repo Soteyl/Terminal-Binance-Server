@@ -1,10 +1,13 @@
 ﻿using Binance.Net;
+using Binance.Net.Objects.Spot.SpotData;
+
+using CryptoExchange.Net.Objects;
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 using MediatR;
 
@@ -35,18 +38,18 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         public async Task<OpenOrdersResult> Handle(OpenOrdersModel request, CancellationToken cancellationToken)
         {
-            var client = new BinanceClient();
+            BinanceClient? client = new();
             string userId = _contextAccessor.GetCurrentUserId()!;
 
-            ExchangeToken? token = _context.ExchangeTokens.FirstOrDefault(t => t.UserId == userId &&
+            ExchangeTokenEntity? token = _context.ExchangeTokens.FirstOrDefault(t => t.UserId == userId &&
                                                                     t.Exchange == "Binance");
 
             if (token == null)
-                throw RestException.MissingApiToken;
+                throw ServerException.MissingApiToken;
 
             client.SetApiCredentials(token.Key, token.Secret);
 
-            var result = await client.Spot.Order.GetOpenOrdersAsync(ct: CancellationToken.None);
+            WebCallResult<IEnumerable<BinanceOrder>>? result = await client.Spot.Order.GetOpenOrdersAsync(ct: CancellationToken.None);
 
             result.RemoveTokenAndThrowRestIfInvalid(_context, token);
 

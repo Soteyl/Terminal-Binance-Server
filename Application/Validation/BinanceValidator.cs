@@ -1,6 +1,7 @@
 ﻿using Binance.Net;
+using Binance.Net.Objects.Other;
 
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
@@ -15,12 +16,12 @@ namespace Ixcent.CryptoTerminal.Application.Validation
         /// <returns>A collection with accessed items names <c>(margin, spot, futures)</c></returns>
         public async Task<IEnumerable<string>> Validate(string key, string secret)
         {
-            BinanceClient client = new BinanceClient();
+            BinanceClient client = new();
             client.SetApiCredentials(key, secret);
 
-            List<string> result = new List<string>();
+            List<string> result = new();
 
-            var data = (await client.General.GetAPIKeyPermissionsAsync()).Data;
+            BinanceAPIKeyPermissions? data = (await client.General.GetAPIKeyPermissionsAsync()).Data;
 
             if (data == null)
                 return result;

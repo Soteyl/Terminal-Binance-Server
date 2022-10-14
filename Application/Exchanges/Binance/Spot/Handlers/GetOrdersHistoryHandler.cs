@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MediatR;
 using Binance.Net;
+using Binance.Net.Objects.Spot.SpotData;
+
 using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Objects;
+
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 {
@@ -30,7 +34,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
         /// All the parameters in the contructor provided by the dependency injection.
         /// </summary>
         /// <param name="contextAccessor"> Context accessor which is required to get information about user. </param>
-        /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeToken"/> for Binance. </param>
+        /// <param name="context"> Allows to access tables in CryptoTerminal database. Required to access <see cref="ExchangeTokenEntity"/> for Binance. </param>
         public GetOrdersHistoryHandler(IHttpContextAccessor httpContext, CryptoTerminalContext context)
         {
             _context = context;
@@ -39,21 +43,21 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
 
         public async Task<OrdersHistoryResult> Handle(OrdersHistoryModel request, CancellationToken cancellationToken)
         {
-            var client = new BinanceClient();
+            BinanceClient? client = new();
             string userId = _contextAccessor.GetCurrentUserId()!;
 
-            ExchangeToken? token = _context.ExchangeTokens.FirstOrDefault(t => t.UserId == userId &&
+            ExchangeTokenEntity? token = _context.ExchangeTokens.FirstOrDefault(t => t.UserId == userId &&
                                                                     t.Exchange == "Binance");
             if (token == null)
-                throw RestException.MissingApiToken;
+                throw ServerException.MissingApiToken;
 
             client.SetApiCredentials(token.Key, token.Secret);
 
-            var info = await client.Spot.Order.GetOrdersAsync(request.Symbol.ToUpper());
+            WebCallResult<IEnumerable<BinanceOrder>>? info = await client.Spot.Order.GetOrdersAsync(request.Symbol.ToUpper());
             
             info.RemoveTokenAndThrowRestIfInvalid(_context, token);
 
-            var ordersHistory = info.Data;
+            IEnumerable<BinanceOrder>? ordersHistory = info.Data;
 
             return new OrdersHistoryResult
             {

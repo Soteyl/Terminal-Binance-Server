@@ -12,7 +12,7 @@ namespace Ixcent.CryptoTerminal.Api.Hubs.Broadcast
     public class BinanceSpotDepthMarketService
         : SubscriberHubService<BinanceSpotDepthMarketHub, IBinanceSpotDepthMarketHubClient>
     {
-        private readonly DepthMarket _realtimeMarket = new DepthMarket();
+        private readonly DepthMarket _realtimeMarket = new();
 
         public override void AddServiceProvider(IServiceProvider provider)
         {

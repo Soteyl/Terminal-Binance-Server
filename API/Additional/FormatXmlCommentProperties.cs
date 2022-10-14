@@ -19,7 +19,7 @@ namespace Ixcent.CryptoTerminal.Api.Additional
         private string Formatted(string text)
         {
             if (text == null) return null;
-            var stringBuilder = new StringBuilder(text);
+            StringBuilder? stringBuilder = new(text);
 
             return stringBuilder
                 .Replace("<para>", "<p>")

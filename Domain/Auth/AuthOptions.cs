@@ -24,7 +24,7 @@ namespace Ixcent.CryptoTerminal.Domain.Auth
         /// <summary>
         /// For <see cref=""/>
         /// </summary>
-        public static TimeSpan LifeTime { get; } = new TimeSpan(30, 0, 0, 0);
+        public static TimeSpan LifeTime { get; } = new(30, 0, 0, 0);
 
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {

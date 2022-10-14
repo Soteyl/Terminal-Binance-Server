@@ -11,31 +11,31 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
             Values.Add(value, this);
         }
 
-        public static SortedList<byte, IAdvancedEnum> Values { get; } = new SortedList<byte, IAdvancedEnum>();
+        public static SortedList<byte, IAdvancedEnum> Values { get; } = new();
 
-        public static OrderType Limit { get; } = new OrderType(0, nameof(Limit));
+        public static OrderType Limit { get; } = new(0, nameof(Limit));
 
-        public static OrderType Market { get; } = new OrderType(1, nameof(Market));
+        public static OrderType Market { get; } = new(1, nameof(Market));
 
-        public static OrderType StopLoss { get; } = new OrderType(2, nameof(StopLoss));
+        public static OrderType StopLoss { get; } = new(2, nameof(StopLoss));
 
-        public static OrderType StopLossLimit { get; } = new OrderType(3, nameof(StopLoss));
+        public static OrderType StopLossLimit { get; } = new(3, nameof(StopLoss));
 
-        public static OrderType Stop { get; } = new OrderType(4, nameof(Stop));
+        public static OrderType Stop { get; } = new(4, nameof(Stop));
 
-        public static OrderType StopMarket { get; } = new OrderType(5, nameof(StopMarket));
+        public static OrderType StopMarket { get; } = new(5, nameof(StopMarket));
 
-        public static OrderType TakeProfit { get; } = new OrderType(6, nameof(TakeProfit));
+        public static OrderType TakeProfit { get; } = new(6, nameof(TakeProfit));
 
-        public static OrderType TakeProfitMarket { get; } = new OrderType(7, nameof(TakeProfitMarket));
+        public static OrderType TakeProfitMarket { get; } = new(7, nameof(TakeProfitMarket));
 
-        public static OrderType TakeProfitLimit { get; } = new OrderType(8, nameof(TakeProfitLimit));
+        public static OrderType TakeProfitLimit { get; } = new(8, nameof(TakeProfitLimit));
 
-        public static OrderType LimitMaker { get; } = new OrderType(8, nameof(LimitMaker));
+        public static OrderType LimitMaker { get; } = new(8, nameof(LimitMaker));
 
-        public static OrderType TrailingStopMarket { get; } = new OrderType(9, nameof(TrailingStopMarket));
+        public static OrderType TrailingStopMarket { get; } = new(9, nameof(TrailingStopMarket));
 
-        public static OrderType Liquidation { get; } = new OrderType(10, nameof(Liquidation));
+        public static OrderType Liquidation { get; } = new(10, nameof(Liquidation));
 
         public string Name { get; }
 

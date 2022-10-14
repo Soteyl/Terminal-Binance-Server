@@ -38,9 +38,9 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges
 
         public async void CloseAllPositions()
         {
-            var allPositions = await GetAllPositions();
+            IEnumerable<FuturesPosition>? allPositions = await GetAllPositions();
 
-            foreach (var position in allPositions)
+            foreach (FuturesPosition? position in allPositions)
             {
                 await ClosePosition(position);
             }

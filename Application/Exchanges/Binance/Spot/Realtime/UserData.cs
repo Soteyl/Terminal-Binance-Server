@@ -4,6 +4,7 @@ using Binance.Net;
 using Binance.Net.Objects.Spot.UserStream;
 
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets;
 
 using Ixcent.CryptoTerminal.Domain.Database.Models;
 
@@ -21,8 +22,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
 
         private readonly CancellationTokenSource _keepAliveCancellationToken;
 
-        private readonly Dictionary<string, SpotOpenOrdersSubscribeData> _subscriptions =
-            new Dictionary<string, SpotOpenOrdersSubscribeData>();
+        private readonly Dictionary<string, SpotOpenOrdersSubscribeData> _subscriptions = new();
 
         private UserData()
         {
@@ -66,14 +66,14 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
                     Unsubscribe(subscriber.ConnectionId).Wait();
                 }
 
-                var listener = new BinanceClient();
+                BinanceClient? listener = new();
                 listener.SetApiCredentials(subscriber.Token.Key, subscriber.Token.Secret);
                 WebCallResult<string>? listenKeyResult = listener.Spot.UserStream.StartUserStreamAsync().WaitThis().Result;
 
                 if (!listenKeyResult.Success)
                     throw new InvalidOperationException("Cannot subscribe");
 
-                var subscriberData = new SpotOpenOrdersSubscribeData
+                SpotOpenOrdersSubscribeData? subscriberData = new()
                 {
                     Client = listener,
                     ListenerKey = listenKeyResult.Data,
@@ -81,7 +81,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
                 };
                 subscriberData.SocketClient.SetApiCredentials(subscriber.Token.Key, subscriber.Token.Secret);
 
-                var result = subscriberData.SocketClient.Spot.SubscribeToUserDataUpdatesAsync(subscriberData.ListenerKey,
+                CallResult<UpdateSubscription>? result = subscriberData.SocketClient.Spot.SubscribeToUserDataUpdatesAsync(subscriberData.ListenerKey,
                     (orderUpdate) => OnOrderUpdate?.Invoke(subscriber.ConnectionId, orderUpdate.Data),
                     (ocoOrderUpdate) => OnOcoOrderUpdate?.Invoke(subscriber.ConnectionId, ocoOrderUpdate.Data),
                     (positionUpdate) => OnAccountPositionUpdate?.Invoke(subscriber.ConnectionId, positionUpdate.Data),
@@ -170,6 +170,6 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
     {
         public string ConnectionId { get; set; }
 
-        public ExchangeToken Token { get; set; }
+        public ExchangeTokenEntity Token { get; set; }
     }
 }

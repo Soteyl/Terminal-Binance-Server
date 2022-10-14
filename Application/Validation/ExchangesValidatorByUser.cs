@@ -1,4 +1,4 @@
-﻿using Ixcent.CryptoTerminal.EFData;
+﻿using Ixcent.CryptoTerminal.StorageHandle;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
@@ -9,7 +9,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
     {
         protected readonly CryptoTerminalContext _context;
 
-        protected HashSet<string> _requiredPoints = new HashSet<string>();
+        protected HashSet<string> _requiredPoints = new();
 
         protected readonly string _userId;
 

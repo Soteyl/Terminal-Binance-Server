@@ -1,4 +1,7 @@
-﻿using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+﻿using System.Net;
+
+using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
+using Ixcent.CryptoTerminal.Application.Mediatr;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +13,6 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     /// <remarks>
     /// Url: <c>api/exchanges/</c> <br/>
     /// Inherited from <see cref="BaseController"/> <br/>
-    /// Contains <see cref="ApiControllerAttribute"/>, <see cref="RouteAttribute"/>
     /// </remarks>
     [ApiController]
     [Route("api/[controller]")]
@@ -33,7 +35,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         public async Task<ActionResult> Add(AddExchangeTokenQuery command)
         {
             await Mediator.Send(command);
-            return Ok();
+            return NoContent();
         }
 
         /// <summary> Deletes existing exchange access token from database </summary>
@@ -49,18 +51,26 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         public async Task<ActionResult> Delete(RemoveExchangeTokenQuery command)
         {
             await Mediator.Send(command);
-            return Ok();
+            return NoContent();
         }
 
         /// <summary> Gets description about all existing tokens inside a database. </summary>
         /// <remarks> GET Url: <c>api/exchanges/token</c> </remarks>
         /// <returns>Connected exchanges and their available functionality</returns>
         /// <response code="200"/>
+        /// <response code="400"/>
         [HttpGet("token")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ExchangeTokensResult>> GetTokens()
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Response<ExchangeTokensResult>>> GetTokens()
         {
-            return await Mediator.Send(new GetExchangeTokensQuery());
+            Response<ExchangeTokensResult> response =
+                await Mediator.Send(new GetExchangeTokensQuery());
+            
+            if (response.IsSuccess)
+                return Ok(response);
+
+            return BadRequest(response);
         }
     }
 }

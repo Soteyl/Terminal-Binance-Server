@@ -1,8 +1,9 @@
 ﻿using CryptoExchange.Net.Objects;
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
+using Ixcent.CryptoTerminal.Application.Status;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 namespace Ixcent.CryptoTerminal.Application
 {
@@ -13,14 +14,14 @@ namespace Ixcent.CryptoTerminal.Application
     {
         /// <summary>
         /// Checks if exchange token is valid. 
-        /// If not, removes this token from a database and throws a <see cref="RestException"/> instance
+        /// If not, removes this token from a database and throws a <see cref="ServerException"/> instance
         /// </summary>
         /// <param name="context">Database</param>
         /// <param name="token">Token to validate</param>
-        /// <exception cref="RestException"></exception>
+        /// <exception cref="ServerException"></exception>
         public static WebCallResult<T> RemoveTokenAndThrowRestIfInvalid<T>(this WebCallResult<T> source,
                                                                            CryptoTerminalContext context,
-                                                                           ExchangeToken token)
+                                                                           ExchangeTokenEntity token)
         {
             int[] badTokenCodes = { -2014, -2015, -1022 };
 
@@ -31,9 +32,7 @@ namespace Ixcent.CryptoTerminal.Application
             if (badTokenCodes.Contains(errorCode))
             {
                 context.ExchangeTokens.Remove(token);
-                throw new RestException(System.Net.HttpStatusCode.BadRequest,
-                                        ErrorCode.BadExchangeToken,
-                                        new { Message = "Invalid API Token" });
+                throw new ServerException(ServerResponseCode.InvalidApiToken, "Invalid API Token");
             }
 
             return source;

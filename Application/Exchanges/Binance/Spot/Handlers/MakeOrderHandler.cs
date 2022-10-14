@@ -6,7 +6,9 @@ using CryptoExchange.Net.Objects;
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.StorageHandle;
+using Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens;
 
 using MediatR;
 
@@ -45,18 +47,18 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        /// <exception cref="RestException"></exception>
+        /// <exception cref="ServerException"></exception>
         public async Task<MakeOrderResult> Handle(MakeOrderModel request, CancellationToken cancellationToken)
         {
-            BinanceClient client = new BinanceClient();
+            BinanceClient client = new();
 
             string userId = _contextAccessor.GetCurrentUserId()!;
 
-            var token = _context.ExchangeTokens.FirstOrDefault(token => token.UserId == userId &&
+            ExchangeTokenEntity? token = _context.ExchangeTokens.FirstOrDefault(token => token.UserId == userId &&
                                                                         token.Exchange.Equals("Binance"));
 
             if (token == null)
-                throw RestException.MissingApiToken;
+                throw ServerException.MissingApiToken;
 
             client.SetApiCredentials(token.Key, token.Secret);
 

@@ -7,8 +7,7 @@
     public class ConnectionMapping<T>
         where T : notnull
     {
-        private readonly Dictionary<T, HashSet<string>> _connections =
-            new Dictionary<T, HashSet<string>>();
+        private readonly Dictionary<T, HashSet<string>> _connections = new();
 
         /// <summary>
         /// Invokes when all connections from a key are removed.
@@ -22,7 +21,10 @@
         {
             get
             {
-                return _connections.Count;
+                lock (_connections)
+                {
+                    return _connections.Count;
+                }
             }
         }
 
@@ -106,7 +108,6 @@
             //    {
             //        _connections.Remove(key);
             //    }
-
         }
     }
 }

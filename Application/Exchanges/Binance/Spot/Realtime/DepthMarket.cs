@@ -2,6 +2,7 @@
 using Binance.Net.Interfaces;
 using Binance.Net.Objects;
 
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
@@ -13,14 +14,13 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
     public class DepthMarket
         : IDisposable
     {
-        private readonly BinanceSocketClient _binanceClient = new BinanceSocketClient(new BinanceSocketClientOptions()
+        private readonly BinanceSocketClient _binanceClient = new(new BinanceSocketClientOptions()
         {
             AutoReconnect = true,
             ReconnectInterval = TimeSpan.FromSeconds(15)
         });
 
-        private readonly Dictionary<string, UpdateSubscription> _subscriptions
-            = new Dictionary<string, UpdateSubscription>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, UpdateSubscription> _subscriptions = new(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Subscribes to a symbol. <br/>
@@ -32,7 +32,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime
             {
                 if (_subscriptions.ContainsKey(symbol)) return;
 
-                var callResult = _binanceClient.Spot.SubscribeToOrderBookUpdatesAsync(symbol, 1000, ReceiveDepthMarketUpdate);
+                Task<CallResult<UpdateSubscription>>? callResult = _binanceClient.Spot.SubscribeToOrderBookUpdatesAsync(symbol, 1000, ReceiveDepthMarketUpdate);
                 callResult.Wait();
                 if (callResult.Result.Success == false) return;
 

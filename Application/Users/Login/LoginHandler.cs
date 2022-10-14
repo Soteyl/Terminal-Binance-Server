@@ -2,6 +2,7 @@
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Interfaces;
+using Ixcent.CryptoTerminal.Application.Status;
 using Ixcent.CryptoTerminal.Domain.Database;
 
 using MediatR;
@@ -33,12 +34,10 @@ namespace Ixcent.CryptoTerminal.Application.Users.Login
 
             if (user == null)
             {
-                throw new RestException(HttpStatusCode.Unauthorized,
-                                        ErrorCode.InvalidData,
-                                        new { Message = "Invalid login/password" });
+                throw new ServerException(ServerResponseCode.UnAuthorized, "Invalid login/password");
             }
 
-            SignInResult? result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+            SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
             if (result.Succeeded)
             {
@@ -50,7 +49,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Login
                 };
             }
 
-            throw new RestException(HttpStatusCode.Unauthorized, ErrorCode.Unknown);
+            throw new ServerException(ServerResponseCode.Unknown);
         }
     }
 }

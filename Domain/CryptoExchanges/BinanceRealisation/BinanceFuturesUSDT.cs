@@ -43,7 +43,7 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
         {
             WebCallResult<ICommonOrderBook> resultOrderBook = await _exClient.GetOrderBookAsync(firstQuote + MainCoin);
 
-            var preparedResult = new OrderBook(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
+            OrderBook? preparedResult = new(resultOrderBook.Data.CommonBids.Select(bid => new OrderBookEntry(bid.Quantity, bid.Price)),
                                                 resultOrderBook.Data.CommonAsks.Select(ask => new OrderBookEntry(ask.Quantity, ask.Price)));
 
             return preparedResult;
@@ -67,11 +67,11 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.BinanceRealisation
 
             IEnumerable<BinancePrice> pricesList = callPricesResult.Data;
 
-            List<FuturesTrade> tradesList = new List<FuturesTrade>();
+            List<FuturesTrade> tradesList = new();
 
-            foreach (var price in pricesList)
+            foreach (BinancePrice? price in pricesList)
             {
-                var closedOrdersResult = (await _client.Order.GetUserTradesAsync(price.Symbol)).Data.Cast<FuturesTrade>();
+                IEnumerable<FuturesTrade>? closedOrdersResult = (await _client.Order.GetUserTradesAsync(price.Symbol)).Data.Cast<FuturesTrade>();
 
                 if (closedOrdersResult != null)
                     tradesList.AddRange(closedOrdersResult);

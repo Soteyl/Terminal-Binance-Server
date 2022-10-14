@@ -5,8 +5,6 @@ using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 
 using Microsoft.AspNetCore.Mvc;
 using CryptoExchange.Net.ExchangeInterfaces;
-using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
-using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
@@ -16,7 +14,6 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     /// <remarks>
     /// Url: <c>api/binance/</c> <br/>
     /// Inherited from <see cref="BaseController"/> <br/>
-    /// Contains <see cref="ApiControllerAttribute"/>, <see cref="RouteAttribute"/>
     /// </remarks>
     [ApiController]
     [Route("api/binance/spot")]

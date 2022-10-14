@@ -2,8 +2,9 @@
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Interfaces;
+using Ixcent.CryptoTerminal.Application.Status;
 using Ixcent.CryptoTerminal.Domain.Database;
-using Ixcent.CryptoTerminal.EFData;
+using Ixcent.CryptoTerminal.StorageHandle;
 
 using MediatR;
 
@@ -31,19 +32,15 @@ namespace Ixcent.CryptoTerminal.Application.Users.Registration
         {
             if (await _context.Users.Where(x => x.Email == request.Email).AnyAsync(CancellationToken.None))
             {
-                throw new RestException(HttpStatusCode.BadRequest,
-                                        ErrorCode.AlreadyExist,
-                                        new { Email = "Email already exists" });
+                throw new ServerException(ServerResponseCode.BadRequest, "Email already exists");
             }
 
             if (await _context.Users.Where(x => x.UserName == request.UserName).AnyAsync(CancellationToken.None))
             {
-                throw new RestException(HttpStatusCode.BadRequest,
-                                        ErrorCode.AlreadyExist,
-                                        new { Username = "Username already exists" });
+                throw new ServerException(ServerResponseCode.BadRequest, "Username already exists" );
             }
 
-            var user = new AppUser
+            AppUser? user = new()
             {
                 Email = request.Email,
                 UserName = request.UserName
@@ -62,8 +59,8 @@ namespace Ixcent.CryptoTerminal.Application.Users.Registration
                 };
             }
 
-            throw new RestException(HttpStatusCode.InternalServerError,
-                                    ErrorCode.Unknown,
+            throw new ServerException(HttpStatusCode.InternalServerError,
+                                    ServerResponseCode.Unknown,
                                     new { Message = "Client creation failed" });
         }
     }

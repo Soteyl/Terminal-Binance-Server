@@ -1,4 +1,5 @@
 ﻿using Binance.Net;
+using Binance.Net.Objects.Spot.MarketData;
 
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
@@ -26,4 +27,20 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Handlers
             };
         }
     }
+
+    public class Haha
+    {
+        private static IEnumerable<BinanceSymbol> _symbols;
+
+        public async Task<BinanceSymbol> GetSymbolByPair(string pair)
+        {
+            if (_symbols == null)
+            {
+                _symbols = (await new BinanceClient().Spot.System.GetExchangeInfoAsync()).Data.Symbols;
+            }
+
+            return _symbols.FirstOrDefault((sym) => sym.Name == pair);
+        }
+    }
+
 }

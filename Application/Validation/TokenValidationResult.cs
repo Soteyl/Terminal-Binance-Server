@@ -11,12 +11,10 @@ namespace Ixcent.CryptoTerminal.Application.Validation
 
         public object? Errors { get; set; }
 
-        public ExchangeToken? ValidatedToken { get; set; }
+        public ExchangeTokenEntity? ValidatedToken { get; set; }
 
-        public static TokenValidationResult Success(ExchangeToken? token)
-            => new TokenValidationResult { ValidatedToken = token, IsSuccess = true };
+        public static TokenValidationResult Success(ExchangeTokenEntity? token) => new() { ValidatedToken = token, IsSuccess = true };
 
-        public static TokenValidationResult Error(ExchangeToken? token, object? errors)
-            => new TokenValidationResult { ValidatedToken = token, IsSuccess = false, Errors = errors };
+        public static TokenValidationResult Error(ExchangeTokenEntity? token, object? errors) => new() { ValidatedToken = token, IsSuccess = false, Errors = errors };
     }
 }

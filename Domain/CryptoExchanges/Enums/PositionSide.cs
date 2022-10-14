@@ -11,13 +11,13 @@ namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
             Values.Add(value, this);
         }
 
-        public static SortedList<byte, IAdvancedEnum> Values { get; } = new SortedList<byte, IAdvancedEnum>();
+        public static SortedList<byte, IAdvancedEnum> Values { get; } = new();
 
-        public static PositionSide Short { get; } = new PositionSide(0, nameof(Short));
+        public static PositionSide Short { get; } = new(0, nameof(Short));
 
-        public static PositionSide Long { get; } = new PositionSide(1, nameof(Long));
+        public static PositionSide Long { get; } = new(1, nameof(Long));
 
-        public static PositionSide Both { get; } = new PositionSide(1, nameof(Both));
+        public static PositionSide Both { get; } = new(1, nameof(Both));
 
         public string Name { get; }
 
