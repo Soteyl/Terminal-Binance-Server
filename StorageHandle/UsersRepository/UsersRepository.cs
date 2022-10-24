@@ -1,40 +1,39 @@
 ﻿using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.StorageHandle;
 
+using Microsoft.AspNetCore.Identity;
+
 namespace Ixcent.CryptoTerminal.Application.Users
 {
     public class UsersRepository : IUsersRepository
     {
         public CryptoTerminalContext _context;
-
-        public async Task Create(params AppUser[] users)
-        {
-            await _context.Users.AddRangeAsync(users);
-            await _context.SaveChangesAsync();
-        }
         
-        public Task<IEnumerable<AppUser>> Read()
+        public Task<IdentityResult> Create(AppUser user, string password)
         {
-            return Task.FromResult(_context.Users.ToList().AsEnumerable());
-        }
-        
-        public Task<IEnumerable<AppUser>> Read(Func<AppUser, bool> expression)
-        {
-            return Task.FromResult(_context.Users.ToList().AsEnumerable());
+            throw new NotImplementedException();
         }
 
-        public async Task Delete(params AppUser[] users)
+        public Task<IQueryable<AppUser>> Read()
         {
-            _context.Users.RemoveRange(users);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task Update(params AppUser[] users)
-        {
-            _context.Users.UpdateRange(users);
-            await _context.SaveChangesAsync();
+            return Task.FromResult(_context.Users.ToList().AsQueryable());
         }
         
+        public Task<IQueryable<AppUser>> Read(Func<AppUser, bool> expression)
+        {
+            return Task.FromResult(_context.Users.ToList().AsQueryable());
+        }
+
+        public Task Delete(AppUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(AppUser user)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
 }
