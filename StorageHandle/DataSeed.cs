@@ -30,7 +30,6 @@ namespace Ixcent.CryptoTerminal.StorageHandle
                 Id = 0,
                 Name = "Binance"
             });
-
         }
     }
 }

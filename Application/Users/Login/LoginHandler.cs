@@ -34,7 +34,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Login
 
             if (user == null)
             {
-                throw new ServerException(ServerResponseCode.UnAuthorized, "Invalid login/password");
+                throw new ServerException(ServerResponseCode.UserFailedToAuthorize, "Invalid login/password");
             }
 
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
@@ -49,7 +49,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Login
                 };
             }
 
-            throw new ServerException(ServerResponseCode.Unknown);
+            throw new ServerException(ServerResponseCode.UnknownError);
         }
     }
 }

@@ -26,10 +26,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
         {
 
             if (!_exchangesValidators.ContainsKey(exchangeName))
-                throw new ServerException(System.Net.HttpStatusCode.BadRequest, ServerResponseCode.NotFound, new
-                {
-                    Exchange = "Wrong exchange name!"
-                });
+                throw new ServerException(ServerResponseCode.MissingApiToken, "Wrong exchange name!");
             return await _exchangesValidators[exchangeName].Validate(key, secret);
         }
 

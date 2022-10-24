@@ -50,9 +50,7 @@ namespace Ixcent.CryptoTerminal.Application.Validation
             TokenValidationResult? result = await Validate();
             if (result.IsSuccess == false)
             {
-                throw new ServerException(System.Net.HttpStatusCode.BadRequest,
-                                        ServerResponseCode.BadExchangeToken,
-                                        result.Errors);
+                throw new ServerException(ServerResponseCode.InvalidApiToken,(string)result.Errors);
             }
             return result;
         }
