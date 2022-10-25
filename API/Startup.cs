@@ -6,15 +6,20 @@ using FluentValidation.AspNetCore;
 
 using Ixcent.CryptoTerminal.Api.Additional;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
+using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Services;
 using Ixcent.CryptoTerminal.Application.Interfaces;
 using Ixcent.CryptoTerminal.Application.Mediatr;
+using Ixcent.CryptoTerminal.Application.Users;
 using Ixcent.CryptoTerminal.Application.Users.Login;
+using Ixcent.CryptoTerminal.Application.Users.Registration;
+using Ixcent.CryptoTerminal.Application.Users.Services;
 using Ixcent.CryptoTerminal.Application.Validation;
 using Ixcent.CryptoTerminal.Domain.Auth;
 using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.Infrastructure;
 using Ixcent.CryptoTerminal.StorageHandle;
 using Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens;
+using Ixcent.CryptoTerminal.StorageHandle.UserRepository;
 
 using MediatR;
 
@@ -73,6 +78,14 @@ namespace Ixcent.CryptoTerminal.Api
                 options.OperationFilter<FormatXmlCommentProperties>();
                 options.CustomSchemaIds(type => type.ToString());
             });
+            
+            // Users service
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserManagerRepository>();
+            // Exchanges services
+            services.AddScoped<ExchangesValidatorByToken>();
+            services.AddScoped<IExchangeTokenService, ExchangeTokensService>();
+            services.AddScoped<IExchangeTokenRepository, EntityFrameworkExchangeTokensRepository>();
 
             // Make "Application" assembly - main handler of all queries.
             services.AddMediatR(typeof(LoginHandler).Assembly);
@@ -110,8 +123,7 @@ namespace Ixcent.CryptoTerminal.Api
                 });
 
             // Add user accessor
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();;
             // Auto mapper
             MapperConfiguration? mapperConfig = new(mc =>
             {
@@ -127,7 +139,6 @@ namespace Ixcent.CryptoTerminal.Api
             //! OR THIS (basic)
             services.AddAuthorization();
 
-            services.AddScoped<IExchangeTokenRepository, EntityFrameworkExchangeTokensRepository>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddSingleton<DepthMarket>();
 

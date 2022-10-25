@@ -1,15 +1,21 @@
 ﻿using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.StorageHandle;
+using Ixcent.CryptoTerminal.StorageHandle.UserRepository;
 
 using Microsoft.AspNetCore.Identity;
 
 namespace Ixcent.CryptoTerminal.Application.Users
 {
-    public class UsersRepository : IUsersRepository
+    internal class UserRepository 
     {
         public CryptoTerminalContext _context;
         
         public Task<IdentityResult> Create(AppUser user, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<AppUser?> GetOneByMail(string mail)
         {
             throw new NotImplementedException();
         }

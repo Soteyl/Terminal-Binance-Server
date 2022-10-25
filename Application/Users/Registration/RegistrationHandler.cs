@@ -1,29 +1,24 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Ixcent.CryptoTerminal.StorageHandle;
-using Ixcent.CryptoTerminal.Domain.Database;
-using Ixcent.CryptoTerminal.Application.Interfaces;
+﻿using Ixcent.CryptoTerminal.Application.Mediatr;
 using Ixcent.CryptoTerminal.Application.Users.Services;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Registration
 {
-    public class RegistrationHandler : IRequestHandler<RegistrationCommand, User>
+    public class RegistrationHandler : IRequestHandlerBase<RegistrationCommand, User>
     {
-        private readonly UsersService _service;
+        private readonly IUserService _service;
 
-        // TODO : make UsersService as singleton
-        public RegistrationHandler(CryptoTerminalContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IJwtGenerator jwtGenerator)
+        public RegistrationHandler(IUserService service)
         {
-            _service = new UsersService(context, userManager, signInManager, jwtGenerator);
+            _service = service;
         }
 
-        public async Task<User> Handle(RegistrationCommand request, CancellationToken cancellationToken)
+        public async Task<Response<User>> Handle(RegistrationCommand request, CancellationToken cancellationToken)
         {
-            return await _service.Register(
-                email: request.Email, 
-                username: request.UserName, 
-                password: request.Password
-                );
+            return await _service.Register(new RegisterData {
+                Email = request.Email, 
+                UserName = request.UserName, 
+                Password = request.Password
+            });
         }
     }
 }

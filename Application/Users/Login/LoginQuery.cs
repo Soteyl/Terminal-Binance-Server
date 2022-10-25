@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using Ixcent.CryptoTerminal.Application.Mediatr;
+
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Login
 {
-    public class LoginQuery : IRequest<User>
+    public class LoginQuery : IRequestBase<User>
     {
         public string Email { get; set; } = string.Empty;
 

@@ -1,12 +1,14 @@
 ﻿using Ixcent.CryptoTerminal.Domain.Database;
+
 using Microsoft.AspNetCore.Identity;
 
-namespace Ixcent.CryptoTerminal.Application.Users
+namespace Ixcent.CryptoTerminal.StorageHandle.UserRepository
 {
     
-    public interface IUsersRepository
+    public interface IUserRepository
     {
         public Task<IdentityResult> Create(AppUser user, string password);
+        public Task<AppUser?> GetOneByMail(string mail);
         public Task<IQueryable<AppUser>> Read();
         public Task<IQueryable<AppUser>> Read(Func<AppUser, bool> expression);
         public Task Delete(AppUser user);

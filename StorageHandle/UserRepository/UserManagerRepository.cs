@@ -1,17 +1,17 @@
-﻿using Ixcent.CryptoTerminal.Domain.Database;
-using Ixcent.CryptoTerminal.StorageHandle;
+﻿using Ixcent.CryptoTerminal.Application.Users;
+using Ixcent.CryptoTerminal.Domain.Database;
 
 using Microsoft.AspNetCore.Identity;
 
-namespace Ixcent.CryptoTerminal.Application.Users
+namespace Ixcent.CryptoTerminal.StorageHandle.UserRepository
 {
-    public class UsersManagerRepository : IUsersRepository
+    public class UserManagerRepository : IUserRepository
     {
         private UserManager<AppUser> _userManager;
 
         private CryptoTerminalContext _context;
 
-        public UsersManagerRepository(CryptoTerminalContext context, UserManager<AppUser> userManager)
+        public UserManagerRepository(CryptoTerminalContext context, UserManager<AppUser> userManager)
         {
             _userManager = userManager;
             _context = context;
@@ -22,6 +22,11 @@ namespace Ixcent.CryptoTerminal.Application.Users
             return _userManager.CreateAsync(user, password);
         }
 
+        public Task<AppUser?> GetOneByMail(string mail)
+        {
+            return Task.FromResult(_context.Users.FirstOrDefault(u => u.Email == mail));
+        }
+
         public Task<IQueryable<AppUser>> Read()
         {
             return Task.FromResult(_context.Users.ToList().AsQueryable());
@@ -29,7 +34,7 @@ namespace Ixcent.CryptoTerminal.Application.Users
 
         public Task<IQueryable<AppUser>> Read(Func<AppUser, bool> expression)
         {
-            return Task.FromResult(_context.Users.ToList().AsQueryable());
+            return Task.FromResult(_context.Users.Where(expression).AsQueryable());
         }
 
         public async Task Delete(AppUser user)

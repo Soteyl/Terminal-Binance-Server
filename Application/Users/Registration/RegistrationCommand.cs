@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using Ixcent.CryptoTerminal.Application.Mediatr;
+
+using MediatR;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Registration
 {
-    public class RegistrationCommand : IRequest<User>
+    public class RegistrationCommand : IRequestBase<User>
     {
         public string UserName { get; set; } = string.Empty;
 

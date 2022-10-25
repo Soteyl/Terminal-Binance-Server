@@ -1,4 +1,5 @@
-﻿using Ixcent.CryptoTerminal.Application.Users;
+﻿using Ixcent.CryptoTerminal.Application.Mediatr;
+using Ixcent.CryptoTerminal.Application.Users;
 using Ixcent.CryptoTerminal.Application.Users.Login;
 using Ixcent.CryptoTerminal.Application.Users.Registration;
 
@@ -33,7 +34,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<User>> RegisterAsync(RegistrationCommand command)
+        public async Task<ActionResult<Response<User>>> RegisterAsync(RegistrationCommand command)
         {
             return await Mediator.Send(command);
         }
@@ -48,7 +49,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<User>> LoginAsync(LoginQuery command)
+        public async Task<ActionResult<Response<User>>> LoginAsync(LoginQuery command)
         {
             return await Mediator.Send(command);
         }
