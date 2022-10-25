@@ -1,5 +1,5 @@
 ﻿using Ixcent.CryptoTerminal.Application.Exceptions;
-using Ixcent.CryptoTerminal.Application.Status;
+using Ixcent.CryptoTerminal.Domain.Common;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {

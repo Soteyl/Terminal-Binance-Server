@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.StorageHandle;
-using Ixcent.CryptoTerminal.Application.Status;
 using Ixcent.CryptoTerminal.Application.Exceptions;
-using Ixcent.CryptoTerminal.Application.Interfaces;
-using Ixcent.CryptoTerminal.Application.Mediatr;
-using Ixcent.CryptoTerminal.StorageHandle.UserRepository;
+using Ixcent.CryptoTerminal.Domain.Common;
+using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Common.Models;
+using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Users.Models.Service;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Services
 {
@@ -80,18 +81,5 @@ namespace Ixcent.CryptoTerminal.Application.Users.Services
 
             return Response.WithError<User>(ServerResponseCode.UserFailedToAuthorize);
         }
-    }
-
-    public class RegisterData
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string UserName { get; set; }
-    }
-
-    public class LoginData
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

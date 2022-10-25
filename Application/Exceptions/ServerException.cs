@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-using Ixcent.CryptoTerminal.Application.Status;
+using Ixcent.CryptoTerminal.Domain.Common;
 
 namespace Ixcent.CryptoTerminal.Application.Exceptions
 {

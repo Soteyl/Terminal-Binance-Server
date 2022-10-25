@@ -1,5 +1,6 @@
 ﻿using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
+using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
