@@ -1,6 +1,7 @@
 ﻿using Ixcent.CryptoTerminal.Application.Users;
 using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
+using Ixcent.CryptoTerminal.Storage;
 
 using Microsoft.AspNetCore.Identity;
 

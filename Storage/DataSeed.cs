@@ -3,7 +3,7 @@ using Ixcent.CryptoTerminal.Domain.Database.Models;
 
 using Microsoft.AspNetCore.Identity;
 
-namespace Ixcent.CryptoTerminal.StorageHandle
+namespace Ixcent.CryptoTerminal.Storage
 {
     public static class DataSeed
     {

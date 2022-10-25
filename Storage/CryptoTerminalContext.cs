@@ -5,7 +5,7 @@ using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ixcent.CryptoTerminal.StorageHandle
+namespace Ixcent.CryptoTerminal.Storage
 {
     /// <summary>
     /// Main database context.

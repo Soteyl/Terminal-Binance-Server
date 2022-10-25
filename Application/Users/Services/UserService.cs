@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Ixcent.CryptoTerminal.Domain.Database;
-using Ixcent.CryptoTerminal.StorageHandle;
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Domain.Common;
 using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Users.Models.Service;
+using Ixcent.CryptoTerminal.Storage;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Services
 {

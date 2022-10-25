@@ -1,4 +1,4 @@
-﻿using Ixcent.CryptoTerminal.StorageHandle;
+﻿using Ixcent.CryptoTerminal.Storage;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {

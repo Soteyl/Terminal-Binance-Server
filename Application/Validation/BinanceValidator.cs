@@ -1,7 +1,7 @@
 ﻿using Binance.Net;
 using Binance.Net.Objects.Other;
 
-using Ixcent.CryptoTerminal.StorageHandle;
+using Ixcent.CryptoTerminal.Storage;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {

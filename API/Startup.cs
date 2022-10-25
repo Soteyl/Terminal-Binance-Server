@@ -18,6 +18,7 @@ using Ixcent.CryptoTerminal.Domain.Common.Services;
 using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
+using Ixcent.CryptoTerminal.Storage;
 using Ixcent.CryptoTerminal.StorageHandle;
 using Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens;
 using Ixcent.CryptoTerminal.StorageHandle.UserRepository;

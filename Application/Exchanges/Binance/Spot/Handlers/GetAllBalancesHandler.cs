@@ -9,7 +9,7 @@ using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Repository;
-using Ixcent.CryptoTerminal.StorageHandle;
+using Ixcent.CryptoTerminal.Storage;
 
 using MediatR;
 
