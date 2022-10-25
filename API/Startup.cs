@@ -4,19 +4,20 @@ using AutoMapper;
 
 using FluentValidation.AspNetCore;
 
-using Ixcent.CryptoTerminal.Api.Additional;
+using Ixcent.CryptoTerminal.Api.Extensions;
+using Ixcent.CryptoTerminal.Api.Swagger;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
-using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Services;
-using Ixcent.CryptoTerminal.Application.Interfaces;
-using Ixcent.CryptoTerminal.Application.Mediatr;
+using Ixcent.CryptoTerminal.Application.ExchangeTokens.Services;
 using Ixcent.CryptoTerminal.Application.Users;
-using Ixcent.CryptoTerminal.Application.Users.Login;
-using Ixcent.CryptoTerminal.Application.Users.Registration;
+using Ixcent.CryptoTerminal.Application.Users.Handlers;
 using Ixcent.CryptoTerminal.Application.Users.Services;
 using Ixcent.CryptoTerminal.Application.Validation;
-using Ixcent.CryptoTerminal.Domain.Auth;
+using Ixcent.CryptoTerminal.Domain.Common.Configs;
+using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Common.Services;
 using Ixcent.CryptoTerminal.Domain.Database;
-using Ixcent.CryptoTerminal.Infrastructure;
+using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
 using Ixcent.CryptoTerminal.StorageHandle;
 using Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens;
 using Ixcent.CryptoTerminal.StorageHandle.UserRepository;
@@ -75,7 +76,7 @@ namespace Ixcent.CryptoTerminal.Api
                     opt.UseXmlComments(xmlFilename);
                 });
                 options.IncludeXmlComments(xmlFilename);
-                options.OperationFilter<FormatXmlCommentProperties>();
+                options.OperationFilter<FormatXmlCommentFilter>();
                 options.CustomSchemaIds(type => type.ToString());
             });
             

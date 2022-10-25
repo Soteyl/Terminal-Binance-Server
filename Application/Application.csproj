@@ -24,4 +24,9 @@
     <ProjectReference Include="..\StorageHandle\StorageHandle.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exchanges\Tokens\Models" />
+    <Folder Include="ExchangeTokens" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using Ixcent.CryptoTerminal.Infrastructure;
+﻿using Ixcent.CryptoTerminal.Domain.Common.Models;
 
 using Microsoft.AspNetCore.SignalR;
 

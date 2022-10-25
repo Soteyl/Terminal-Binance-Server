@@ -1,4 +1,4 @@
-﻿using Ixcent.CryptoTerminal.Domain.Interfaces;
+﻿using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 
 namespace Ixcent.CryptoTerminal.Domain.CryptoExchanges.Enums
 {

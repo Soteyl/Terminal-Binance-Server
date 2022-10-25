@@ -1,7 +1,7 @@
-﻿using Ixcent.CryptoTerminal.Application.Mediatr;
-using Ixcent.CryptoTerminal.Application.Users;
-using Ixcent.CryptoTerminal.Application.Users.Login;
-using Ixcent.CryptoTerminal.Application.Users.Registration;
+﻿using Ixcent.CryptoTerminal.Application.Users;
+using Ixcent.CryptoTerminal.Domain.Common.Models;
+using Ixcent.CryptoTerminal.Domain.Users.Models.Contracts;
+using Ixcent.CryptoTerminal.Domain.Users.Models.Service;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +21,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     {
         /// <summary> Register user </summary>
         /// <remarks> POST Url: <c>api/users/register</c> </remarks>
-        /// <param name="command">Registration info</param>
+        /// <param name="query">Registration info</param>
         /// <returns><see cref="User"/> or <see cref="BadRequestObjectResult"/></returns>
         /// 
         /// <response code="200">Sucessful register</response>
@@ -34,9 +34,9 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Response<User>>> RegisterAsync(RegistrationCommand command)
+        public async Task<ActionResult<Response<User>>> RegisterAsync(RegistrationQuery query)
         {
-            return await Mediator.Send(command);
+            return await Mediator.Send(query);
         }
 
         /// <summary> Login user </summary>

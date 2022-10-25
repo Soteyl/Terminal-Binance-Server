@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 
-using Ixcent.CryptoTerminal.Application.Users.Registration;
 using Ixcent.CryptoTerminal.Application.Validators;
+using Ixcent.CryptoTerminal.Domain.Users.Models.Contracts;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {
-    public class RegistrationValidation : AbstractValidator<RegistrationCommand>
+    public class RegistrationValidation : AbstractValidator<RegistrationQuery>
     {
         public RegistrationValidation()
         {

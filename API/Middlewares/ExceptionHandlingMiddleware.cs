@@ -1,8 +1,8 @@
 ﻿using System.Net;
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
-using Ixcent.CryptoTerminal.Application.Mediatr;
-using Ixcent.CryptoTerminal.Application.Status;
+using Ixcent.CryptoTerminal.Domain.Common;
+using Ixcent.CryptoTerminal.Domain.Common.Models;
 
 using Newtonsoft.Json;
 

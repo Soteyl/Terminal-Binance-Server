@@ -1,7 +1,7 @@
 ﻿using System.Net;
 
-using Ixcent.CryptoTerminal.Application.Exchanges.Tokens.Models;
-using Ixcent.CryptoTerminal.Application.Mediatr;
+using Ixcent.CryptoTerminal.Domain.Common.Models;
+using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,9 +62,9 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [HttpGet("token")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Response<ExchangeTokensResult>>> GetTokens()
+        public async Task<ActionResult<Response<GetExchangeTokensResponse>>> GetTokens()
         {
-            Response<ExchangeTokensResult> response =
+            Response<GetExchangeTokensResponse> response =
                 await Mediator.Send(new GetExchangeTokensQuery());
             
             if (response.IsSuccess)
