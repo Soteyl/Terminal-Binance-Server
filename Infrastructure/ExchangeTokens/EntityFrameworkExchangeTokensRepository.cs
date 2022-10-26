@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 
-using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Repository;
 using Ixcent.CryptoTerminal.Storage;
 
-namespace Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens
+namespace Ixcent.CryptoTerminal.Infrastructure.ExchangeTokens
 {
     public class EntityFrameworkExchangeTokensRepository: IExchangeTokenRepository
     {
@@ -20,14 +19,14 @@ namespace Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens
             _mapper = mapper;
         }
         
-        public Task<IEnumerable<ExchangeToken>> GetTokensByUserId(string userId)
+        public Task<IEnumerable<ExchangeToken>> GetTokensByUserId(string userId, CancellationToken cancellationToken = default)
         {
             IQueryable<ExchangeTokenEntity> tokens = _context.ExchangeTokens.Where(t => t.UserId.Equals(userId));
             
             return Task.FromResult((IEnumerable<ExchangeToken>)tokens.Select(t => _mapper.Map<ExchangeToken>(t)));
         }
 
-        public async Task AddToken(string userId, ExchangeToken token)
+        public async Task AddToken(string userId, ExchangeToken token, CancellationToken cancellationToken = default)
         {
             ExchangeTokenEntity? existingToken = _context.ExchangeTokens.FirstOrDefault(
                 t => token.Exchange == t.Exchange &&
@@ -51,10 +50,10 @@ namespace Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens
                     });
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
         
-        public async Task RemoveToken(string userId, string exchange)
+        public async Task RemoveToken(string userId, string exchange, CancellationToken cancellationToken = default)
         {
             ExchangeTokenEntity? possibleToken =
                 _context.ExchangeTokens.FirstOrDefault(t => exchange == t.Exchange
@@ -62,7 +61,7 @@ namespace Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens
 
             _context.ExchangeTokens.Remove(possibleToken);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

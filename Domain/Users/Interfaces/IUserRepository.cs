@@ -9,8 +9,6 @@ namespace Ixcent.CryptoTerminal.Domain.Users.Interfaces
     {
         public Task<IdentityResult> Create(AppUser user, string password);
         public Task<AppUser?> GetOneByMail(string mail);
-        public Task<IQueryable<AppUser>> Read();
-        public Task<IQueryable<AppUser>> Read(Func<AppUser, bool> expression);
         public Task Delete(AppUser user);
         public Task Update(AppUser user);
     }

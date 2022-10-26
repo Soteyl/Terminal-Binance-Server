@@ -2,6 +2,7 @@
 
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Domain.Common;
+using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 using Ixcent.CryptoTerminal.Storage;
@@ -21,8 +22,8 @@ namespace Ixcent.CryptoTerminal.Application
         /// <param name="token">Token to validate</param>
         /// <exception cref="ServerException"></exception>
         public static WebCallResult<T> RemoveTokenAndThrowRestIfInvalid<T>(this WebCallResult<T> source,
-                                                                           CryptoTerminalContext context,
-                                                                           ExchangeTokenEntity token)
+            CryptoTerminalContext context,
+            ExchangeTokenEntity token)
         {
             int[] badTokenCodes = { -2014, -2015, -1022 };
 
@@ -37,6 +38,20 @@ namespace Ixcent.CryptoTerminal.Application
             }
 
             return source;
+        }
+    
+        // TODO add other error codes
+        public static Response<T> ToErrorResponse<T>(this CallResult source)
+        {
+            int[] badTokenCodes = { -2014, -2015, -1022 };
+
+            int? errorCode = source.Error?.Code;
+
+            if (errorCode is null || !badTokenCodes.Contains(errorCode.Value))
+                return Response.WithError<T>(ServerResponseCode.InternalError);
+
+
+            return Response.WithError<T>(ServerResponseCode.InvalidApiToken);
         }
     }
 }

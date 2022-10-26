@@ -28,10 +28,12 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
         /// <summary>
         /// Gets tokens from repository and removes invalid tokens if exist
         /// </summary>
-        public async Task<Response<IEnumerable<CheckedExchangeToken>>> GetTokensByUserId(string userId)
+        // TODO redis cache is required
+        public async Task<Response<IEnumerable<CheckedExchangeToken>>> GetTokensByUserId(string userId,
+            CancellationToken cancellationToken = default)
         {
             List<CheckedExchangeToken> resultTokens = new();
-            IEnumerable<ExchangeToken> tokens = await _repository.GetTokensByUserId(userId);
+            IEnumerable<ExchangeToken> tokens = await _repository.GetTokensByUserId(userId, cancellationToken);
 
             foreach (ExchangeToken? token in tokens)
             {
@@ -44,13 +46,13 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
                     checkedToken.AvailableServices = list;
                     resultTokens.Add(checkedToken);
                 }
-                else await _repository.RemoveToken(userId, token.Exchange);
+                else await _repository.RemoveToken(userId, token.Exchange, cancellationToken);
             }
 
             return Response.Success((IEnumerable<CheckedExchangeToken>)resultTokens);
         }
 
-        public async Task<Response> AddToken(UserExchangeToken token)
+        public async Task<Response> AddToken(UserExchangeToken token, CancellationToken cancellationToken = default)
         {
             if ((await _validator.Validate(token.Key, token.Secret, token.Exchange)).Any() == false)
                 return Response.WithError(ServerResponseCode.InvalidApiToken);
@@ -60,17 +62,18 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
             return Response.Success();
         }
 
-        public async Task<Response> RemoveToken(UserExchange userExchange)
+        public async Task<Response> RemoveToken(UserExchange userExchange,
+            CancellationToken cancellationToken = default)
         {
-            IEnumerable<ExchangeToken> possibleTokens 
-                = await _repository.GetTokensByUserId(userExchange.UserId);
-            
+            IEnumerable<ExchangeToken> possibleTokens
+                = await _repository.GetTokensByUserId(userExchange.UserId, cancellationToken);
+
             if (!possibleTokens.Any(t => t.Exchange.Equals(userExchange.Exchange)))
             {
                 return Response.WithError(ServerResponseCode.MissingApiToken);
             }
 
-            await _repository.RemoveToken(userExchange.UserId, userExchange.Exchange);
+            await _repository.RemoveToken(userExchange.UserId, userExchange.Exchange, cancellationToken);
             return Response.Success();
         }
     }

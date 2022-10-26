@@ -1,17 +1,16 @@
-﻿using Ixcent.CryptoTerminal.Application.Users;
-using Ixcent.CryptoTerminal.Domain.Database;
+﻿using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
 using Ixcent.CryptoTerminal.Storage;
 
 using Microsoft.AspNetCore.Identity;
 
-namespace Ixcent.CryptoTerminal.StorageHandle.UserRepository
+namespace Ixcent.CryptoTerminal.Infrastructure.User
 {
     public class UserManagerRepository : IUserRepository
     {
-        private UserManager<AppUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        private CryptoTerminalContext _context;
+        private readonly CryptoTerminalContext _context;
 
         public UserManagerRepository(CryptoTerminalContext context, UserManager<AppUser> userManager)
         {
@@ -28,17 +27,7 @@ namespace Ixcent.CryptoTerminal.StorageHandle.UserRepository
         {
             return Task.FromResult(_context.Users.FirstOrDefault(u => u.Email == mail));
         }
-
-        public Task<IQueryable<AppUser>> Read()
-        {
-            return Task.FromResult(_context.Users.ToList().AsQueryable());
-        }
-
-        public Task<IQueryable<AppUser>> Read(Func<AppUser, bool> expression)
-        {
-            return Task.FromResult(_context.Users.Where(expression).AsQueryable());
-        }
-
+        
         public async Task Delete(AppUser user)
         { 
             _context.Users.Remove(user);

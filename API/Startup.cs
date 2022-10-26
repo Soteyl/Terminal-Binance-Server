@@ -8,7 +8,6 @@ using Ixcent.CryptoTerminal.Api.Extensions;
 using Ixcent.CryptoTerminal.Api.Swagger;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
 using Ixcent.CryptoTerminal.Application.ExchangeTokens.Services;
-using Ixcent.CryptoTerminal.Application.Users;
 using Ixcent.CryptoTerminal.Application.Users.Handlers;
 using Ixcent.CryptoTerminal.Application.Users.Services;
 using Ixcent.CryptoTerminal.Application.Validation;
@@ -18,10 +17,9 @@ using Ixcent.CryptoTerminal.Domain.Common.Services;
 using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
+using Ixcent.CryptoTerminal.Infrastructure.ExchangeTokens;
+using Ixcent.CryptoTerminal.Infrastructure.User;
 using Ixcent.CryptoTerminal.Storage;
-using Ixcent.CryptoTerminal.StorageHandle;
-using Ixcent.CryptoTerminal.StorageHandle.ExchangeTokens;
-using Ixcent.CryptoTerminal.StorageHandle.UserRepository;
 
 using MediatR;
 
@@ -45,13 +43,13 @@ namespace Ixcent.CryptoTerminal.Api
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CryptoTerminalContext>(opt =>
             {
-                MySqlServerVersion? serverVersion = new(new Version(8, 0, 27));
+                MySqlServerVersion serverVersion = new(new Version(8, 0, 27));
                 string connection = Configuration.GetConnectionString("DefaultConnection");
                 opt.UseMySql(connection, serverVersion);
             });
@@ -125,15 +123,9 @@ namespace Ixcent.CryptoTerminal.Api
                 });
 
             // Add user accessor
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();;
-            // Auto mapper
-            MapperConfiguration? mapperConfig = new(mc =>
-            {
-                // Possible to add profiles here
-            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             //! these lines are for configuring authorization
             //! use ONLY this line (ip check) (also requires line inside AddControllers block)
@@ -153,7 +145,7 @@ namespace Ixcent.CryptoTerminal.Api
             {
                 // Only authorized users
                 opt.EnableEndpointRouting = false;
-                AuthorizationPolicy? policy = new AuthorizationPolicyBuilder()
+                AuthorizationPolicy policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
                 //opt.Filters.Add(new AuthorizeFilter("SameIpPolicy"));
