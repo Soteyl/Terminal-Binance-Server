@@ -7,6 +7,9 @@ using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Repository;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Service;
 
+using UserExchange = Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Service.UserExchange;
+using RepositoryUserExchange = Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Repository.UserExchange;
+
 namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
 {
     public class ExchangeTokensService : IExchangeTokenService
@@ -33,7 +36,7 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
             CancellationToken cancellationToken = default)
         {
             List<CheckedExchangeToken> resultTokens = new();
-            IEnumerable<ExchangeToken> tokens = await _repository.GetTokensByUserId(userId, cancellationToken);
+            IEnumerable<ExchangeToken> tokens = await _repository.Get(userId, cancellationToken);
 
             foreach (ExchangeToken? token in tokens)
             {
@@ -46,7 +49,12 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
                     checkedToken.AvailableServices = list;
                     resultTokens.Add(checkedToken);
                 }
-                else await _repository.RemoveToken(userId, token.Exchange, cancellationToken);
+                
+                else await _repository.Remove(new RepositoryUserExchange
+                {
+                    UserId = userId,
+                    Exchange = token.Exchange
+                }, cancellationToken);
             }
 
             return Response.Success((IEnumerable<CheckedExchangeToken>)resultTokens);
@@ -57,7 +65,7 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
             if ((await _validator.Validate(token.Key, token.Secret, token.Exchange)).Any() == false)
                 return Response.WithError(ServerResponseCode.InvalidApiToken);
 
-            await _repository.AddToken(token.UserId, _mapper.Map<ExchangeToken>(token));
+            await _repository.Add(token.UserId, _mapper.Map<ExchangeToken>(token));
 
             return Response.Success();
         }
@@ -66,14 +74,14 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
             CancellationToken cancellationToken = default)
         {
             IEnumerable<ExchangeToken> possibleTokens
-                = await _repository.GetTokensByUserId(userExchange.UserId, cancellationToken);
+                = await _repository.Get(userExchange.UserId, cancellationToken);
 
             if (!possibleTokens.Any(t => t.Exchange.Equals(userExchange.Exchange)))
             {
                 return Response.WithError(ServerResponseCode.MissingApiToken);
             }
 
-            await _repository.RemoveToken(userExchange.UserId, userExchange.Exchange, cancellationToken);
+            await _repository.Remove(_mapper.Map<RepositoryUserExchange>(userExchange), cancellationToken);
             return Response.Success();
         }
     }

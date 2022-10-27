@@ -23,9 +23,9 @@ namespace Ixcent.CryptoTerminal.Infrastructure.User
             return _userManager.CreateAsync(user, password);
         }
 
-        public Task<AppUser?> GetOneByMail(string mail)
+        public Task<AppUser> GetOneByMail(string mail)
         {
-            return Task.FromResult(_context.Users.FirstOrDefault(u => u.Email == mail));
+            return _userManager.FindByEmailAsync(mail);
         }
         
         public async Task Delete(AppUser user)

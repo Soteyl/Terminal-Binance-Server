@@ -22,6 +22,8 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Services
         {
             Response<IEnumerable<CheckedExchangeToken>> tokens =
                 await _tokenService.GetTokensByUserId(userId, cancellationToken);
+            
+            if (!tokens.IsSuccess || tokens.Result.)
 
             throw new NotImplementedException();
         }

@@ -4,11 +4,13 @@ namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces
 {
     public interface IExchangeTokenRepository
     {
-        Task<IEnumerable<ExchangeToken>> GetTokensByUserId(string userId, CancellationToken cancellationToken = default);
+        Task<GetTokensResult> Get(GetTokensRequest request, CancellationToken cancellationToken = default);
 
-        Task AddToken(string userId, ExchangeToken token, CancellationToken cancellationToken = default);
+        Task<GetOneTokenResult> GetOne(GetOneTokenRequest request, CancellationToken cancellationToken = default);
+
+        Task Add(AddTokenRequest request, CancellationToken cancellationToken = default);
         
         /// <exception cref="InvalidOperationException">Couldn't find a token</exception>
-        Task RemoveToken(string userId, string exchange, CancellationToken cancellationToken = default);
+        Task Remove(RemoveTokenRequest request, CancellationToken cancellationToken = default);
     }
 }

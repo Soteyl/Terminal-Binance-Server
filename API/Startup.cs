@@ -2,6 +2,7 @@
 
 using AutoMapper;
 
+using FluentValidation;
 using FluentValidation.AspNetCore;
 
 using Ixcent.CryptoTerminal.Api.Extensions;
@@ -58,6 +59,10 @@ namespace Ixcent.CryptoTerminal.Api
             identityBuilder.AddRoles<IdentityRole>();
             identityBuilder.AddEntityFrameworkStores<CryptoTerminalContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+            });
 
             services.AddSwaggerGen(options =>
             {
@@ -78,6 +83,8 @@ namespace Ixcent.CryptoTerminal.Api
                 options.OperationFilter<FormatXmlCommentFilter>();
                 options.CustomSchemaIds(type => type.ToString());
             });
+
+            services.AddScoped<IValidatorResolver, ValidatorResolver>();
             
             // Users service
             services.AddScoped<IUserService, UserService>();
@@ -126,6 +133,7 @@ namespace Ixcent.CryptoTerminal.Api
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
             
             //! these lines are for configuring authorization
             //! use ONLY this line (ip check) (also requires line inside AddControllers block)
@@ -135,11 +143,6 @@ namespace Ixcent.CryptoTerminal.Api
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddSingleton<DepthMarket>();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-            });
 
             IMvcBuilder mvcBuilder = services.AddControllers(opt =>
             {
@@ -156,8 +159,6 @@ namespace Ixcent.CryptoTerminal.Api
             {
                 options.SuppressMapClientErrors = true;
             });
-            mvcBuilder.AddFluentValidation(fv =>
-                fv.RegisterValidatorsFromAssembly(typeof(AddExchangeTokenCommandValidator).Assembly));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
