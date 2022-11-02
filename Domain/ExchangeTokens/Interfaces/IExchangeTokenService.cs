@@ -5,8 +5,7 @@ namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces
 {
     public interface IExchangeTokenService
     {
-        Task<Response<IEnumerable<CheckedExchangeToken>>> GetTokensByUserId(string userId,
-            CancellationToken cancellationToken = default);
+        Task<Response<IEnumerable<CheckedExchangeToken>>> Get(UserId userId, CancellationToken cancellationToken = default);
 
         Task<Response> AddToken(UserExchangeToken token, CancellationToken cancellationToken = default);
 

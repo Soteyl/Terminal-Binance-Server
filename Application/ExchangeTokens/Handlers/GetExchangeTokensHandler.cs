@@ -17,28 +17,26 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
 
         private readonly ExchangesValidatorByToken _validator;
 
-        private readonly IExchangeTokenService _service;
+        private readonly IExchangeTokenService _tokenService;
 
-        public GetExchangeTokensHandler(IHttpContextAccessor contextAccessor, 
-                                        IExchangeTokenService service)
+        public GetExchangeTokensHandler(IHttpContextAccessor contextAccessor, IExchangeTokenService service)
         {
             _contextAccessor = contextAccessor;
-            _service = service;
+            _tokenService = service;
             _validator = ExchangesValidator.ByToken();
         }
 
-        public async Task<Response<GetExchangeTokensResponse>> Handle(GetExchangeTokensQuery request,
-            CancellationToken cancellationToken)
+        public async Task<Response<GetExchangeTokensResponse>> Handle(GetExchangeTokensQuery request, CancellationToken cancellationToken)
         {
             GetExchangeTokensResponse response = new();
             string? userId = _contextAccessor.GetCurrentUserId();
 
-            Response<IEnumerable<CheckedExchangeToken>> tokens = await _service.GetTokensByUserId(userId);
+            Response<IEnumerable<CheckedExchangeToken>> tokens = await _tokenService.Get(new UserId() { Value = userId }, cancellationToken);
+
             if (!tokens.IsSuccess)
                 return Response.WithError<GetExchangeTokensResponse>(tokens.Error?.StatusCode);
 
-            tokens.Result.ForEach(t =>
-                response.AvailableExchanges.Add(t.Exchange, t.AvailableServices));
+            tokens.Result.ForEach(t => response.AvailableExchanges.Add(t.Exchange, t.AvailableServices));
 
             return Response.Success(response);
         }
