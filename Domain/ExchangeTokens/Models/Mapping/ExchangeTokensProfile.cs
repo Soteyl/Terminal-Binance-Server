@@ -8,8 +8,8 @@ namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Mapping
     {
         public ExchangeTokensProfile()
         {
-            CreateMap<Contracts.AddExchangeTokenQuery, Service.UserExchangeToken>();
-            CreateMap<Repository.UserExchange, Service.UserExchange>().ReverseMap();
+            CreateMap<Contracts.AddExchangeTokenQuery, Service.AddTokenRequest>();
+            CreateMap<Repository.UserExchange, Service.RemoveTokenRequest>().ReverseMap();
 
             CreateMap<Repository.AddTokenRequest, ExchangeTokenEntity>()
                 .ForMember(s => s.Key, o => o.MapFrom(d => d.Token.Key))

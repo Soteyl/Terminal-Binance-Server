@@ -31,13 +31,13 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
         {
             string userId = _contextAccessor.GetCurrentUserId();
 
-            var userExchange = new UserExchange
+            var userExchange = new RemoveTokenRequest
             {
                 Exchange = request.Exchange,
                 UserId = userId
             };
 
-            Response response = await _service.RemoveToken(userExchange, cancellationToken);
+            Response response = await _service.Remove(userExchange, cancellationToken);
 
             return response;
         }

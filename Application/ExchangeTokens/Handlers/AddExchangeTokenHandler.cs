@@ -38,10 +38,10 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
         {
             string currentUserId = _contextAccessor.GetCurrentUserId();
 
-            UserExchangeToken token = _mapper.Map<UserExchangeToken>(request);
-            token.UserId = currentUserId;
+            AddTokenRequest tokenRequest = _mapper.Map<AddTokenRequest>(request);
+            tokenRequest.UserId = currentUserId;
 
-            Response response = await _service.AddToken(token);
+            Response response = await _service.Add(tokenRequest, cancellationToken);
             
             return response;
         }

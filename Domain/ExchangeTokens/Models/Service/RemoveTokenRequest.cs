@@ -1,6 +1,6 @@
 ﻿namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Service
 {
-    public class UserExchange
+    public class RemoveTokenRequest
     {
         public string UserId { get; set; }
         

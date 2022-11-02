@@ -1,5 +1,5 @@
 namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Service;
 
-public class UserId {
-    public string Value { get; set; }
+public class GetTokensRequest {
+    public string UserId { get; set; }
 }
