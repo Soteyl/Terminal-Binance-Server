@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 
 using Ixcent.CryptoTerminal.Application.Validators;
-using Ixcent.CryptoTerminal.Domain.Users.Models.Contracts;
+using Ixcent.CryptoTerminal.Domain.Users.Models.Handler;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {

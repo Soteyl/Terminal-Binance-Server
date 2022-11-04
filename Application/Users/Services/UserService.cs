@@ -27,12 +27,12 @@ namespace Ixcent.CryptoTerminal.Application.Users.Services
 
         public async Task<Response<User>> Register(RegisterData data)
         {
-            if (await _repository.GetOneByMail(data.Email) != null)
+            if (await _repository.GetOneByEmail(data.Email) != null)
             {
                 return Response.WithError<User>(ServerResponseCode.InvalidApiToken);
             }
 
-            if (await _repository.GetOneByMail(data.Email) != null)
+            if (await _repository.GetOneByEmail(data.Email) != null)
             {
                 return Response.WithError<User>(ServerResponseCode.UserAlreadyExists);
             }
@@ -43,11 +43,10 @@ namespace Ixcent.CryptoTerminal.Application.Users.Services
                 UserName = data.UserName
             };
             
-            IdentityResult result = await _repository.Create(user, data.Password);
+            IdentityResult result = await _repository.Register(user, data.Password);
             
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "user");
                 return Response.Success(new User
                 {
                     Token = _jwtGenerator.CreateToken(user),
@@ -60,7 +59,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Services
 
         public async Task<Response<User>> Login(LoginData data)
         {
-            AppUser? user = await _repository.GetOneByMail(data.Email);
+            AppUser? user = await _repository.GetOneByEmail(data.Email);
 
             if (user == null)
             {

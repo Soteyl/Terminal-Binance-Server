@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Exchanges\Binance\Spot\Models\Service" />
+    <Folder Include="Users\Models\Controller" />
   </ItemGroup>
 
 </Project>

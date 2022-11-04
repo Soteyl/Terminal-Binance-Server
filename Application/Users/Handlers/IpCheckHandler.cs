@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-using Ixcent.CryptoTerminal.Domain.Users.Models.Contracts;
+using Ixcent.CryptoTerminal.Domain.Users.Models.Handler;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
