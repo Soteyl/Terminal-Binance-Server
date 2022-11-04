@@ -1,8 +1,10 @@
 ﻿using System.Net;
 
-using Ixcent.CryptoTerminal.Domain.Common.Models;
-using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts;
+using AutoMapper;
 
+using Ixcent.CryptoTerminal.Domain.Common.Models;
+using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler;
+using Controller = Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Controller;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
@@ -18,6 +20,14 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
     [Route("api/[controller]")]
     public class ExchangesController : BaseController
     {
+        private readonly IMapper _mapper;
+
+        public ExchangesController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+        
+        
         /// <summary> Adds or updates an exchange token into a server database </summary>
         /// <remarks> POST Url: <c>api/exchanges/token</c> </remarks>
         /// <param name="command">token key, secret, exchange name</param>
@@ -32,9 +42,12 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [HttpPost("token")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Add(AddExchangeTokenQuery command)
+        public async Task<ActionResult> Add(Controller.AddExchangeTokenQuery command)
         {
-            await Mediator.Send(command);
+            var query = _mapper.Map<AddExchangeTokenQuery>(command);
+            query.UserId = GetUserId();
+            
+            await Mediator.Send(query);
             return NoContent();
         }
 

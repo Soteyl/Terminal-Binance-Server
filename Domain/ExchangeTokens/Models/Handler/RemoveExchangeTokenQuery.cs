@@ -2,7 +2,7 @@
 
 using MediatR;
 
-namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts
+namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler
 {
     /// <summary>
     /// Query object for removing crypto exchange tokens from database. <para/>

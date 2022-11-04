@@ -1,8 +1,10 @@
-﻿using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
+﻿using FluentValidation;
+
+using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 
 using MediatR;
 
-namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts
+namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler
 {
     /// <summary>
     /// Query for adding exchange token to a database<para/>
@@ -24,5 +26,25 @@ namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts
         /// Crypto exchange name
         /// </summary>
         public string Exchange { get; set; } = string.Empty;
+        
+        public string UserId { get; set; }
+    }
+
+    public class AddExchangeTokenQueryValidator : AbstractValidator<AddExchangeTokenQuery>
+    {
+        public AddExchangeTokenQueryValidator()
+        {
+            RuleFor(m => m.Key)
+                .NotEmpty();
+
+            RuleFor(m => m.Secret)
+                .NotEmpty();
+
+            RuleFor(m => m.Exchange)
+                .NotEmpty();
+
+            RuleFor(m => m.UserId)
+                .NotEmpty();
+        }
     }
 }

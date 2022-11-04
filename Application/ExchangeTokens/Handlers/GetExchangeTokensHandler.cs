@@ -3,7 +3,7 @@ using Ixcent.CryptoTerminal.Domain.Common.Extensions;
 using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
-using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts;
+using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Service;
 
 using Microsoft.AspNetCore.Http;

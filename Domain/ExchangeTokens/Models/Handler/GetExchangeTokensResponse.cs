@@ -1,4 +1,4 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts
+﻿namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler
 {
     /// <summary>
     /// Result of getting available exchanges

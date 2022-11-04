@@ -1,6 +1,6 @@
 ﻿using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 
-namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts
+namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler
 {
     /// <summary>
     /// Empty query object for getting available exchange tokens for user. <para/>

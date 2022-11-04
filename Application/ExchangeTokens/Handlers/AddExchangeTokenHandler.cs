@@ -3,7 +3,7 @@
 using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
-using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Contracts;
+using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Service;
 
 using MediatR;
@@ -24,22 +24,24 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
         private readonly IExchangeTokenService _service;
         
         private readonly IMapper _mapper;
+        
+        private readonly IValidatorResolver _validator;
 
-        public AddExchangeTokenHandler(IHttpContextAccessor contextAccessor,
-                                       IExchangeTokenService service,
-                                       IMapper mapper)
+        public AddExchangeTokenHandler(IExchangeTokenService service,
+                                       IMapper mapper,
+                                       IValidatorResolver validatorResolver)
         {
-            _contextAccessor = contextAccessor;
             _service = service;
             _mapper = mapper;
+            _validator = validatorResolver;
         }
 
         public async Task<Response> Handle(AddExchangeTokenQuery request, CancellationToken cancellationToken)
         {
-            string currentUserId = _contextAccessor.GetCurrentUserId();
+            await _validator.ValidateAsync(request, cancellationToken);
 
             AddTokenRequest tokenRequest = _mapper.Map<AddTokenRequest>(request);
-            tokenRequest.UserId = currentUserId;
+            tokenRequest.UserId = request.UserId;
 
             Response response = await _service.Add(tokenRequest, cancellationToken);
             
