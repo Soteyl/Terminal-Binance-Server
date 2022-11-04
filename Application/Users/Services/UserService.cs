@@ -5,8 +5,11 @@ using Ixcent.CryptoTerminal.Domain.Common;
 using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.Users.Interfaces;
+using Ixcent.CryptoTerminal.Domain.Users.Models.Repository;
 using Ixcent.CryptoTerminal.Domain.Users.Models.Service;
 using Ixcent.CryptoTerminal.Storage;
+
+using User = Ixcent.CryptoTerminal.Domain.Users.Models.Service.User;
 
 namespace Ixcent.CryptoTerminal.Application.Users.Services
 {
@@ -43,7 +46,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Services
                 UserName = data.UserName
             };
             
-            IdentityResult result = await _repository.Register(user, data.Password);
+            RegisterResult result = await _repository.Register(new (), data.Password);
             
             if (result.Succeeded)
             {

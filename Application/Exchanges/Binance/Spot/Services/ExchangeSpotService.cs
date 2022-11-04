@@ -20,8 +20,7 @@ namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Services
         public async Task<Response<IEnumerable<CommonOrder>>> GetOpenOrders(string userId,
             CancellationToken cancellationToken = default)
         {
-            Response<IEnumerable<CheckedExchangeToken>> tokens =
-                await _tokenService.GetTokensByUserId(userId, cancellationToken);
+            Response<IEnumerable<CheckedExchangeToken>> tokens = await _tokenService.GetTokensByUserId(userId, cancellationToken);
             
             if (!tokens.IsSuccess || tokens.Result.)
 

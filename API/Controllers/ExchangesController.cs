@@ -61,9 +61,12 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [HttpDelete("token")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Delete(RemoveExchangeTokenQuery command)
+        public async Task<ActionResult> Delete(Controller.RemoveExchangeTokenQuery command)
         {
-            await Mediator.Send(command);
+            var query = _mapper.Map<RemoveExchangeTokenQuery>(command);
+            query.UserId = GetUserId();
+            
+            await Mediator.Send(query);
             return NoContent();
         }
 
@@ -78,7 +81,7 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         public async Task<ActionResult<Response<GetExchangeTokensResponse>>> GetTokens()
         {
             Response<GetExchangeTokensResponse> response =
-                await Mediator.Send(new GetExchangeTokensQuery());
+                await Mediator.Send(new Controller.GetExchangeTokensQuery());
             
             if (response.IsSuccess)
                 return Ok(response);

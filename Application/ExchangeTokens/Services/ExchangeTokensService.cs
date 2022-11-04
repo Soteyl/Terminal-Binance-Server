@@ -30,12 +30,12 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
         /// Gets tokens from repository and removes invalid tokens if exist
         /// </summary>
         // TODO redis cache is required
-        public async Task<Response<Service.GetTokensResponse>> Get(Service.GetTokensRequest getTokensRequest,
+        public async Task<Response<Service.GetTokensResponse>> Get(Service.GetExchangeTokensRequest getExchangeTokensRequest,
             CancellationToken cancellationToken = default)
         {
             List<Service.CheckedExchangeToken> resultTokens = new();
 
-            var request = new Repository.GetTokensRequest { UserId = getTokensRequest.UserId };
+            var request = new Repository.GetTokensRequest { UserId = getExchangeTokensRequest.UserId };
 
             Repository.GetTokensResult result = await _repository.Get(request, cancellationToken);
 
@@ -54,7 +54,7 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
 
                 var removeTokenRequest = new Repository.RemoveTokenRequest
                 {
-                    UserId = getTokensRequest.UserId, Exchange = token.Exchange
+                    UserId = getExchangeTokensRequest.UserId, Exchange = token.Exchange
                 };
                 await _repository.Remove(removeTokenRequest, cancellationToken);
             }

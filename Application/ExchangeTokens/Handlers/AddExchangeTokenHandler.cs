@@ -19,7 +19,6 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
     /// </remarks>
     public class AddExchangeTokenHandler : IRequestHandlerBase<AddExchangeTokenQuery>
     {
-        private readonly IHttpContextAccessor _contextAccessor;
         
         private readonly IExchangeTokenService _service;
         

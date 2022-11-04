@@ -1,4 +1,6 @@
-﻿using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
+﻿using AutoMapper;
+
+using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler;
@@ -17,27 +19,27 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
     /// </remarks>
     public class RemoveExchangeTokenHandler : IRequestHandlerBase<RemoveExchangeTokenQuery>
     {
-        private readonly IHttpContextAccessor _contextAccessor;
 
         private readonly IExchangeTokenService _service;
+        
+        private readonly IMapper _mapper;
+        
+        private readonly IValidatorResolver _validator;
 
-        public RemoveExchangeTokenHandler(IHttpContextAccessor contextAccessor, IExchangeTokenService service)
+        public RemoveExchangeTokenHandler(IExchangeTokenService service, IMapper mapper, IValidatorResolver validatorResolver)
         {
-            _contextAccessor = contextAccessor;
             _service = service;
+            _mapper = mapper;
+            _validator = validatorResolver;
         }
 
         public async Task<Response> Handle(RemoveExchangeTokenQuery request, CancellationToken cancellationToken)
         {
-            string userId = _contextAccessor.GetCurrentUserId();
+            await _validator.ValidateAsync(request, cancellationToken);
 
-            var userExchange = new RemoveTokenRequest
-            {
-                Exchange = request.Exchange,
-                UserId = userId
-            };
+            RemoveTokenRequest tokenRequest = _mapper.Map<RemoveTokenRequest>(request);
 
-            Response response = await _service.Remove(userExchange, cancellationToken);
+            Response response = await _service.Remove(tokenRequest, cancellationToken);
 
             return response;
         }
