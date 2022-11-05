@@ -2,10 +2,8 @@
 
 using Ixcent.CryptoTerminal.Api.Hubs.Clients;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime;
-using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 using Ixcent.CryptoTerminal.Storage;
-using Ixcent.CryptoTerminal.StorageHandle;
 
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;

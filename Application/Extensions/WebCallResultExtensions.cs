@@ -3,7 +3,6 @@
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Domain.Common;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
-using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 using Ixcent.CryptoTerminal.Storage;
 

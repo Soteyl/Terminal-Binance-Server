@@ -1,5 +1,4 @@
-﻿using Ixcent.CryptoTerminal.Domain.Database.Models;
-using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
+﻿using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 
 namespace Ixcent.CryptoTerminal.Application.Validation
 {

@@ -1,4 +1,4 @@
-﻿namespace Ixcent.CryptoTerminal.Domain.Database.Models
+﻿namespace Ixcent.CryptoTerminal.Domain.AvailableExchanges.Models.Data
 {
     public class AvailableExchangeEntity
     {

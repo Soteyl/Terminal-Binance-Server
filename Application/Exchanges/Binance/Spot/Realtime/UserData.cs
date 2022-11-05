@@ -7,7 +7,6 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 
 using Ixcent.CryptoTerminal.Domain.Common.Extensions;
-using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 
 namespace Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Realtime

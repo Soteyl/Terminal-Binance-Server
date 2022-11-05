@@ -15,37 +15,34 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
     /// <summary> Handler for getting exchange tokens. </summary>
     public class GetExchangeTokensHandler : IRequestHandlerBase<GetExchangeTokensQuery, GetExchangeTokensResponse>
     {
-        private readonly IHttpContextAccessor _contextAccessor;
-
-        private readonly ExchangesValidatorByToken _validator;
-
         private readonly IExchangeTokenService _tokenService;
         
         private readonly IMapper _mapper;
+        
+        private readonly IValidatorResolver _validator;
 
-        public GetExchangeTokensHandler(IHttpContextAccessor contextAccessor, IExchangeTokenService service, IMapper mapper)
+        public GetExchangeTokensHandler(IExchangeTokenService service, IMapper mapper, IValidatorResolver validatorResolver)
         {
-            _contextAccessor = contextAccessor;
             _tokenService = service;
             _mapper = mapper;
-            _validator = ExchangesValidator.ByToken();
+            _validator = validatorResolver;
         }
 
         public async Task<Response<GetExchangeTokensResponse>> Handle(GetExchangeTokensQuery request,
             CancellationToken cancellationToken)
         {
-
+            await _validator.ValidateAsync(request, cancellationToken);
+            
             var requestToken = _mapper.Map<GetExchangeTokensRequest>(request);
             
             GetExchangeTokensResponse response = new();
 
             Response<GetTokensResponse> serviceResponse = await _tokenService.Get(requestToken, cancellationToken);
-
+            
             if (!serviceResponse.IsSuccess)
                 return Response.WithError<GetExchangeTokensResponse>(serviceResponse.Error?.StatusCode);
 
-            serviceResponse.Result?.Tokens.ForEach(
-                t => response.AvailableExchanges.Add(t.Exchange, t.AvailableServices));
+            serviceResponse.Result?.Tokens.ForEach(t => response.AvailableExchanges.Add(t.Exchange, t.AvailableServices));
 
             return Response.Success(response);
         }

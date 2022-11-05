@@ -1,6 +1,5 @@
 using Ixcent.CryptoTerminal.Domain.Database;
 using Ixcent.CryptoTerminal.Storage;
-using Ixcent.CryptoTerminal.StorageHandle;
 
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Identity;

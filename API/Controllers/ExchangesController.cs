@@ -1,11 +1,8 @@
-﻿using System.Net;
-
-using AutoMapper;
-
+﻿using AutoMapper;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Handler;
-using Controller = Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Controller;
 using Microsoft.AspNetCore.Mvc;
+using Controller = Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Controller;
 
 namespace Ixcent.CryptoTerminal.Api.Controllers
 {
@@ -80,8 +77,9 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Response<GetExchangeTokensResponse>>> GetTokens()
         {
-            Response<GetExchangeTokensResponse> response =
-                await Mediator.Send(new Controller.GetExchangeTokensQuery());
+            var query = _mapper.Map<GetExchangeTokensQuery>(new Controller.GetExchangeTokensQuery());
+            query.UserId = GetUserId();
+            Response<GetExchangeTokensResponse> response = await Mediator.Send(query);
             
             if (response.IsSuccess)
                 return Ok(response);

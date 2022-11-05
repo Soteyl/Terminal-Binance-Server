@@ -6,7 +6,6 @@ using CryptoExchange.Net.Objects;
 using Ixcent.CryptoTerminal.Application.Exceptions;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Models;
 using Ixcent.CryptoTerminal.Application.Exchanges.Binance.Spot.Results;
-using Ixcent.CryptoTerminal.Domain.Database.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Data;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Repository;
 using Ixcent.CryptoTerminal.Storage;

@@ -62,7 +62,7 @@ namespace Ixcent.CryptoTerminal.Application.Users.Services
 
         public async Task<Response<User>> Login(LoginData data)
         {
-            AppUser? user = await _repository.GetOneByEmail(data.Email);
+            GetByEmailResult? user = await _repository.GetOneByEmail(data.Email);
 
             if (user == null)
             {
