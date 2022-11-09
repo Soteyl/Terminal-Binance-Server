@@ -44,8 +44,9 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
             var query = _mapper.Map<AddExchangeTokenQuery>(command);
             query.UserId = GetUserId();
             
-            await Mediator.Send(query);
-            return NoContent();
+            Response response = await Mediator.Send(query);
+
+            return ToHttpResponse(response);
         }
 
         /// <summary> Deletes existing exchange access token from database </summary>
@@ -63,8 +64,9 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
             var query = _mapper.Map<RemoveExchangeTokenQuery>(command);
             query.UserId = GetUserId();
             
-            await Mediator.Send(query);
-            return NoContent();
+            Response response = await Mediator.Send(query);
+
+            return ToHttpResponse(response);
         }
 
         /// <summary> Gets description about all existing tokens inside a database. </summary>
@@ -80,11 +82,8 @@ namespace Ixcent.CryptoTerminal.Api.Controllers
             var query = _mapper.Map<GetExchangeTokensQuery>(new Controller.GetExchangeTokensQuery());
             query.UserId = GetUserId();
             Response<GetExchangeTokensResponse> response = await Mediator.Send(query);
-            
-            if (response.IsSuccess)
-                return Ok(response);
 
-            return BadRequest(response);
+            return ToHttpResponse(response);
         }
     }
 }

@@ -40,8 +40,7 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Handlers
             await _validator.ValidateAsync(request, cancellationToken);
 
             AddTokenRequest tokenRequest = _mapper.Map<AddTokenRequest>(request);
-            tokenRequest.UserId = request.UserId;
-
+            
             Response response = await _service.Add(tokenRequest, cancellationToken);
             
             return response;

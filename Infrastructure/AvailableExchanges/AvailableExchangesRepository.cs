@@ -23,7 +23,7 @@ namespace Ixcent.CryptoTerminal.Infrastructure.AvailableExchanges
         {
             var result = new GetAvailableExchangesResult
             {
-                AvailableExchanges = _context.AvailableExchanges.Select(x => _mapper.Map<AvailableExchange>(x)).ToList()
+                AvailableExchanges = _context.AvailableExchanges.Select(x => _mapper.Map<AvailableExchange>(x))
             };
             return Task.FromResult(result);
         }
