@@ -2,6 +2,7 @@
 
 using Ixcent.CryptoTerminal.Application.Validation;
 using Ixcent.CryptoTerminal.Domain.Common;
+using Ixcent.CryptoTerminal.Domain.Common.Interfaces;
 using Ixcent.CryptoTerminal.Domain.Common.Models;
 using Ixcent.CryptoTerminal.Domain.ExchangeTokens.Interfaces;
 
@@ -15,15 +16,17 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
         private readonly IExchangeTokenRepository _repository;
 
         private readonly ExchangesValidatorByToken _validator;
+        private readonly IValidatorResolver _validatorResolver;
 
         private readonly IMapper _mapper;
 
-        public ExchangeTokensService(IExchangeTokenRepository repository, ExchangesValidatorByToken validator,
+        public ExchangeTokensService(IExchangeTokenRepository repository, ExchangesValidatorByToken validator, IValidatorResolver validatorResolver,
             IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
             _validator = validator;
+            _validatorResolver = validatorResolver;
         }
 
         /// <summary>
@@ -33,6 +36,8 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
         public async Task<Response<Service.GetTokensResponse>> Get(Service.GetExchangeTokensRequest getExchangeTokensRequest,
             CancellationToken cancellationToken = default)
         {
+            await _validatorResolver.ValidateAsync(getExchangeTokensRequest, cancellationToken);
+            
             List<Service.CheckedExchangeToken> resultTokens = new();
 
             var request = new Repository.GetTokensRequest { UserId = getExchangeTokensRequest.UserId };
@@ -65,6 +70,8 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
         public async Task<Response> Add(Service.AddTokenRequest tokenRequest,
             CancellationToken cancellationToken = default)
         {
+            await _validatorResolver.ValidateAsync(tokenRequest, cancellationToken);
+            
             if ((await _validator.Validate(tokenRequest.Key, tokenRequest.Secret, tokenRequest.Exchange)).Any() ==
                 false)
                 return Response.WithError(ServerResponseCode.InvalidApiToken);
@@ -75,19 +82,21 @@ namespace Ixcent.CryptoTerminal.Application.ExchangeTokens.Services
             return Response.Success();
         }
 
-        public async Task<Response> Remove(Service.RemoveTokenRequest userExchange,
+        public async Task<Response> Remove(Service.RemoveTokenRequest removeTokenRequest,
             CancellationToken cancellationToken = default)
         {
-            var getTokenRequest = new Repository.GetTokensRequest { UserId = userExchange.UserId };
+            await _validatorResolver.ValidateAsync(removeTokenRequest, cancellationToken);
+            
+            var getTokenRequest = new Repository.GetTokensRequest { UserId = removeTokenRequest.UserId };
 
             Repository.GetTokensResult possibleTokens = await _repository.Get(getTokenRequest, cancellationToken);
 
-            if (!possibleTokens.Tokens.Any(t => t.Exchange.Equals(userExchange.Exchange)))
+            if (!possibleTokens.Tokens.Any(t => t.Exchange.Equals(removeTokenRequest.Exchange)))
             {
                 return Response.WithError(ServerResponseCode.MissingApiToken);
             }
 
-            await _repository.Remove(_mapper.Map<Repository.RemoveTokenRequest>(userExchange), cancellationToken);
+            await _repository.Remove(_mapper.Map<Repository.RemoveTokenRequest>(removeTokenRequest), cancellationToken);
             return Response.Success();
         }
     }

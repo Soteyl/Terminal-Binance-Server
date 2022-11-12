@@ -21,6 +21,7 @@ namespace Ixcent.CryptoTerminal.Domain.ExchangeTokens.Models.Mapping
             CreateMap<Service.RemoveTokenRequest, Handler.RemoveExchangeTokenQuery>();
             CreateMap<Service.GetExchangeTokensRequest, Handler.GetExchangeTokensQuery>();
             
+            
             CreateMap<Repository.AddTokenRequest, ExchangeTokenEntity>()
                 .ForMember(s => s.Key, o => o.MapFrom(d => d.Token.Key))
                 .ForMember(s => s.Secret, o => o.MapFrom(d => d.Token.Secret));

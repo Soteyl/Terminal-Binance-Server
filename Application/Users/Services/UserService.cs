@@ -62,22 +62,22 @@ namespace Ixcent.CryptoTerminal.Application.Users.Services
 
         public async Task<Response<User>> Login(LoginData data)
         {
-            GetByEmailResult? user = await _repository.GetOneByEmail(data.Email);
+            GetByEmailResult? getByEmailResult = await _repository.GetOneByEmail(data.Email);
 
-            if (user == null)
+            if (getByEmailResult.User == null)
             {
                 throw new ServerException(ServerResponseCode.UserFailedToAuthorize, "Invalid login/password");
             }
 
-            SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, data.Password, false);
+            SignInResult signInResult = await _signInManager.CheckPasswordSignInAsync(getByEmailResult.User, data.Password, false);
 
-            if (result.Succeeded)
+            if (signInResult.Succeeded)
             {
                 return Response.Success(new User
                 {
-                    Email = user.Email,
-                    Token = _jwtGenerator.CreateToken(user),
-                    UserName = user.UserName
+                    Email = getByEmailResult.User.Email,
+                    Token = _jwtGenerator.CreateToken(signInResult.),
+                    UserName = getByEmailResult.UserName
                 });
             }
 
